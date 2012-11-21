@@ -1,5 +1,5 @@
 package xihui.codepractice;
 
 public class HelloBranch {
-	 //Changes in master before merge
+	 //Changes in branch conflict to cherry pick
 }
