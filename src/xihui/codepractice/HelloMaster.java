@@ -5,4 +5,5 @@ public class HelloMaster {
 //change 3 in master
 //change 4 in master
 //change 6 in branch
+//change 7 in master
 }
