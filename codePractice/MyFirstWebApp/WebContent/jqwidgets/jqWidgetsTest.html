@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>High Charts Test</title>
+<link rel = "stylesheet" href="jqwidgets/styles/jqx.base.css" type="text/css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="jqwidgets/jqxcore.js"></script>
+<script src="jqwidgets/jqxchart.js" type="text/javascript"></script>
+<script type="text/javascript" src="jqwidgets/jqxdata.js"></script>
+<script type="text/javascript">
+
+function log(info){
+	document.getElementById("info").innerHTML=info;
+}
+
+    $(document).ready(function() {
+        var chart;
+    	var ws=null;
+    	var series = null;
+    	target = "ws://xihui-linux.ornl.gov:8080/MyFirstWebApp/websocket/echoMessage"
+    	if ('WebSocket' in window) {
+    	    ws = new WebSocket(target);
+    	} else if ('MozWebSocket' in window) {
+    	    ws = new MozWebSocket(target);
+    	} else {
+    	    alert('WebSocket is not supported by this browser.');
+    	    return;
+    	}
+    	ws.onopen = function () {
+    	    log('Info: WebSocket connection opened.');
+    	};
+    	ws.onmessage = function (event) {
+    		var myObj = eval('('+event.data+')');
+    		//series.data.push(myObj);
+    		series.addPoint([myObj.timeStamp, myObj.value], true, true);
+    		chart.redraw();
+    	    log('Received: ' + event.data);
+    	};
+    	ws.on
+    	ws.onclose = function () {
+    	    log('Info: WebSocket connection closed.');
+    	};
+    	
+    	
+        // prepare chart data
+        var  sampleData = [
+                { Day:'Monday', Keith:30, Erica:15, George: 25},
+                { Day:'Tuesday', Keith:25, Erica:25, George: 30},
+                { Day:'Wednesday', Keith:30, Erica:20, George: 25},
+                { Day:'Thursday', Keith:35, Erica:25, George: 45},
+                { Day:'Friday', Keith:20, Erica:20, George: 25},
+                { Day:'Saturday', Keith:30, Erica:20, George: 30},
+                { Day:'Sunday', Keith:60, Erica:45, George: 90}
+            ];
+			
+        // prepare jqxChart settings
+        var settings = {
+            title: "Fitness & exercise weekly scorecard",
+            description: "Time spent in vigorous exercise",
+            padding: { left: 5, top: 5, right: 5, bottom: 5 },
+            titlePadding: { left: 90, top: 0, right: 0, bottom: 10 },
+            source: sampleData,
+            categoryAxis:
+                {
+                    dataField: 'Day',
+                    showGridLines: false
+                },
+            colorScheme: 'scheme01',
+            seriesGroups:
+                [
+                    {
+                        type: 'column',
+                        columnsGapPercent: 30,
+                        seriesGapPercent: 0,
+                        valueAxis:
+                        {
+                            minValue: 0,
+                            maxValue: 100,
+                            unitInterval: 10,
+                            description: 'Time in minutes'
+                        },
+                        series: [
+                                { dataField: 'Keith', displayText: 'Keith'},
+                                { dataField: 'Erica', displayText: 'Erica'},
+                                { dataField: 'George', displayText: 'George'}
+                            ]
+                    }
+                ]
+        };
+        
+        // select the chartContainer DIV element and render the chart.
+        $('#chartContainer').jqxChart(settings);
+    });
+    
+
+</script>
+
+</head>
+<body>
+<div id='chartContainer' style = "width:100%; height:400px"></div>
+<p id="info">Hello</p>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>High Charts Test</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="js/highcharts.js"></script>
+<script src="js/modules/exporting.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+function log(info){
+	document.getElementById("info").innerHTML=info;
+}
+
+$(function () {
+    $(document).ready(function() {
+        var chart;
+    	var ws=null;
+    	var series = null;
+    	target = "ws://xihui-linux.ornl.gov:8080/MyFirstWebApp/websocket/echoMessage"
+    	if ('WebSocket' in window) {
+    	    ws = new WebSocket(target);
+    	} else if ('MozWebSocket' in window) {
+    	    ws = new MozWebSocket(target);
+    	} else {
+    	    alert('WebSocket is not supported by this browser.');
+    	    return;
+    	}
+    	ws.onopen = function () {
+    	    log('Info: WebSocket connection opened.');
+    	};
+    	ws.onmessage = function (event) {
+    		var myObj = eval('('+event.data+')');
+    		//series.data.push(myObj);
+    		series.addPoint([myObj.timeStamp, myObj.value], true, true);
+    		chart.redraw();
+    	    log('Received: ' + event.data);
+    	};
+    	ws.on
+    	ws.onclose = function () {
+    	    log('Info: WebSocket connection closed.');
+    	};
+    	
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
+            }
+        });
+    
+
+        chart = new Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'spline',
+                marginRight: 10,
+                animation:	false,
+                events: {
+                    load: function() {    
+                        // set up the updating of the chart each second
+                        series = this.series[0];                        
+                    }
+                }
+            },
+            title: {
+                text: 'Live random data'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function() {
+                        return '<b>'+ this.series.name +'</b><br/>'+
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+                        Highcharts.numberFormat(this.y, 2);
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                enabled: true
+            },
+            series: [{
+                name: 'Random data',
+                data: //new Array(100)
+                
+                (function() {
+                    // generate an array of random data
+                    var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+    
+                    for (i = -199; i <= 0; i++) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()
+                        });
+                    }
+                    return data;
+                })()
+            }]
+        });
+    });
+});   
+</script>
+
+</head>
+<body>
+<div id='container' style = "width:100%; height:400px"></div>
+<p id="info">Hello</p>
+</body>
+</html>
