@@ -1,0 +1,234 @@
+/***** Reset! Modified From: http://developer.yahoo.com/yui/reset *****/
+
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td { margin: 0; padding: 0; }
+table { border-collapse: collapse; border-spacing: 0; }
+fieldset,img { border: 0; }
+address,caption,cite,code,dfn,em,strong,th,var { font-style: normal; font-weight: normal; }
+ol,ul { list-style: none; }
+caption,th { text-align: left; }
+h1,h2,h3,h4,h5,h6 { font-size: 100%; font-weight: normal; }
+q:before,q:after { content: ''; }
+abbr,acronym { border: 0; }
+a { outline: none; text-decoration: none; }
+a img { border: none; }
+.clear { clear: both; font-size: 1px; line-height: 1px; overflow: hidden; visibility: hidden; width: 0; height: 0; }
+.texthide { text-indent: -9999em; }
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+display:block;
+}
+
+body{
+  background: url(images/bg.png) repeat;
+}
+
+#wrap{
+  width: 960px;
+  margin: 0 auto; 
+  padding: 0;
+}
+
+#main{
+  position:relative;
+}
+
+a {
+ text-decoration: none;
+}
+
+body header:after {  
+  content: "";
+  display: table;
+  clear:both;
+
+}
+
+#better-beer{
+  float:left;
+  width:230px;
+  height: 152px;
+  background: url(images/better-beer.png) no-repeat;
+  opacity: .65;
+}
+
+#better-beer:hover {
+  opacity: 1;
+}
+
+#menu-promo {
+  float: right;
+  width: 274px;
+  height: 154px;
+  background: url(images/menu-items.png) no-repeat;
+  opacity: .65;
+}
+
+#menu-promo:hover{
+  opacity: 1;
+}
+
+#logo {
+  position: absolute;
+  top: 8px;
+  left: 390px;
+  width: 141px;
+  height: 144px;
+
+  text-algin: center;
+  text-indent: -9999px;
+  background: url(images/logo.png) no-repeat;
+  -webkit-transition: opacity .2s ease-in-out;
+  -moz- transition: opacity .2s ease-in-out;
+  -o-transition: opacity .2s ease-in-out;
+  transition: opacity .2s ease-in-out;
+}
+
+#logo:hover {
+  opacity: .70;
+}
+
+#primary {
+  width: 100%;
+  height: 28px;
+  background-color: #fafaf6;
+  margin: 10px 0 10px 0;
+  padding: 14px 0 0px 0;
+  -webkit-box-shadow: 0px 1px 2px #ccc;
+  -moz-box-shadow: 0px 1px 2px #ccc;
+  box-shadow: 0px 1px 2px #ccc;
+  font: bold 13px "DroidSansBold", Verdana, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+
+#primary ul li {
+  display: inline;
+  padding-left: 30px;
+
+}
+
+#primary li a {
+  padding: 5px 15px 5px 15px;
+  color: #64645d;
+  text-align: center;
+  text-shadow: 1px 1px 1px #fff;
+  text-decoration: none;
+  -webkit-border-radius: 5px;
+  -mox-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+  
+  
+}
+
+#primary li a:hover {
+  color: #dc692e;
+  background: #efefe9;
+}
+
+#promotional {
+  float: left;
+}
+
+#promotional img{
+  float:left;
+  border: 15px solid #fafaf6;
+  -webkit-box-shadow: 0px 1px 1px #ccc;
+  -moz-box-shadow: 0px 1px 1px #ccc;
+  box-shadow: 0px 1px 1px #ccc;
+}
+
+#promotional img:hover{
+  -webkit-transform: scale(1.1) rotate(-2deg);
+  -moz-transform: scale(1.1) rotate(-2deg);
+  -o-transform: scale(1.1) rotate(-2deg);
+  transform: scale(1.1) rotate(-2deg);
+}
+
+#selections {
+  float:left;
+  width: 425px;
+  margin-top: 15px;
+}
+
+#selections ul li {
+  width: 330px;
+  background: url(divider.png) no-repeat bottom left;
+  font: normal 35px "LeagueGothicRegular", Tahoma, Arial, sans-serif;
+  text-transform: uppercase;
+  color: #787871;
+  text-shadow: 1px 1px 1px #fff;
+  position: relative;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+  list-style-type:none;
+}
+
+#selections em{
+  text-transform: lowercase;
+  font-style: italic;
+  font: italic 35px "DancingScriptOTRegular", Georgia, serif;
+  letter-spacing: 0;
+}
+
+#selections span {
+  position: absolute;
+  top: -21px;
+  right: -85px;
+  font: normal 75px "LeagueGothicRegular", Tahoma, Arial, sans-serif;
+  color: #dc692e;
+
+}
+
+#selections ul li.bottle {
+  padding-bottom: 8px;
+}
+
+#promotional a.menu {
+  float:left;
+  width: 180px;
+  height: 50px;
+  padding: 20px 0 0 0;
+  text-align: center;
+  background: #d0d0c6;
+  background: rgba(208, 208, 198, .5);
+  margin: 10px 0 0 28px;
+  color: #787871;
+  font: normal 18px "LeagueGothicRegular", Tahoma, Arial, sans-serif;
+  border: 1px solid #d4d4cd;
+  -webkit-border-top-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  border-top-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;  
+  -moz-border-radius-bottomright: 10px;  
+  border-bottom-right-radius: 10px;  
+  text-shadow: 1px 1px 1px #fff;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+  text-transform: uppercase;
+}
+
+#promotional a.menu:hover{
+  color: #dc692e;
+  background: #ababa2;
+  background: rgba(208,208,198,.9);
+}
+
+#promotional a.menu span{
+  font: normal 24px "DancingScriptOTRegular", Georgia, serif;
+  text-transform: none;
+  margin: 0 2px 0 2px;
+}
+
+#blocks {
+  float: left;
+}
+
