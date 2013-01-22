@@ -155,6 +155,7 @@ body header:after {
   float:left;
   width: 425px;
   margin-top: 15px;
+  margin-left: 10px;
 }
 
 #selections ul li {
@@ -229,6 +230,32 @@ body header:after {
 }
 
 #blocks {
-  float: left;
+	float: left;
+	margin-top: 20px;	
+}
+
+#blocks section{
+	float:left;
+	width:290px;
+	height:215px;
+	display: inline;
+	background: #fafaf6;
+	border: 5px solid #e9e9e4;
+	margin-right: 30px;
+
+}
+
+#blocks section:last-child{
+	margin-right: 0;
+}
+
+.box h1.script {
+	font: bold 24px "DancingScriptOTRegular", Georgia, serif;
+	color: #717165;
+	margin-left: 10px;
+	padding: 5px 0 0 0;
+	border-bottom: 1px solid #ecece9;
+	width: 270px;
+	text-align: left;
 }
 
