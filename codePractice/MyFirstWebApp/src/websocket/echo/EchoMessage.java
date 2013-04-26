@@ -23,6 +23,7 @@ import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
@@ -82,6 +83,7 @@ public class EchoMessage extends WebSocketServlet {
     private static final class EchoMessageInbound extends MessageInbound {
 
     	private volatile boolean isClosed;
+		private ScheduledExecutorService executor;
     
         public EchoMessageInbound(int byteBufferMaxSize, int charBufferMaxSize) {
             super();
@@ -96,7 +98,8 @@ public class EchoMessage extends WebSocketServlet {
         	super.onOpen(outbound);
         	try {
 				outbound.writeTextMessage(CharBuffer.wrap("Welcome!"));
-				Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate
+				executor = Executors.newSingleThreadScheduledExecutor();
+				executor.scheduleAtFixedRate
 				(new Runnable() {
 					
 					@Override
@@ -104,8 +107,8 @@ public class EchoMessage extends WebSocketServlet {
 						try {
 							if(!isClosed){
 									ObjectMapper mapper = new ObjectMapper();
-								PVValue value = new PVValue(Calendar.getInstance().getTimeInMillis(), createRandomArray(100));
-								 outbound.writeTextMessage(
+								PVValue value = new PVValue(Calendar.getInstance().getTimeInMillis(), createRandomArray((int) (50000)));
+								outbound.writeTextMessage(
 											CharBuffer.wrap(mapper.writeValueAsString(value)));
 								
 							}
@@ -114,7 +117,7 @@ public class EchoMessage extends WebSocketServlet {
 							e.printStackTrace();
 						}
 					}
-				}, 1000, 100, TimeUnit.MILLISECONDS);
+				}, 1000, 500, TimeUnit.MILLISECONDS);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -124,7 +127,7 @@ public class EchoMessage extends WebSocketServlet {
         private double[] createRandomArray(int length){
         	double[] r = new double[length];
         	for(int i=0; i<length; i++)
-        		r[i] = (Math.random()*100);
+        		r[i] = (int)(Math.random()*100);
         	return r;
         }
         
@@ -132,6 +135,7 @@ public class EchoMessage extends WebSocketServlet {
         protected void onClose(int status) {
         	super.onClose(status);
         	isClosed=true;
+        	executor.shutdown();
         	System.out.println("closed");
         	
         }

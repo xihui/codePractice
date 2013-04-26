@@ -15,7 +15,7 @@ function log(info){
     	var ws=null;
         var  container = document.getElementById('container'),
         data = [];
-    	target = "ws://xihui-linux.ornl.gov:8080/MyFirstWebApp/websocket/echoMessage"
+    	target = "ws://xihui-linux.ornl.gov:8088/MyFirstWebApp/websocket/echoMessage"
     	if ('WebSocket' in window) {
     	    ws = new WebSocket(target);
     	} else if ('MozWebSocket' in window) {
@@ -38,7 +38,7 @@ function log(info){
     			i++;
     		}
             // Draw Graph
-            
+            /*
             graph = Flotr.draw(container, [ data], {
               shadowSize: 4,           // => size of the 'fake' shadow
               yaxis : {
@@ -48,8 +48,8 @@ function log(info){
               y2axis: {
             	    titleAngle: 270
               }
-            });
-    	    log('Received: ' + data);
+            });*/
+    	    log('Received: ' + event.data.length);
     	};
     	ws.on
     	ws.onclose = function () {
