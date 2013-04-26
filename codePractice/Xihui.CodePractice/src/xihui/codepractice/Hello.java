@@ -8,5 +8,7 @@ public class Hello {
 		System.out.println("Commit in branch: To be conflict 3");
 		System.out.println("Commint in branch: conflict resolved");
 		//changes in master without conflict
+		
+		//change in old branch
 	}
 }
