@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sender
+Bundle-SymbolicName: org.myosgi.toast.core.channel.sender
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.myosgi.toast.core.channel.sender
+Service-Component: OSGI-INF/component.xml
+Import-Package: org.myosgi.toast.core

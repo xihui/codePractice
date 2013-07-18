@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Emergency
+Bundle-SymbolicName: org.myosgi.toast.client.emergency
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Import-Package: org.eclipse.core.runtime.jobs,
+ org.myosgi.toast.core,
+ org.myosgi.toast.core.channel.sender,
+ org.myosgi.toast.core.emergency,
+ org.myosgi.toast.dev.airbag,
+ org.myosgi.toast.dev.gps,
+ org.osgi.framework;version="1.6.0",
+ org.osgi.util.tracker;version="1.5.0"
+Service-Component: OSGI-INF/component.xml
+Require-Bundle: org.eclipse.equinox.common;bundle-version="3.6.0"

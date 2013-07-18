@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="startup" deactivate="shutdown" name="org.myosgi.toast.client.emergency">
+   <implementation class="org.myosgi.toast.internal.client.emergency.EmergencyMonitor"/>
+   <reference bind="setAirbag" cardinality="1..1" interface="org.myosgi.toast.dev.airbag.IAirbag" name="airBag" policy="static"/>
+   <reference bind="setGps" cardinality="1..1" interface="org.myosgi.toast.dev.gps.IGps" name="gps" policy="static"/>
+   <reference bind="setChannel" cardinality="1..1" interface="org.myosgi.toast.core.channel.sender.IChannel" name="channel" policy="static"/>
+</scr:component>
