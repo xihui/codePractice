@@ -6,6 +6,14 @@ function onError(evt){
 	writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
 }
 
+websocket.binaryType = "arraybuffer";
+
+function sendBinary(bytes){
+	console.log("sending binary: " + Object.prototype.toString.call(bytes));
+	websocket.send(bytes);	
+}
+
+
 websocket.onmessage = function(evt){onMessage(evt);};
 
 function sendText(json){
@@ -16,7 +24,10 @@ function sendText(json){
 
 function onMessage(evt){
 	console.log("received: " + evt.data);
-	drawImageText(evt.data);
+	if(typeof evt.data=="string")
+		drawImageText(evt.data);
+	else
+		drawImageBinary(evt.data);
 }
 
 

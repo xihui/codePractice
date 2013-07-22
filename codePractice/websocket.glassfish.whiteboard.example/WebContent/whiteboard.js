@@ -36,7 +36,8 @@ function defineImage(evt){
 	});
 	
 	drawImageText(json);
-	sendText(json);
+	if(document.getElementById("instant").checked)
+		sendText(json);
 	
 }
 
@@ -56,6 +57,31 @@ function drawImageText(image){
 		context.fillRect(json.coords.x, json.coords.y, 10, 10);
 		break;
 	}	
+}
+
+
+function drawImageBinary(blob){
+	var bytes= new Uint8Array(blob);
+	console.log("drawImageBinary (bytes.lenth): " + bytes.length);
+	var imageData = context.createImageData(canvas.width, canvas.height);
+	for(var i=8; i<imageData.data.length; i++){
+		imageData.data[i] = bytes[i];
+	}
+	context.putImageData(imageData, 0, 0);
+	var img = document.createElement('img');
+	img.height=canvas.height;
+	img.width=canvas.width;
+	img.src=canvas.toDataURL();
+}
+
+function defineImageBinary(){
+	var image = context.getImageData(0,0, canvas.width, canvas.height);
+	var buffer = new ArrayBuffer(image.data.length);
+	var bytes = new Uint8Array(buffer);
+	for(var i=0; i<bytes.length; i++){
+		bytes[i] = image.data[i];
+	}
+	sendBinary(buffer);
 }
 
 

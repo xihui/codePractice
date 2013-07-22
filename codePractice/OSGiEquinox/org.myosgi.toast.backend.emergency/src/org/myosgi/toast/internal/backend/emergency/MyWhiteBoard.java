@@ -1,8 +1,7 @@
-package websocket.glassfish.whiteboard.example;
+package org.myosgi.toast.internal.backend.emergency;
 
 
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,16 +29,6 @@ public class MyWhiteBoard {
 		for (Session peer : peers) {
 			if(!peer.equals(session)){
 				peer.getBasicRemote().sendObject(figure);
-			}
-		}
-	}
-	
-	@OnMessage
-	public void broadcastSnapshot(ByteBuffer data, Session sessoin) throws IOException{
-		System.out.println("broadcastBinary: " + data);
-		for(Session peer: peers){
-			if(!peer.equals(sessoin)){
-				peer.getBasicRemote().sendBinary(data);
 			}
 		}
 	}

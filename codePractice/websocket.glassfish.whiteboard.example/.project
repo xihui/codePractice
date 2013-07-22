@@ -3,6 +3,7 @@
 	<name>websocket.glassfish.whiteboard.example</name>
 	<comment></comment>
 	<projects>
+		<project>websocket.glassfish.whiteboard.core</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

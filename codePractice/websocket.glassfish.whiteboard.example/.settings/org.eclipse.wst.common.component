@@ -2,6 +2,9 @@
     <wb-module deploy-name="websocket.glassfish.whiteboard.example">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="websocket.glassfish.whiteboard.core.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/websocket.glassfish.whiteboard.core/websocket.glassfish.whiteboard.core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="websocket.glassfish.whiteboard.example"/>
         <property name="java-output-path" value="/websocket.glassfish.whiteboard.example/build/classes"/>
     </wb-module>

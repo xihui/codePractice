@@ -1,4 +1,4 @@
-package websocket.glassfish.whiteboard.example;
+package websocket.glassfish.whiteboard.core;
 
 public class Coordinates {
 	private float x;
