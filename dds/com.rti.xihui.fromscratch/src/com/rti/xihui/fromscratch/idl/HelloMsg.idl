@@ -1,0 +1,14 @@
+/*
+The command to generate the java files is: 
+>rtiddsgen -language Java -package com.rti.xihui.fromscratch.idl -ppDisable HelloMsg.idl
+*/
+
+const short MAX_MSG_LENGTH=256;
+const short SEQ_LENGTH=100;
+
+struct HelloMsg {
+	long id; //@key
+	string<MAX_MSG_LENGTH> msg;
+	sequence<long, SEQ_LENGTH> mySeq;	
+};
+
