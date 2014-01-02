@@ -100,9 +100,13 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 
 			int i = 0;
 			while (isLive.get()) {
-				Thread.sleep(10);
+				Thread.sleep(100);
+				if(i==1000)
+					paused = true;
 				if (paused)
 					continue;
+				
+				
 
 				instance_data.id = i % 2;
 				instance_data.msg = "hello " + i++;

@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.domain.DomainParticipantFactory;
 import com.rti.dds.domain.DomainParticipantQos;
+import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.infrastructure.TransportBuiltinKind;
 import com.rti.dds.topic.Topic;
@@ -21,9 +22,16 @@ public abstract class AbstractHelloMsgParticipant {
 				participantQos);
 		participantQos.transport_builtin.mask = TransportBuiltinKind.UDPv4;
 		
+		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
+		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
+		
+		
+		
 		participant = DomainParticipantFactory.get_instance()
 				.create_participant(HelloMsgPublisher.DOMAIN_ID,
 						participantQos, null, StatusKind.STATUS_MASK_NONE);
+		
+	
 		
 		HelloMsgTypeSupport.register_type(participant,
 				HelloMsgTypeSupport.get_type_name());

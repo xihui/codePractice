@@ -27,8 +27,8 @@ public class HelloMsgSubscriberUsingListener extends AbstractHelloMsgSubscriber 
 		DataReaderListener listener = new HelloMsgReaderListener();
 
 		DataReaderQos readerQosr = createDataReaderQos();
-		readerQosr.time_based_filter.minimum_separation.sec=1;
-		readerQosr.time_based_filter.minimum_separation.nanosec=0;
+//		readerQosr.time_based_filter.minimum_separation.sec=1;
+//		readerQosr.time_based_filter.minimum_separation.nanosec=0;
 		
 		subscriber.create_datareader(topic, readerQosr, listener,
 				StatusKind.STATUS_MASK_ALL);
@@ -62,6 +62,7 @@ public class HelloMsgSubscriberUsingListener extends AbstractHelloMsgSubscriber 
 						// 7.4.6.6 Valid Data Flag
 						System.out.println("Invalidate Data! " + info);
 				}
+				//not good to sleep at here, because it will block the middleware thread!
 //				Thread.sleep(1000);
 			}catch (RETCODE_NO_DATA noData) {
                 System.out.println("No data.");
