@@ -106,6 +106,7 @@ public class SimpleGUI extends JPanel
 
                 //Display the window.
 //                frame.pack();
+                frame.setLocation(200, 200);
                 frame.setSize(200, 100);
                 frame.setVisible(true);
             }

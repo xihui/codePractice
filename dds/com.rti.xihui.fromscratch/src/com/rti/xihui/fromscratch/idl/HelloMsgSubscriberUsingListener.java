@@ -1,14 +1,8 @@
 package com.rti.xihui.fromscratch.idl;
 
-import com.rti.dds.domain.DomainParticipant;
-import com.rti.dds.domain.DomainParticipantFactory;
-import com.rti.dds.domain.DomainParticipantQos;
-import com.rti.dds.infrastructure.HistoryQosPolicyKind;
-import com.rti.dds.infrastructure.ReliabilityQosPolicyKind;
+import com.rti.dds.infrastructure.RETCODE_NO_DATA;
 import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusKind;
-import com.rti.dds.infrastructure.TransportBuiltinKind;
-import com.rti.dds.infrastructure.TransportBuiltinQosPolicy;
 import com.rti.dds.subscription.DataReader;
 import com.rti.dds.subscription.DataReaderAdapter;
 import com.rti.dds.subscription.DataReaderListener;
@@ -22,83 +16,27 @@ import com.rti.dds.subscription.SampleInfoSeq;
 import com.rti.dds.subscription.SampleLostStatus;
 import com.rti.dds.subscription.SampleRejectedStatus;
 import com.rti.dds.subscription.SampleStateKind;
-import com.rti.dds.subscription.Subscriber;
 import com.rti.dds.subscription.SubscriptionMatchedStatus;
 import com.rti.dds.subscription.ViewStateKind;
-import com.rti.dds.topic.Topic;
-import com.rti.xihui.fromscratch.ui.SimpleGUI;
 
-public class HelloMsgSubscriber {
-	
-	private boolean running = true;
-	private DomainParticipant participant;
-	
-	public HelloMsgSubscriber() {
+public class HelloMsgSubscriberUsingListener extends AbstractHelloMsgSubscriber {
+
+	public HelloMsgSubscriberUsingListener() {
+		super(HelloMsgSubscriberUsingListener.class.getSimpleName());
+
+		DataReaderListener listener = new HelloMsgReaderListener();
+
+		DataReaderQos readerQosr = createDataReaderQos();
+		readerQosr.time_based_filter.minimum_separation.sec=1;
+		readerQosr.time_based_filter.minimum_separation.nanosec=0;
 		
-		SimpleGUI.createGUI("subscriber", new Runnable() {
+		subscriber.create_datareader(topic, readerQosr, listener,
+				StatusKind.STATUS_MASK_ALL);
 
-			@Override
-			public void run() {
-				dispose();
-			}
-		});
-
-
-		participant = null;
-		try {
-			DomainParticipantQos participantQos = new DomainParticipantQos();
-			DomainParticipantFactory.get_instance().get_default_participant_qos(participantQos);
-			participantQos.transport_builtin.mask = TransportBuiltinKind.UDPv4;
-			participant = DomainParticipantFactory.get_instance()
-					.create_participant(HelloMsgPublisher.DOMAIN_ID,
-							participantQos,
-							null, StatusKind.STATUS_MASK_NONE);
-			HelloMsgTypeSupport.register_type(participant,
-					HelloMsgTypeSupport.get_type_name());
-
-			Subscriber subscriber = participant.create_subscriber(
-					DomainParticipant.SUBSCRIBER_QOS_DEFAULT, null,
-					StatusKind.STATUS_MASK_NONE);
-
-			Topic topic = participant.create_topic(
-					HelloMsgPublisher.TOPIC_NAME,
-					HelloMsgTypeSupport.get_type_name(),
-					DomainParticipant.TOPIC_QOS_DEFAULT, null,
-					StatusKind.STATUS_MASK_NONE);
-
-			DataReaderListener listener = new HelloMsgReaderListener();
-
-			DataReaderQos dataReaderQos = new DataReaderQos();
-			subscriber.get_default_datareader_qos(dataReaderQos);
-			dataReaderQos.reliability.kind = ReliabilityQosPolicyKind.RELIABLE_RELIABILITY_QOS;
-			dataReaderQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
-			dataReaderQos.history.depth = 1;
-			dataReaderQos.resource_limits.max_samples = 20;
-			dataReaderQos.resource_limits.initial_samples = 20;
-			dataReaderQos.transport_selection.enabled_transports.add("udpv4");
-
-			subscriber.create_datareader(topic, dataReaderQos, listener,
-					StatusKind.STATUS_MASK_ALL);
-
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		} finally {
-//			dispose();
-		}
-	}
-
-	private synchronized void dispose() {
-		running = false;
-		if (participant != null) {
-			participant.delete_contained_entities();
-			DomainParticipantFactory.TheParticipantFactory
-					.delete_participant(participant);
-			participant = null;
-		}
 	}
 
 	public static void main(String[] args) {
-		new HelloMsgSubscriber();
+		new HelloMsgSubscriberUsingListener();
 
 	}
 
@@ -121,11 +59,13 @@ public class HelloMsgSubscriber {
 						System.out.println("Received: "
 								+ (HelloMsg) msgSeq.get(i));
 					else
-						//7.4.6.6 Valid Data Flag
+						// 7.4.6.6 Valid Data Flag
 						System.out.println("Invalidate Data! " + info);
 				}
-				Thread.sleep(1000);
-			} catch (Exception e) {
+//				Thread.sleep(1000);
+			}catch (RETCODE_NO_DATA noData) {
+                System.out.println("No data.");
+            }catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				((HelloMsgDataReader) reader).return_loan(msgSeq, infoSeq);
