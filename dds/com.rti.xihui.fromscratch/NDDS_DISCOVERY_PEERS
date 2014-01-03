@@ -1,0 +1,17 @@
+;;Discovery configuration file
+
+;; Multicast
+builtin.udpv4://239.255.0.1 ; default discovery multicast addr
+
+;; Unicast
+localhost,192.168.1.1 ; A comma can be used a separator
+;;10.30.1.164
+
+
+;;udpv4
+;;udpv4://localhost
+udpv4://10.30.1.164
+
+;; Shared Memory
+shmem:// ; All 'shmem' transport plugin(s)
+builtin.shmem:// ; The builtin builtin 'shmem' transport plugin
