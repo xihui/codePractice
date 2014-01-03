@@ -3,11 +3,16 @@ package com.rti.xihui.fromscratch.idl;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.rti.dds.domain.DomainParticipant;
+import com.rti.dds.domain.DomainParticipantAdapter;
 import com.rti.dds.domain.DomainParticipantFactory;
 import com.rti.dds.domain.DomainParticipantQos;
 import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.infrastructure.TransportBuiltinKind;
+import com.rti.dds.publication.DataWriter;
+import com.rti.dds.publication.PublicationMatchedStatus;
+import com.rti.dds.subscription.DataReader;
+import com.rti.dds.subscription.Subscriber;
 import com.rti.dds.topic.Topic;
 
 public abstract class AbstractHelloMsgParticipant {
@@ -29,7 +34,7 @@ public abstract class AbstractHelloMsgParticipant {
 		
 		participant = DomainParticipantFactory.get_instance()
 				.create_participant(HelloMsgPublisher.DOMAIN_ID,
-						participantQos, null, StatusKind.STATUS_MASK_NONE);
+						participantQos, new HelloMsgParticipantListener(), StatusKind.STATUS_MASK_NONE);
 		
 	
 		
@@ -53,4 +58,22 @@ public abstract class AbstractHelloMsgParticipant {
 		}
 	}
 	
+	
+	private static class HelloMsgParticipantListener extends DomainParticipantAdapter{ 
+		@Override
+		public void on_publication_matched(DataWriter writer,
+				PublicationMatchedStatus status) {
+			System.out.println("Participant on_publication_matched: " + status);
+		}
+		
+		@Override
+		public void on_data_available(DataReader reader) {
+			System.out.println("Participant on_data_available");
+		}
+		
+		@Override
+		public void on_data_on_readers(Subscriber subs) {
+			System.out.println("Participant on_data_on_readers");
+		}
+	}
 }
