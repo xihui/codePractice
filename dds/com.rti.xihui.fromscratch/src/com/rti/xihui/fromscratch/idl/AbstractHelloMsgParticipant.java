@@ -47,7 +47,9 @@ public abstract class AbstractHelloMsgParticipant {
 		DomainParticipantFactory.get_instance().get_default_participant_qos(
 				participantQos);
 //		participantQos.transport_builtin.mask = TransportBuiltinKind.SHMEM;
-		
+		//this seems doesn't affect the communication between 10.10.xx and 10.30.xx
+//		participantQos.property.value.add(new Property_t("multicast_ttl", "0", true));
+
 		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
 		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
 		return participantQos;
