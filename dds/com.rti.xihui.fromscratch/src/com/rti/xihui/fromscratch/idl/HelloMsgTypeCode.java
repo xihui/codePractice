@@ -10,7 +10,11 @@
     
 package com.rti.xihui.fromscratch.idl;
         
-import com.rti.dds.typecode.*;
+import com.rti.dds.typecode.ExtensibilityKind;
+import com.rti.dds.typecode.StructMember;
+import com.rti.dds.typecode.TCKind;
+import com.rti.dds.typecode.TypeCode;
+import com.rti.dds.typecode.TypeCodeFactory;
 
 
 public class HelloMsgTypeCode {

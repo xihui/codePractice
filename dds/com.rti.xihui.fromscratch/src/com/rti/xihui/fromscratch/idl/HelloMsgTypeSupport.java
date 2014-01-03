@@ -11,34 +11,25 @@
 package com.rti.xihui.fromscratch.idl;
         
 
+import com.rti.dds.cdr.CdrBuffer;
 import com.rti.dds.cdr.CdrEncapsulation;
 import com.rti.dds.cdr.CdrInputStream;
 import com.rti.dds.cdr.CdrOutputStream;
 import com.rti.dds.cdr.CdrPrimitiveType;
-import com.rti.dds.cdr.CdrBuffer;
-import com.rti.dds.cdr.CdrHelper;
-import com.rti.dds.cdr.CdrMemberInfo;
+import com.rti.dds.cdr.IllegalCdrStateException;
 import com.rti.dds.domain.DomainParticipant;
+import com.rti.dds.infrastructure.RETCODE_ERROR;
 import com.rti.dds.publication.DataWriter;
 import com.rti.dds.publication.DataWriterListener;
 import com.rti.dds.subscription.DataReader;
 import com.rti.dds.subscription.DataReaderListener;
-import com.rti.dds.topic.KeyHash_t;
-import com.rti.dds.topic.TypeSupportImpl;
-import com.rti.dds.topic.TypeSupportType;
-import com.rti.dds.util.Sequence;
 import com.rti.dds.topic.DefaultEndpointData;
-import com.rti.dds.infrastructure.RETCODE_ERROR;
-
-    
-import com.rti.dds.infrastructure.*;
-import com.rti.dds.topic.TypeSupportParticipantInfo;
+import com.rti.dds.topic.KeyHash_t;
 import com.rti.dds.topic.TypeSupportEndpointInfo;
+import com.rti.dds.topic.TypeSupportImpl;
+import com.rti.dds.topic.TypeSupportParticipantInfo;
+import com.rti.dds.topic.TypeSupportType;
 import com.rti.dds.typecode.TypeCode;
-import com.rti.dds.cdr.IllegalCdrStateException;
-
-
-import com.rti.dds.infrastructure.Copyable;
 
 
 /**

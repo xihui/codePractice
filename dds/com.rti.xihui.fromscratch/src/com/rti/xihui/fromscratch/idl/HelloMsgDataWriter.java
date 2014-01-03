@@ -10,9 +10,9 @@
     
 package com.rti.xihui.fromscratch.idl;
         
+import com.rti.dds.infrastructure.InstanceHandle_t;
 import com.rti.dds.infrastructure.Time_t;
 import com.rti.dds.infrastructure.WriteParams_t;
-import com.rti.dds.infrastructure.InstanceHandle_t;
 import com.rti.dds.publication.DataWriterImpl;
 import com.rti.dds.publication.DataWriterListener;
 import com.rti.dds.topic.TypeSupportImpl;

@@ -11,11 +11,11 @@
 package com.rti.xihui.fromscratch.idl;
         
 
-import com.rti.dds.infrastructure.*;
-import com.rti.dds.infrastructure.Copyable;
-
 import java.io.Serializable;
+
 import com.rti.dds.cdr.CdrHelper;
+import com.rti.dds.infrastructure.Copyable;
+import com.rti.dds.infrastructure.IntSeq;
 
 
 public class HelloMsg implements Copyable, Serializable

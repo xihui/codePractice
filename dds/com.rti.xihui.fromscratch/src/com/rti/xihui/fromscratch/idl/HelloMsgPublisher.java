@@ -2,13 +2,11 @@ package com.rti.xihui.fromscratch.idl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.rti.dds.domain.DomainParticipant;
-import com.rti.dds.domain.DomainParticipantFactory;
 import com.rti.dds.domain.DomainParticipantQos;
 import com.rti.dds.infrastructure.Cookie_t;
 import com.rti.dds.infrastructure.DurabilityQosPolicyKind;
@@ -18,6 +16,7 @@ import com.rti.dds.infrastructure.IntSeq;
 import com.rti.dds.infrastructure.Locator_t;
 import com.rti.dds.infrastructure.ReliabilityQosPolicyKind;
 import com.rti.dds.infrastructure.StatusKind;
+import com.rti.dds.infrastructure.TransportBuiltinKind;
 import com.rti.dds.publication.DataWriter;
 import com.rti.dds.publication.DataWriterAdapter;
 import com.rti.dds.publication.DataWriterQos;
@@ -80,7 +79,7 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec = 5000000;
 			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec = 0;
 			writerQos.protocol.rtps_reliable_writer.heartbeats_per_max_samples = 1;
-			writerQos.transport_selection.enabled_transports.add("udpv4");
+			writerQos.transport_selection.enabled_transports.add(TransportBuiltinKind.UDPv4_ALIAS);
 			// writerQos.protocol.rtps_reliable_writer.heartbeat_period.
 
 			HelloMsgDataWriter dataWriter = (HelloMsgDataWriter) publisher

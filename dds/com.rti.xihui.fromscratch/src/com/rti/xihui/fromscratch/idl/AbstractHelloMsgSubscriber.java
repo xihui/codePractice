@@ -1,11 +1,12 @@
 package com.rti.xihui.fromscratch.idl;
 
 import com.rti.dds.domain.DomainParticipant;
-import com.rti.dds.domain.DomainParticipantFactory;
+import com.rti.dds.domain.DomainParticipantQos;
 import com.rti.dds.infrastructure.DurabilityQosPolicyKind;
 import com.rti.dds.infrastructure.HistoryQosPolicyKind;
 import com.rti.dds.infrastructure.ReliabilityQosPolicyKind;
 import com.rti.dds.infrastructure.StatusKind;
+import com.rti.dds.infrastructure.TransportBuiltinKind;
 import com.rti.dds.subscription.DataReaderQos;
 import com.rti.dds.subscription.Subscriber;
 import com.rti.xihui.fromscratch.ui.SimpleGUI;
@@ -33,6 +34,20 @@ public abstract class AbstractHelloMsgSubscriber extends AbstractHelloMsgPartici
 		
 	}
 	
+	@Override
+	protected DomainParticipantQos configParticipantQoS() {
+		 DomainParticipantQos participantQoS = super.configParticipantQoS();
+		 
+		 participantQoS.discovery.multicast_receive_addresses.clear();
+		 participantQoS.discovery.multicast_receive_addresses.add("udpv4://239.255.0.2");
+		 
+		 participantQoS.discovery.initial_peers.clear();
+		 participantQoS.discovery.initial_peers.add("udpv4://239.255.0.3");
+		 return participantQoS;
+		 
+	}
+
+	
 	protected DataReaderQos createDataReaderQos(){
 		DataReaderQos dataReaderQos = new DataReaderQos();
 		subscriber.get_default_datareader_qos(dataReaderQos);
@@ -44,7 +59,8 @@ public abstract class AbstractHelloMsgSubscriber extends AbstractHelloMsgPartici
 		
 		dataReaderQos.resource_limits.max_samples = 20;
 		dataReaderQos.resource_limits.initial_samples = 20;
-		dataReaderQos.transport_selection.enabled_transports.add("udpv4");
+		
+		dataReaderQos.transport_selection.enabled_transports.add(TransportBuiltinKind.UDPv4_ALIAS);
 		return dataReaderQos;
 	}
 	

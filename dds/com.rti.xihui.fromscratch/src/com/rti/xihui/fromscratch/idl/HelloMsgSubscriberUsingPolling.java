@@ -5,7 +5,6 @@ import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.subscription.DataReader;
 import com.rti.dds.subscription.DataReaderAdapter;
-import com.rti.dds.subscription.DataReaderListener;
 import com.rti.dds.subscription.InstanceStateKind;
 import com.rti.dds.subscription.LivelinessChangedStatus;
 import com.rti.dds.subscription.RequestedDeadlineMissedStatus;

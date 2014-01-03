@@ -46,7 +46,7 @@ public abstract class AbstractHelloMsgParticipant {
 		
 		DomainParticipantFactory.get_instance().get_default_participant_qos(
 				participantQos);
-		participantQos.transport_builtin.mask = TransportBuiltinKind.UDPv4;
+//		participantQos.transport_builtin.mask = TransportBuiltinKind.SHMEM;
 		
 		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
 		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));

@@ -1,7 +1,5 @@
 package com.rti.xihui.fromscratch.idl;
 
-import java.util.concurrent.Executors;
-
 import com.rti.dds.infrastructure.ConditionSeq;
 import com.rti.dds.infrastructure.Duration_t;
 import com.rti.dds.infrastructure.GuardCondition;
@@ -11,18 +9,11 @@ import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusCondition;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.infrastructure.WaitSet;
-import com.rti.dds.subscription.DataReader;
-import com.rti.dds.subscription.DataReaderAdapter;
-import com.rti.dds.subscription.DataReaderListener;
 import com.rti.dds.subscription.InstanceStateKind;
 import com.rti.dds.subscription.LivelinessChangedStatus;
 import com.rti.dds.subscription.ReadCondition;
-import com.rti.dds.subscription.RequestedDeadlineMissedStatus;
-import com.rti.dds.subscription.RequestedIncompatibleQosStatus;
 import com.rti.dds.subscription.SampleInfo;
 import com.rti.dds.subscription.SampleInfoSeq;
-import com.rti.dds.subscription.SampleLostStatus;
-import com.rti.dds.subscription.SampleRejectedStatus;
 import com.rti.dds.subscription.SampleStateKind;
 import com.rti.dds.subscription.SubscriptionMatchedStatus;
 import com.rti.dds.subscription.ViewStateKind;

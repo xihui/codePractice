@@ -14,9 +14,8 @@ package com.rti.xihui.fromscratch.idl;
 import java.util.Collection;
 
 import com.rti.dds.infrastructure.Copyable;
-import com.rti.dds.util.Enum;
-import com.rti.dds.util.Sequence;
 import com.rti.dds.util.LoanableSequence;
+import com.rti.dds.util.Sequence;
 
 
 
