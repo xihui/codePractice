@@ -21,14 +21,7 @@ public abstract class AbstractHelloMsgParticipant {
 	protected AtomicBoolean isLive = new AtomicBoolean(true);
 	public AbstractHelloMsgParticipant() {
 		
-		DomainParticipantQos participantQos = new DomainParticipantQos();
-		
-		DomainParticipantFactory.get_instance().get_default_participant_qos(
-				participantQos);
-		participantQos.transport_builtin.mask = TransportBuiltinKind.UDPv4;
-		
-		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
-		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
+		DomainParticipantQos participantQos = configParticipantQoS();
 		
 		
 		
@@ -46,6 +39,18 @@ public abstract class AbstractHelloMsgParticipant {
 				HelloMsgTypeSupport.get_type_name(),
 				DomainParticipant.TOPIC_QOS_DEFAULT, null,
 				StatusKind.STATUS_MASK_NONE);	
+	}
+
+	protected DomainParticipantQos configParticipantQoS() {
+		DomainParticipantQos participantQos = new DomainParticipantQos();
+		
+		DomainParticipantFactory.get_instance().get_default_participant_qos(
+				participantQos);
+		participantQos.transport_builtin.mask = TransportBuiltinKind.UDPv4;
+		
+		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
+		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
+		return participantQos;
 	}
 
 	protected synchronized void dispose() {

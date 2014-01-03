@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.domain.DomainParticipantFactory;
+import com.rti.dds.domain.DomainParticipantQos;
 import com.rti.dds.infrastructure.Cookie_t;
 import com.rti.dds.infrastructure.DurabilityQosPolicyKind;
 import com.rti.dds.infrastructure.HistoryQosPolicyKind;
@@ -122,6 +123,18 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 		} finally {
 			// dispose();
 		}
+	}
+	
+	@Override
+	protected DomainParticipantQos configParticipantQoS() {
+		 DomainParticipantQos participantQoS = super.configParticipantQoS();
+		 participantQoS.discovery.initial_peers.clear();
+		 participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
+		 
+		 participantQoS.discovery.multicast_receive_addresses.clear();
+		 participantQoS.discovery.multicast_receive_addresses.add("udpv4://239.255.0.3");
+		 return participantQoS;
+		 
 	}
 
 	public static void main(String[] args) throws InterruptedException {

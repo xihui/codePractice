@@ -1,5 +1,6 @@
 package com.rti.xihui.fromscratch.idl;
 
+import com.rti.dds.domain.DomainParticipantQos;
 import com.rti.dds.infrastructure.RETCODE_NO_DATA;
 import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusKind;
@@ -33,6 +34,19 @@ public class HelloMsgSubscriberUsingListener extends AbstractHelloMsgSubscriber 
 		subscriber.create_datareader(topic, readerQosr, listener,
 				StatusKind.STATUS_MASK_ALL);
 
+	}
+	
+	@Override
+	protected DomainParticipantQos configParticipantQoS() {
+		 DomainParticipantQos participantQoS = super.configParticipantQoS();
+		 
+		 participantQoS.discovery.multicast_receive_addresses.clear();
+		 participantQoS.discovery.multicast_receive_addresses.add("udpv4://239.255.0.2");
+		 
+		 participantQoS.discovery.initial_peers.clear();
+		 participantQoS.discovery.initial_peers.add("udpv4://239.255.0.3");
+		 return participantQoS;
+		 
 	}
 
 	public static void main(String[] args) {
