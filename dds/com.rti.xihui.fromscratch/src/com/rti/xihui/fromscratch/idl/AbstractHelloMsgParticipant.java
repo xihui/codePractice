@@ -6,9 +6,7 @@ import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.domain.DomainParticipantAdapter;
 import com.rti.dds.domain.DomainParticipantFactory;
 import com.rti.dds.domain.DomainParticipantQos;
-import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.StatusKind;
-import com.rti.dds.infrastructure.TransportBuiltinKind;
 import com.rti.dds.publication.DataWriter;
 import com.rti.dds.publication.PublicationMatchedStatus;
 import com.rti.dds.subscription.DataReader;
@@ -16,6 +14,7 @@ import com.rti.dds.subscription.Subscriber;
 import com.rti.dds.topic.Topic;
 
 public abstract class AbstractHelloMsgParticipant {
+	protected static final int DOMAIN_ID = 1;
 	protected DomainParticipant participant;
 	protected Topic topic;
 	protected AtomicBoolean isLive = new AtomicBoolean(true);
@@ -26,7 +25,7 @@ public abstract class AbstractHelloMsgParticipant {
 		
 		
 		participant = DomainParticipantFactory.get_instance()
-				.create_participant(HelloMsgPublisher.DOMAIN_ID,
+				.create_participant(AbstractHelloMsgParticipant.DOMAIN_ID,
 						participantQos, new HelloMsgParticipantListener(), StatusKind.STATUS_MASK_NONE);
 		
 	
@@ -48,10 +47,10 @@ public abstract class AbstractHelloMsgParticipant {
 				participantQos);
 //		participantQos.transport_builtin.mask = TransportBuiltinKind.SHMEM;
 		//this seems doesn't affect the communication between 10.10.xx and 10.30.xx
-//		participantQos.property.value.add(new Property_t("multicast_ttl", "0", true));
+//		participantQos.property.value.add(new Property_t("multicast_ttl", "3", true));
 
-		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
-		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
+//		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
+//		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
 		return participantQos;
 	}
 

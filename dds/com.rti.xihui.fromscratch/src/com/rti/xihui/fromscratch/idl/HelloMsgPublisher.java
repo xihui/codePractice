@@ -31,7 +31,6 @@ import com.rti.xihui.fromscratch.ui.SimpleGUI;
 
 public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 	static final String TOPIC_NAME = "XihuiFirstScratch.HelloMsg";
-	final static int DOMAIN_ID = 1;
 	private boolean paused = false;
 
 	public HelloMsgPublisher() throws InterruptedException {
@@ -79,7 +78,8 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec = 5000000;
 			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec = 0;
 			writerQos.protocol.rtps_reliable_writer.heartbeats_per_max_samples = 1;
-			writerQos.transport_selection.enabled_transports.add(TransportBuiltinKind.UDPv4_ALIAS);
+			writerQos.transport_selection.enabled_transports
+					.add(TransportBuiltinKind.UDPv4_ALIAS);
 			// writerQos.protocol.rtps_reliable_writer.heartbeat_period.
 
 			HelloMsgDataWriter dataWriter = (HelloMsgDataWriter) publisher
@@ -103,7 +103,7 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 				Thread.sleep(1000);
 				if (paused)
 					continue;
-				
+
 				instance_data.id = i % 2;
 				instance_data.msg = "hello " + i++;
 				instance_data.mySeq = new IntSeq(new int[] {
@@ -123,17 +123,18 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			// dispose();
 		}
 	}
-	
+
 	@Override
 	protected DomainParticipantQos configParticipantQoS() {
-		 DomainParticipantQos participantQoS = super.configParticipantQoS();
-		 participantQoS.discovery.initial_peers.clear();
-		 participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
-		 
-		 participantQoS.discovery.multicast_receive_addresses.clear();
-		 participantQoS.discovery.multicast_receive_addresses.add("udpv4://239.255.0.3");
-		 return participantQoS;
-		 
+		DomainParticipantQos participantQoS = super.configParticipantQoS();
+		participantQoS.discovery.initial_peers.clear();
+		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
+
+		participantQoS.discovery.multicast_receive_addresses.clear();
+		participantQoS.discovery.multicast_receive_addresses
+				.add("udpv4://239.255.0.3");
+		return participantQoS;
+
 	}
 
 	public static void main(String[] args) throws InterruptedException {
@@ -141,9 +142,8 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 		new HelloMsgPublisher();
 	}
 
-
-
 	private static class HelloMsgWriterListener extends DataWriterAdapter {
+
 		@Override
 		public void on_publication_matched(DataWriter writer,
 				PublicationMatchedStatus status) {
