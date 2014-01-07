@@ -13,6 +13,7 @@ import com.rti.dds.domain.builtin.ParticipantBuiltinTopicDataDataReader;
 import com.rti.dds.domain.builtin.ParticipantBuiltinTopicDataSeq;
 import com.rti.dds.domain.builtin.ParticipantBuiltinTopicDataTypeSupport;
 import com.rti.dds.infrastructure.InstanceHandle_t;
+import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.RETCODE_NO_DATA;
 import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusKind;
@@ -73,11 +74,15 @@ public class BuiltinReaderExample {
 		//why builtin reader doesn't need below information?
 //
 //		participantQoS.discovery.initial_peers.clear();
-//		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
-//
+//		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.3");
+////
 //		participantQoS.discovery.multicast_receive_addresses.clear();
 //		participantQoS.discovery.multicast_receive_addresses
 //				.add("udpv4://239.255.0.2");
+		
+//		participantQoS.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
+//		participantQoS.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
+//	
 
 		participant = DomainParticipantFactory.get_instance()
 				.create_participant(AbstractHelloMsgParticipant.DOMAIN_ID,

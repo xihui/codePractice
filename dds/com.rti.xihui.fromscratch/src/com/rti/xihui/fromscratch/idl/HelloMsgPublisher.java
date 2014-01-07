@@ -128,7 +128,7 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 	protected DomainParticipantQos configParticipantQoS() {
 		DomainParticipantQos participantQoS = super.configParticipantQoS();
 		participantQoS.discovery.initial_peers.clear();
-		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
+		participantQoS.discovery.initial_peers.add("udpv4://10.10.30.123");
 
 		participantQoS.discovery.multicast_receive_addresses.clear();
 		participantQoS.discovery.multicast_receive_addresses
