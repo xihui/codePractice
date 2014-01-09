@@ -76,20 +76,21 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 					} else if (activeConditionSeq.get(i) == readCondition) {
 						try {
 							reader.take_w_condition(msgSeq, infoSeq,
-									ResourceLimitsQosPolicy.LENGTH_UNLIMITED,
+									1,
 									readCondition);
-							for (int j = 0; j < msgSeq.size(); j++) {
+							System.out.println("Received: ");
+							for (int j = 0; j < msgSeq.size(); j++) {								
 								SampleInfo info = (SampleInfo) infoSeq.get(j);
 								if (info.valid_data)
-									System.out.println("Received: "
-											+ (HelloMsg) msgSeq.get(j));
+									System.out.println(
+											(HelloMsg) msgSeq.get(j));
 								else
 									// 7.4.6.6 Valid Data Flag
 									System.out.println("Invalidate Data! "
 											+ info);
 							}
 							
-							Thread.sleep(1000);
+//							Thread.sleep(1000);
 						} catch (RETCODE_NO_DATA noData) {
 							System.out.println("No data.");
 						} catch (Exception e) {

@@ -2,6 +2,8 @@ package com.rti.xihui.fromscratch.idl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -32,6 +34,8 @@ import com.rti.xihui.fromscratch.ui.SimpleGUI;
 public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 	static final String TOPIC_NAME = "XihuiFirstScratch.HelloMsg";
 	private boolean paused = false;
+	private Map<HelloMsg, InstanceHandle_t> instanceHandlesMap = new HashMap<HelloMsg, InstanceHandle_t>();
+	private HelloMsgDataWriter dataWriter;
 
 	public HelloMsgPublisher() throws InterruptedException {
 
@@ -68,7 +72,7 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			publisher.get_default_datawriter_qos(writerQos);
 			writerQos.reliability.kind = ReliabilityQosPolicyKind.RELIABLE_RELIABILITY_QOS;
 			writerQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
-			writerQos.history.depth = 1;
+			writerQos.history.depth = 2;
 
 			writerQos.durability.kind = DurabilityQosPolicyKind.TRANSIENT_LOCAL_DURABILITY_QOS;
 
@@ -82,7 +86,7 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 					.add(TransportBuiltinKind.UDPv4_ALIAS);
 			// writerQos.protocol.rtps_reliable_writer.heartbeat_period.
 
-			HelloMsgDataWriter dataWriter = (HelloMsgDataWriter) publisher
+			dataWriter = (HelloMsgDataWriter) publisher
 					.create_datawriter(topic, writerQos,
 							new HelloMsgWriterListener(),
 							StatusKind.STATUS_MASK_ALL);
@@ -90,30 +94,36 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			instance_data.id = 0;
 			InstanceHandle_t instanceHandle0 = dataWriter
 					.register_instance(instance_data);
+			instanceHandlesMap.put(instance_data, instanceHandle0);
 
-			instance_data.id = 1;
+			HelloMsg instance_data2 = new HelloMsg();
+			
+			instance_data2.id = 1;
 			InstanceHandle_t instanceHandle1 = dataWriter
-					.register_instance(instance_data);
+					.register_instance(instance_data2);
 
-			InstanceHandle_t[] instanceHandles = new InstanceHandle_t[] {
-					instanceHandle0, instanceHandle1 };
+			HelloMsg[] instances = new HelloMsg[] {
+					instance_data, instance_data2};
+			instanceHandlesMap.put(instance_data2, instanceHandle1);
+
 
 			int i = 0;
 			while (isLive.get()) {
 				Thread.sleep(1000);
 				if (paused)
 					continue;
+				
+				HelloMsg instance = instances[i % 2];
 
-				instance_data.id = i % 2;
-				instance_data.msg = "hello " + i++;
-				instance_data.mySeq = new IntSeq(new int[] {
+				instance.msg = "hello " + i++;
+				instance.mySeq = new IntSeq(new int[] {
 						(int) (Math.random() * 100), 12, 23, 34, 45, 456,
 						(int) (Math.random() * 100) });
 				synchronized (HelloMsgPublisher.this) {
 					if (isLive.get())
-						dataWriter.write(instance_data, instanceHandles[i % 2]);
+						dataWriter.write(instance, instanceHandlesMap.get(instance));
 				}
-				System.out.println("write " + instance_data);
+				System.out.println("write " + instance);
 
 			}
 
@@ -128,13 +138,22 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 	protected DomainParticipantQos configParticipantQoS() {
 		DomainParticipantQos participantQoS = super.configParticipantQoS();
 		participantQoS.discovery.initial_peers.clear();
-		participantQoS.discovery.initial_peers.add("udpv4://10.10.30.123");
+		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
 
 		participantQoS.discovery.multicast_receive_addresses.clear();
 		participantQoS.discovery.multicast_receive_addresses
 				.add("udpv4://239.255.0.3");
 		return participantQoS;
 
+	}
+	
+	@Override
+	protected synchronized void dispose() {
+		if(participant!=null && dataWriter !=null){
+			for(HelloMsg data : instanceHandlesMap.keySet())
+			dataWriter.unregister_instance(data, instanceHandlesMap.get(data));
+		}
+		super.dispose();
 	}
 
 	public static void main(String[] args) throws InterruptedException {

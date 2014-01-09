@@ -266,6 +266,9 @@ your installation:
                 	<initial_peers>
                 	udpv4://239.255.0.1,udpv4://localhost,udpv4://10.30.1.164,shmem://
                 	</initial_peers>
+                	<multicast_receive_addresses>
+                	udpv4://239.255.0.1
+                	</multicast_receive_addresses>
                 </discovery>
                 
             </participant_qos>

@@ -54,7 +54,7 @@ public abstract class AbstractHelloMsgSubscriber extends
 		subscriber.get_default_datareader_qos(dataReaderQos);
 		dataReaderQos.reliability.kind = ReliabilityQosPolicyKind.RELIABLE_RELIABILITY_QOS;
 		dataReaderQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
-		dataReaderQos.history.depth = 1;
+		dataReaderQos.history.depth = 3;
 
 		dataReaderQos.durability.kind = DurabilityQosPolicyKind.TRANSIENT_LOCAL_DURABILITY_QOS;
 

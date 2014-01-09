@@ -39,11 +39,12 @@ public class HelloMsgSubscriberUsingPolling extends AbstractHelloMsgSubscriber {
 							ViewStateKind.ANY_VIEW_STATE,
 							InstanceStateKind.ANY_INSTANCE_STATE);
 				}
+				System.out.println("Received: ");
 				for (int i = 0; i < msgSeq.size(); i++) {
 					SampleInfo info = (SampleInfo) infoSeq.get(i);
 					if (info.valid_data)
-						System.out.println("Received: "
-								+ (HelloMsg) msgSeq.get(i));
+						System.out.println(
+								(HelloMsg) msgSeq.get(i));
 					else
 						// 7.4.6.6 Valid Data Flag
 						System.out.println("Invalidate Data! " + info);
