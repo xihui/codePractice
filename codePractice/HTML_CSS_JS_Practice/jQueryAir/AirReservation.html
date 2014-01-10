@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>jQuery Air</title>
+    <link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <h1>jQuery Air:Captain's Log</h1>
+          <div class="row">
+            <div class="span8">
+              <h3>Select A Flight</h3>
+              <section id="tabs">
+                <ul class="nav nav-tabs">
+                  <li><a href="#2012-09-27" data-flights="6">Sep 27</a></li>
+                  <li><a href="#2012-09-28" data-flights="5">Sep 28</a></li>
+                  <li><a href="#2012-09-29" data-flights="5">Sep 29</a></li>
+                  <li><a href="#2012-09-30" data-flights="3">Sep 30</a></li>
+                  <li><a href="#2012-10-01" data-flights="3">Oct 1</a></li>
+                </ul>
+                <div id="2012-09-27">Loading Sep 27</div>
+                <div id="2012-09-28">Loading Sep 28</div>
+                <div id="2012-09-29">Loading Sep 29</div>
+                <div id="2012-09-30">Loading Sep 30</div>
+                <div id="2012-10-01">Loading Oct 1</div>
+              </section>
+            </div>
+            <div class="span4">
+              <br><br><br><br><br><br>
+              <div class="alert alert-info">
+                Select a date and flight using the table on the left.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-transition.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-modal.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-dropdown.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-scrollspy.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tab.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-popover.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-button.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-carousel.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-typeahead.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/bootstrap-affix.js"></script>
+  <script type="text/javascript" src="http://twitter.github.com/bootstrap/assets/js/application.js"></script>
+  <script type="text/javascript">
+    jQuery(function($) {
+
+      function changeTab(e) {
+        e.preventDefault();
+        $("#tabs li.active").removeClass("active");
+        $(this).parent().addClass("active");
+        showFlights($(this).attr("href"));
+      };
+
+      function showFlights(activeDiv) {        
+        $("#tabs div").hide();
+        $(activeDiv).show();
+        //fetchFlights(activeDiv); // used later to load data via ajax, boi!
+      };
+
+      function showNumberOfFlights(e) {
+        var num_flights = $(this).data("flights");
+        $(this).tooltip({'placement':'top', 'title':num_flights + ' flights', 'trigger':'hover'});
+        $(this).tooltip('show');
+      };
+
+      function hideNumberOfFlights(e) {
+        $('#tabs span.tooltip').remove();
+      };
+
+      $("#tabs li a").bind({
+        click: changeTab,
+        mouseenter: showNumberOfFlights,
+        mouseleave: hideNumberOfFlights
+      });
+
+      $("#tabs li:eq(2) a").click();
+      $("#tabs div").hide();
+    });
+  </script>
+</html>
