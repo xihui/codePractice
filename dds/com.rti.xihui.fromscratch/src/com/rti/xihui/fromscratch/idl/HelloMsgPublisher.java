@@ -70,18 +70,32 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			// create DataWriter QoS
 			DataWriterQos writerQos = new DataWriterQos();
 			publisher.get_default_datawriter_qos(writerQos);
+			
+			//reliability
 			writerQos.reliability.kind = ReliabilityQosPolicyKind.RELIABLE_RELIABILITY_QOS;
+			
+			//History per instance
 			writerQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
 			writerQos.history.depth = 2;
 
+			//Durability, only takes effect if reliability QoS is reliable
 			writerQos.durability.kind = DurabilityQosPolicyKind.TRANSIENT_LOCAL_DURABILITY_QOS;
 
+			//resource limits per instance
 			writerQos.resource_limits.initial_samples = 20;
 			writerQos.resource_limits.max_samples = 20;
+			
+			//The limit when it will switch to fast heartbeat
 			// writerQos.protocol.rtps_reliable_writer.high_watermark = 12;
+			
+			//Fast heartbeat period, should not be too fast to flood the network
 			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec = 5000000;
 			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec = 0;
+			
+			//Attach heart beat to every how many samples
 			writerQos.protocol.rtps_reliable_writer.heartbeats_per_max_samples = 1;
+			
+			//enable udpv4 transports
 			writerQos.transport_selection.enabled_transports
 					.add(TransportBuiltinKind.UDPv4_ALIAS);
 			// writerQos.protocol.rtps_reliable_writer.heartbeat_period.
@@ -109,7 +123,7 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 
 			int i = 0;
 			while (isLive.get()) {
-				Thread.sleep(1000);
+				Thread.sleep(10);
 				if (paused)
 					continue;
 				

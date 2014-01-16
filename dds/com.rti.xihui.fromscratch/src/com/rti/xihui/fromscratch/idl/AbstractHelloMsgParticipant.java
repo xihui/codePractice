@@ -14,7 +14,7 @@ import com.rti.dds.subscription.Subscriber;
 import com.rti.dds.topic.Topic;
 
 public abstract class AbstractHelloMsgParticipant {
-	protected static final int DOMAIN_ID = 1;
+	protected static final int DOMAIN_ID = 21;
 	protected DomainParticipant participant;
 	protected Topic topic;
 	protected AtomicBoolean isLive = new AtomicBoolean(true);
@@ -45,10 +45,15 @@ public abstract class AbstractHelloMsgParticipant {
 		
 		DomainParticipantFactory.get_instance().get_default_participant_qos(
 				participantQos);
+		//available built-in transports to use Shared memory only
 //		participantQos.transport_builtin.mask = TransportBuiltinKind.SHMEM;
-		//this seems doesn't affect the communication between 10.10.xx and 10.30.xx
+		
+		
+		//TTL. this seems doesn't affect the communication between 10.10.xx and 10.30.xx
 //		participantQos.property.value.add(new Property_t("multicast_ttl", "3", true));
 
+		
+		//enable monitoring
 //		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
 //		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
 		return participantQos;

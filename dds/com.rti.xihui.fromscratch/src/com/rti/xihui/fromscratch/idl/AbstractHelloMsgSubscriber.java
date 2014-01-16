@@ -52,18 +52,27 @@ public abstract class AbstractHelloMsgSubscriber extends
 	protected DataReaderQos createDataReaderQos() {
 		DataReaderQos dataReaderQos = new DataReaderQos();
 		subscriber.get_default_datareader_qos(dataReaderQos);
+		
+		//Reliability
 		dataReaderQos.reliability.kind = ReliabilityQosPolicyKind.RELIABLE_RELIABILITY_QOS;
+		
+		//History
 		dataReaderQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
 		dataReaderQos.history.depth = 3;
 
+		//Durability. This only work if reliability is RELIABLE.
 		dataReaderQos.durability.kind = DurabilityQosPolicyKind.TRANSIENT_LOCAL_DURABILITY_QOS;
 
+		//Resource Limit
 		dataReaderQos.resource_limits.max_samples = 20;
 		dataReaderQos.resource_limits.initial_samples = 20;
 
+		//enable UDPv4 transports
 		dataReaderQos.transport_selection.enabled_transports
 				.add(TransportBuiltinKind.UDPv4_ALIAS);
 
+		
+		//Use multicast transport
 		// This is also the default value, so not necessary to set it
 		// dataReaderQos.multicast.kind =
 		// TransportMulticastQosPolicyKind.AUTOMATIC_TRANSPORT_MULTICAST_QOS;

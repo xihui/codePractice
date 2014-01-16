@@ -1,6 +1,10 @@
 /*
 The command to generate the java files is: 
 >rtiddsgen -language Java -package com.rti.xihui.fromscratch.idl -ppDisable HelloMsg.idl
+
+To generate example files also:
+rtiddsgen.bat HelloMsg.idl -language Java -package com.rti.xihui.fromscratch.idl -example i86Win32jdk -replace -ppDisable
+
 */
 
 const short MAX_MSG_LENGTH=256;
