@@ -37,9 +37,9 @@ public class MyFirstStringPublisher {
 					.create_datawriter(topic, Publisher.DATAWRITER_QOS_DEFAULT,
 							null, StatusKind.STATUS_MASK_NONE);
 
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 100; i++) {
 
-				String s = "hello 你好 " + i;
+				String s = "hello " + i;
 				dataWriter.write(s, InstanceHandle_t.HANDLE_NIL);
 				System.out.println(s);
 				Thread.sleep(1000);
