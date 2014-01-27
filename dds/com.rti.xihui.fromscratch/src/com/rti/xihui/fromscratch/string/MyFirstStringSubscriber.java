@@ -2,6 +2,7 @@ package com.rti.xihui.fromscratch.string;
 
 import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.domain.DomainParticipantFactory;
+import com.rti.dds.domain.DomainParticipantQos;
 import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.infrastructure.StringSeq;
@@ -26,10 +27,17 @@ public class MyFirstStringSubscriber {
 
 		DomainParticipant participant = null;
 		try {
+			DomainParticipantQos participantQos = new DomainParticipantQos();
+			DomainParticipantFactory.get_instance().get_default_participant_qos(participantQos);
+			participantQos.resource_limits.local_reader_allocation.initial_count=4;
+			participantQos.resource_limits.local_reader_allocation.max_count=4;
+			participantQos.resource_limits.local_reader_allocation.incremental_count=0;
+			participantQos.discovery_config.subscription_writer.heartbeats_per_max_samples=1;
 			participant = DomainParticipantFactory.get_instance()
 					.create_participant(MyFirstStringPublisher.DOMAIN_ID,
-							DomainParticipantFactory.PARTICIPANT_QOS_DEFAULT,
+							participantQos,
 							null, StatusKind.STATUS_MASK_NONE);
+			
 			Subscriber subscriber = participant.create_subscriber(
 					DomainParticipant.SUBSCRIBER_QOS_DEFAULT, null,
 					StatusKind.STATUS_MASK_NONE);

@@ -3,6 +3,8 @@ package com.rti.xihui.fromscratch.idl;
 import com.rti.dds.infrastructure.RETCODE_NO_DATA;
 import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusKind;
+import com.rti.dds.publication.builtin.PublicationBuiltinTopicDataDataReader;
+import com.rti.dds.publication.builtin.PublicationBuiltinTopicDataTypeSupport;
 import com.rti.dds.subscription.DataReader;
 import com.rti.dds.subscription.DataReaderAdapter;
 import com.rti.dds.subscription.DataReaderListener;
@@ -16,13 +18,26 @@ import com.rti.dds.subscription.SampleInfoSeq;
 import com.rti.dds.subscription.SampleLostStatus;
 import com.rti.dds.subscription.SampleRejectedStatus;
 import com.rti.dds.subscription.SampleStateKind;
+import com.rti.dds.subscription.Subscriber;
 import com.rti.dds.subscription.SubscriptionMatchedStatus;
 import com.rti.dds.subscription.ViewStateKind;
+import com.rti.xihui.fromscratch.idl.BuiltinReaderExample.MyPublicationBuiltinReaderListener;
 
 public class HelloMsgSubscriberUsingListener extends AbstractHelloMsgSubscriber {
 
 	public HelloMsgSubscriberUsingListener() {
 		super(HelloMsgSubscriberUsingListener.class.getSimpleName());
+		
+		Subscriber builtin_subscriber = participant.get_builtin_subscriber();
+		PublicationBuiltinTopicDataDataReader publicationBuiltinReader = (PublicationBuiltinTopicDataDataReader) builtin_subscriber
+				.lookup_datareader(PublicationBuiltinTopicDataTypeSupport.PUBLICATION_TOPIC_NAME);
+		if (publicationBuiltinReader == null) {
+			System.err.println("Faield to get builtin dataReader");
+			return;
+		}
+		publicationBuiltinReader.set_listener(
+				new BuiltinReaderExample().new MyPublicationBuiltinReaderListener(),
+				StatusKind.STATUS_MASK_ALL);
 
 		DataReaderListener listener = new HelloMsgReaderListener();
 
@@ -32,6 +47,13 @@ public class HelloMsgSubscriberUsingListener extends AbstractHelloMsgSubscriber 
 		
 		subscriber.create_datareader(topic, readerQosr, listener,
 				StatusKind.STATUS_MASK_ALL);
+		subscriber.create_datareader(topic, readerQosr, listener,
+				StatusKind.STATUS_MASK_ALL);
+		subscriber.create_datareader(topic, readerQosr, listener,
+				StatusKind.STATUS_MASK_ALL);
+		subscriber.create_datareader(topic, readerQosr, listener,
+				StatusKind.STATUS_MASK_ALL);
+
 
 	}
 	

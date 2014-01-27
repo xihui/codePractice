@@ -17,6 +17,7 @@ import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.RETCODE_NO_DATA;
 import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusKind;
+import com.rti.dds.infrastructure.TransportBuiltinKind;
 import com.rti.dds.publication.AcknowledgmentInfo;
 import com.rti.dds.publication.DataWriter;
 import com.rti.dds.publication.LivelinessLostStatus;
@@ -27,6 +28,7 @@ import com.rti.dds.publication.builtin.PublicationBuiltinTopicDataSeq;
 import com.rti.dds.publication.builtin.PublicationBuiltinTopicDataTypeSupport;
 import com.rti.dds.subscription.DataReader;
 import com.rti.dds.subscription.DataReaderAdapter;
+import com.rti.dds.subscription.DataReaderSeq;
 import com.rti.dds.subscription.InstanceStateKind;
 import com.rti.dds.subscription.LivelinessChangedStatus;
 import com.rti.dds.subscription.SampleInfo;
@@ -59,10 +61,10 @@ public class BuiltinReaderExample {
 		 * listeners.
 		 */
 
-		DomainParticipantFactoryQos factory_qos = new DomainParticipantFactoryQos();
-		DomainParticipantFactory.TheParticipantFactory.get_qos(factory_qos);
-		factory_qos.entity_factory.autoenable_created_entities = false;
-		DomainParticipantFactory.TheParticipantFactory.set_qos(factory_qos);
+//		DomainParticipantFactoryQos factory_qos = new DomainParticipantFactoryQos();
+//		DomainParticipantFactory.TheParticipantFactory.get_qos(factory_qos);
+//		factory_qos.entity_factory.autoenable_created_entities = false;
+//		DomainParticipantFactory.TheParticipantFactory.set_qos(factory_qos);
 		
 		
 
@@ -70,7 +72,26 @@ public class BuiltinReaderExample {
 
 		DomainParticipantFactory.get_instance().get_default_participant_qos(
 				participantQoS);
+//		
+//		participantQoS.transport_builtin.mask=TransportBuiltinKind.SHMEM;
+//		participantQoS.discovery.initial_peers.clear();
+//		participantQoS.discovery.initial_peers.add("builtin.udpv4://239.255.0.1");
 		
+//		participantQoS.resource_limits.local_writer_allocation.initial_count=4;
+//		participantQoS.resource_limits.local_writer_allocation.max_count=4;
+//		participantQoS.resource_limits.local_writer_allocation.incremental_count=0;		
+//		participantQoS.discovery_config.publication_writer.heartbeats_per_max_samples = 1;
+//		
+		participantQoS.resource_limits.local_reader_allocation.initial_count=5;
+		participantQoS.resource_limits.local_reader_allocation.max_count=5;
+		participantQoS.resource_limits.local_reader_allocation.incremental_count=0;		
+		participantQoS.discovery_config.subscription_writer.heartbeats_per_max_samples = 1;
+//		
+//		parti
+//		participantQoS.resource_limits.local_writer_allocation.initial_count=5;
+//		
+//		participantQoS.resource_limits.local_writer_allocation.max_count=5;
+//		participantQoS.resource_limits.local_writer_allocation.incremental_count=0;
 		//why builtin reader doesn't need below information?
 //
 //		participantQoS.discovery.initial_peers.clear();
@@ -88,18 +109,32 @@ public class BuiltinReaderExample {
 				.create_participant(AbstractHelloMsgParticipant.DOMAIN_ID,
 						participantQoS, null,
 						StatusKind.STATUS_MASK_NONE);
+		
+		
+		
+//		
+//		participant = DomainParticipantFactory.get_instance()
+//				.create_participant_with_profile(AbstractHelloMsgParticipant.DOMAIN_ID,
+//						"UMF_Library", 
+//						"DataTransform",  null,
+//						StatusKind.STATUS_MASK_NONE);
 
 		Subscriber builtin_subscriber = participant.get_builtin_subscriber();
 
-		DataReader participantBuiltInReader = builtin_subscriber
-				.lookup_datareader(ParticipantBuiltinTopicDataTypeSupport.PARTICIPANT_TOPIC_NAME);
-
-		participantBuiltInReader.set_listener(
-				new MyParticipantBuiltinReaderListener(),
-				StatusKind.STATUS_MASK_ALL);
+//		DataReader participantBuiltInReader = builtin_subscriber
+//				.lookup_datareader(ParticipantBuiltinTopicDataTypeSupport.PARTICIPANT_TOPIC_NAME);
+////
+//		participantBuiltInReader.set_listener(
+//				new MyParticipantBuiltinReaderListener(),
+//				StatusKind.STATUS_MASK_ALL);
 
 		PublicationBuiltinTopicDataDataReader publicationBuiltinReader = (PublicationBuiltinTopicDataDataReader) builtin_subscriber
 				.lookup_datareader(PublicationBuiltinTopicDataTypeSupport.PUBLICATION_TOPIC_NAME);
+//		DataReaderSeq dataReaderSeq = new DataReaderSeq();
+//		builtin_subscriber.get_all_datareaders(dataReaderSeq);
+//		for(Object r: dataReaderSeq){
+//			System.out.println(r);
+//		}
 		if (publicationBuiltinReader == null) {
 			System.err.println("Faield to get builtin dataReader");
 			return;
@@ -113,9 +148,9 @@ public class BuiltinReaderExample {
 		/*
 		 * recover factory QoS
 		 */
-		DomainParticipantFactory.TheParticipantFactory.get_qos(factory_qos);
-		factory_qos.entity_factory.autoenable_created_entities = true;
-		DomainParticipantFactory.TheParticipantFactory.set_qos(factory_qos);
+//		DomainParticipantFactory.TheParticipantFactory.get_qos(factory_qos);
+//		factory_qos.entity_factory.autoenable_created_entities = true;
+//		DomainParticipantFactory.TheParticipantFactory.set_qos(factory_qos);
 
 	}
 
@@ -182,7 +217,7 @@ public class BuiltinReaderExample {
 					if (info.valid_data) {
 						ParticipantBuiltinTopicData participantTopicData = (ParticipantBuiltinTopicData) dataSeq
 								.get(i);
-						System.out.println("\nFound participant: Domain " + participantTopicData.domain_id + " "
+						System.out.println("\nFound participant: Domain " + participantTopicData.participant_name + " "
 								+ participantTopicData.key + participantTopicData.property);
 					}
 				}
@@ -200,7 +235,7 @@ public class BuiltinReaderExample {
 		}
 	}
 
-	private class MyPublicationBuiltinReaderListener extends DataReaderAdapter {
+	public class MyPublicationBuiltinReaderListener extends DataReaderAdapter {
 
 		private PublicationBuiltinTopicDataSeq received_data = new PublicationBuiltinTopicDataSeq();
 		private SampleInfoSeq info_seq = new SampleInfoSeq();

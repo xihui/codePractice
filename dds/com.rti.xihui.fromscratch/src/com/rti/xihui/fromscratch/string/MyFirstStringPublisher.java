@@ -13,7 +13,7 @@ import com.rti.dds.type.builtin.StringTypeSupport;
 
 public class MyFirstStringPublisher {
 	static final String TOPIC_NAME = "XihuiFirstScratch.String";
-	final static int DOMAIN_ID = 1;
+	final static int DOMAIN_ID = 21;
 
 	public static void main(String[] args) throws InterruptedException {
 		DomainParticipant participant = null;
