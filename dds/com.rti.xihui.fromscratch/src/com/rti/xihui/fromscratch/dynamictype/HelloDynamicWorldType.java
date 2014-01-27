@@ -11,7 +11,7 @@ import com.rti.dds.typecode.TypeCodeFactory;
 
 public class HelloDynamicWorldType {
 	public static final String PAYLOAD_FIELD = "payload";
-	public static final int NUMBER_OF_FIELDS = 5;
+	public static final int NUMBER_OF_FIELDS = 200;
 	public static final String SAMPLE_ID_FIELD = "sampleId";
 	public static final String NAME_FIELD = "name";
 	public static final int HELLO_MAX_STRING_SIZE = 64;

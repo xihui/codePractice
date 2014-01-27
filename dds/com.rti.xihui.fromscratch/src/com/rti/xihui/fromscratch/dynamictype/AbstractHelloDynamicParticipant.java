@@ -6,6 +6,7 @@ import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.domain.DomainParticipantFactory;
 import com.rti.dds.domain.DomainParticipantQos;
 import com.rti.dds.dynamicdata.DynamicDataTypeSupport;
+import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.topic.Topic;
 import com.rti.dds.typecode.TypeCode;
@@ -53,6 +54,14 @@ public class AbstractHelloDynamicParticipant {
 		
 		DomainParticipantFactory.get_instance().get_default_participant_qos(
 				participantQos);
+		
+		participantQos.resource_limits.type_code_max_serialized_length=0;
+		participantQos.resource_limits.type_object_max_serialized_length=20000;
+//		
+		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.recv_socket_buffer_size", "65530", true));
+		
+		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.parent.message_size_max", "65530", true));
+		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.send_socket_buffer_size", "65530", true));
 		return participantQos;
 	}
 
