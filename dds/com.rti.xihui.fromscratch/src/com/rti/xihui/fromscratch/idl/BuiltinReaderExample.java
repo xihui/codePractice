@@ -73,6 +73,9 @@ public class BuiltinReaderExample {
 		DomainParticipantFactory.get_instance().get_default_participant_qos(
 				participantQoS);
 //		
+//		participantQoS.resource_limits.type_code_max_serialized_length=0;
+//		participantQoS.resource_limits.type_object_max_serialized_length=1000;
+//		
 //		participantQoS.transport_builtin.mask=TransportBuiltinKind.SHMEM;
 //		participantQoS.discovery.initial_peers.clear();
 //		participantQoS.discovery.initial_peers.add("builtin.udpv4://239.255.0.1");
@@ -82,10 +85,10 @@ public class BuiltinReaderExample {
 //		participantQoS.resource_limits.local_writer_allocation.incremental_count=0;		
 //		participantQoS.discovery_config.publication_writer.heartbeats_per_max_samples = 1;
 //		
-		participantQoS.resource_limits.local_reader_allocation.initial_count=5;
-		participantQoS.resource_limits.local_reader_allocation.max_count=5;
-		participantQoS.resource_limits.local_reader_allocation.incremental_count=0;		
-		participantQoS.discovery_config.subscription_writer.heartbeats_per_max_samples = 1;
+//		participantQoS.resource_limits.local_reader_allocation.initial_count=5;
+//		participantQoS.resource_limits.local_reader_allocation.max_count=5;
+//		participantQoS.resource_limits.local_reader_allocation.incremental_count=0;		
+//		participantQoS.discovery_config.subscription_writer.heartbeats_per_max_samples = 1;
 //		
 //		parti
 //		participantQoS.resource_limits.local_writer_allocation.initial_count=5;
