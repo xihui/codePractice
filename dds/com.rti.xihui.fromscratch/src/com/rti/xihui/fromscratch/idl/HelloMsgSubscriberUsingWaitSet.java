@@ -14,6 +14,8 @@ import com.rti.dds.subscription.LivelinessChangedStatus;
 import com.rti.dds.subscription.ReadCondition;
 import com.rti.dds.subscription.SampleInfo;
 import com.rti.dds.subscription.SampleInfoSeq;
+import com.rti.dds.subscription.SampleLostStatus;
+import com.rti.dds.subscription.SampleRejectedStatus;
 import com.rti.dds.subscription.SampleStateKind;
 import com.rti.dds.subscription.SubscriptionMatchedStatus;
 import com.rti.dds.subscription.ViewStateKind;
@@ -37,8 +39,10 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 		StatusCondition statusCondition = reader.get_statuscondition();
 
 		statusCondition
-				.set_enabled_statuses(StatusKind.SUBSCRIPTION_MATCHED_STATUS
-						| StatusKind.LIVELINESS_CHANGED_STATUS);
+				.set_enabled_statuses(StatusKind.STATUS_MASK_ALL|StatusKind.SUBSCRIPTION_MATCHED_STATUS
+						| StatusKind.LIVELINESS_CHANGED_STATUS
+						|StatusKind.SAMPLE_LOST_STATUS
+						|StatusKind.SAMPLE_REJECTED_STATUS);
 
 		guardCondition = new GuardCondition();
 
@@ -62,6 +66,7 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 				for (int i = 0; i < activeConditionSeq.size(); i++) {
 					if (activeConditionSeq.get(i) == statusCondition) {
 						int statusMask = reader.get_status_changes();
+						System.out.println("statusMask = " + statusMask);
 						if ((statusMask & StatusKind.LIVELINESS_CHANGED_STATUS) != 0) {
 							LivelinessChangedStatus st = new LivelinessChangedStatus();
 							reader.get_liveliness_changed_status(st);
@@ -73,11 +78,24 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 							reader.get_subscription_matched_status(st);
 							System.out.println("Subscription matched:" + st);
 						}
+						if ((statusMask & StatusKind.SAMPLE_LOST_STATUS) != 0) {
+							SampleLostStatus sampleLostStatus = new SampleLostStatus();
+							reader.get_sample_lost_status(sampleLostStatus);
+							System.out.println("Sample Lost:" + sampleLostStatus);
+						}
+						if ((statusMask & StatusKind.SAMPLE_REJECTED_STATUS) != 0) {
+							SampleRejectedStatus sampleRejectedStatus = new SampleRejectedStatus();
+							reader.get_sample_rejected_status(sampleRejectedStatus);
+							System.out.println("Sample Rejected:" + sampleRejectedStatus);
+						}
 					} else if (activeConditionSeq.get(i) == readCondition) {
 						try {
-							reader.take_w_condition(msgSeq, infoSeq,
-									1,
+							synchronized (this) {
+									reader.take_w_condition(msgSeq, infoSeq,
+									100,
 									readCondition);
+							}
+						
 							System.out.println("Received: ");
 							for (int j = 0; j < msgSeq.size(); j++) {								
 								SampleInfo info = (SampleInfo) infoSeq.get(j);
@@ -90,7 +108,7 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 											+ info);
 							}
 							
-//							Thread.sleep(1000);
+							Thread.sleep(100);
 						} catch (RETCODE_NO_DATA noData) {
 							System.out.println("No data.");
 						} catch (Exception e) {
@@ -102,6 +120,7 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 					}else if(activeConditionSeq.get(i)== guardCondition){
 						System.out.println("Exited." + guardCondition.get_trigger_value());
 						guardCondition.delete();
+						waitSet.delete();
 					}
 				}
 
