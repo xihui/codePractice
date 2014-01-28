@@ -11,6 +11,7 @@ import com.rti.dds.publication.PublisherQos;
 import com.rti.dds.subscription.DataReader;
 import com.rti.dds.subscription.DataReaderAdapter;
 import com.rti.dds.subscription.DataReaderListener;
+import com.rti.dds.subscription.DataReaderQos;
 import com.rti.dds.subscription.InstanceStateKind;
 import com.rti.dds.subscription.SampleInfo;
 import com.rti.dds.subscription.SampleInfoSeq;
@@ -29,10 +30,10 @@ public class MyFirstStringSubscriber {
 		try {
 			DomainParticipantQos participantQos = new DomainParticipantQos();
 			DomainParticipantFactory.get_instance().get_default_participant_qos(participantQos);
-			participantQos.resource_limits.local_reader_allocation.initial_count=4;
-			participantQos.resource_limits.local_reader_allocation.max_count=4;
-			participantQos.resource_limits.local_reader_allocation.incremental_count=0;
-			participantQos.discovery_config.subscription_writer.heartbeats_per_max_samples=1;
+//			participantQos.resource_limits.local_reader_allocation.initial_count=4;
+//			participantQos.resource_limits.local_reader_allocation.max_count=4;
+//			participantQos.resource_limits.local_reader_allocation.incremental_count=0;
+//			participantQos.discovery_config.subscription_writer.heartbeats_per_max_samples=1;
 			participant = DomainParticipantFactory.get_instance()
 					.create_participant(MyFirstStringPublisher.DOMAIN_ID,
 							participantQos,
@@ -72,8 +73,10 @@ public class MyFirstStringSubscriber {
 					}
 				}
 			};
+			DataReaderQos readerQos = new DataReaderQos();
+			subscriber.get_default_datareader_qos(readerQos);
 			subscriber.create_datareader(topic,
-					Subscriber.DATAREADER_QOS_DEFAULT, listener,
+					readerQos, listener,
 					StatusKind.STATUS_MASK_ALL);
 			
 			Thread.sleep(12000);
