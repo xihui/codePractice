@@ -55,6 +55,7 @@ public abstract class AbstractHelloMsgSubscriber extends
 		DataReaderQos dataReaderQos = new DataReaderQos();
 		subscriber.get_default_datareader_qos(dataReaderQos);
 		
+		dataReaderQos.subscription_name.name="datareader_name";
 		dataReaderQos.liveliness.kind = LivelinessQosPolicyKind.AUTOMATIC_LIVELINESS_QOS;
 		dataReaderQos.liveliness.lease_duration.sec =100;
 		

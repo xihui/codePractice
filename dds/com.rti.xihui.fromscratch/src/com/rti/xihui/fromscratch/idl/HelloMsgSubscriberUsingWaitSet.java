@@ -39,10 +39,11 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 		StatusCondition statusCondition = reader.get_statuscondition();
 
 		statusCondition
-				.set_enabled_statuses(StatusKind.STATUS_MASK_ALL|StatusKind.SUBSCRIPTION_MATCHED_STATUS
-						| StatusKind.LIVELINESS_CHANGED_STATUS
-						|StatusKind.SAMPLE_LOST_STATUS
-						|StatusKind.SAMPLE_REJECTED_STATUS);
+				.set_enabled_statuses(StatusKind.STATUS_MASK_ALL & (~StatusKind.DATA_AVAILABLE_STATUS));
+//		StatusKind.SUBSCRIPTION_MATCHED_STATUS
+//						| StatusKind.LIVELINESS_CHANGED_STATUS
+//						|StatusKind.SAMPLE_LOST_STATUS
+//						|StatusKind.SAMPLE_REJECTED_STATUS );
 
 		guardCondition = new GuardCondition();
 
