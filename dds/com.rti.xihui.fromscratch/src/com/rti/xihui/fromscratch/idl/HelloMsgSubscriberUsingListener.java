@@ -28,16 +28,16 @@ public class HelloMsgSubscriberUsingListener extends AbstractHelloMsgSubscriber 
 	public HelloMsgSubscriberUsingListener() {
 		super(HelloMsgSubscriberUsingListener.class.getSimpleName());
 		
-		Subscriber builtin_subscriber = participant.get_builtin_subscriber();
-		PublicationBuiltinTopicDataDataReader publicationBuiltinReader = (PublicationBuiltinTopicDataDataReader) builtin_subscriber
-				.lookup_datareader(PublicationBuiltinTopicDataTypeSupport.PUBLICATION_TOPIC_NAME);
-		if (publicationBuiltinReader == null) {
-			System.err.println("Faield to get builtin dataReader");
-			return;
-		}
-		publicationBuiltinReader.set_listener(
-				new BuiltinReaderExample().new MyPublicationBuiltinReaderListener(),
-				StatusKind.STATUS_MASK_ALL);
+//		Subscriber builtin_subscriber = participant.get_builtin_subscriber();
+//		PublicationBuiltinTopicDataDataReader publicationBuiltinReader = (PublicationBuiltinTopicDataDataReader) builtin_subscriber
+//				.lookup_datareader(PublicationBuiltinTopicDataTypeSupport.PUBLICATION_TOPIC_NAME);
+//		if (publicationBuiltinReader == null) {
+//			System.err.println("Faield to get builtin dataReader");
+//			return;
+//		}
+//		publicationBuiltinReader.set_listener(
+//				new BuiltinReaderExample().new MyPublicationBuiltinReaderListener(),
+//				StatusKind.STATUS_MASK_ALL);
 
 		DataReaderListener listener = new HelloMsgReaderListener();
 
@@ -47,12 +47,12 @@ public class HelloMsgSubscriberUsingListener extends AbstractHelloMsgSubscriber 
 		
 		subscriber.create_datareader(topic, readerQosr, listener,
 				StatusKind.STATUS_MASK_ALL);
-		subscriber.create_datareader(topic, readerQosr, listener,
-				StatusKind.STATUS_MASK_ALL);
-		subscriber.create_datareader(topic, readerQosr, listener,
-				StatusKind.STATUS_MASK_ALL);
-		subscriber.create_datareader(topic, readerQosr, listener,
-				StatusKind.STATUS_MASK_ALL);
+//		subscriber.create_datareader(topic, readerQosr, listener,
+//				StatusKind.STATUS_MASK_ALL);
+//		subscriber.create_datareader(topic, readerQosr, listener,
+//				StatusKind.STATUS_MASK_ALL);
+//		subscriber.create_datareader(topic, readerQosr, listener,
+//				StatusKind.STATUS_MASK_ALL);
 
 
 	}
@@ -81,9 +81,10 @@ public class HelloMsgSubscriberUsingListener extends AbstractHelloMsgSubscriber 
 					SampleInfo info = (SampleInfo) infoSeq.get(i);
 					if (info.valid_data)
 						System.out.println((HelloMsg) msgSeq.get(i));
-					else
+					else{
 						// 7.4.6.6 Valid Data Flag
-						System.out.println("Invalidate Data! " + info);
+						System.out.println("Invalidate Data! " + info.instance_state);
+					}
 				}
 				//not good to sleep at here, because it will block the middleware thread!
 //				Thread.sleep(1000);

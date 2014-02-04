@@ -76,28 +76,32 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			
 			//History per instance
 			writerQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
-			writerQos.history.depth = 2;
+			writerQos.history.depth = 10;
 
 			//Durability, only takes effect if reliability QoS is reliable
-			writerQos.durability.kind = DurabilityQosPolicyKind.TRANSIENT_LOCAL_DURABILITY_QOS;
+			writerQos.durability.kind = DurabilityQosPolicyKind.PERSISTENT_DURABILITY_QOS;//TRANSIENT_LOCAL_DURABILITY_QOS;
 
+			writerQos.durability_service.history_depth = 5;
+			writerQos.durability_service.history_kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
+			writerQos.durability_service.max_samples = 100;
+			
 			//resource limits per instance
 			writerQos.resource_limits.initial_samples = 20;
-			writerQos.resource_limits.max_samples = 20;
+			writerQos.resource_limits.max_samples = 200;
 			
 			//The limit when it will switch to fast heartbeat
 			// writerQos.protocol.rtps_reliable_writer.high_watermark = 12;
 			
 			//Fast heartbeat period, should not be too fast to flood the network
-			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec = 5000000;
-			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec = 0;
+//			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec = 5000000;
+//			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec = 0;
 			
 			//Attach heart beat to every how many samples
-			writerQos.protocol.rtps_reliable_writer.heartbeats_per_max_samples = 1;
+//			writerQos.protocol.rtps_reliable_writer.heartbeats_per_max_samples = 1;
 			
 			//enable udpv4 transports
-			writerQos.transport_selection.enabled_transports
-					.add(TransportBuiltinKind.UDPv4_ALIAS);
+//			writerQos.transport_selection.enabled_transports
+//					.add(TransportBuiltinKind.UDPv4_ALIAS);
 			// writerQos.protocol.rtps_reliable_writer.heartbeat_period.
 
 			dataWriter = (HelloMsgDataWriter) publisher
@@ -124,8 +128,10 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			int i = 0;
 			while (isLive.get()) {
 				Thread.sleep(10);
-				if (paused)
+				if (paused){
+//					dataWriter.dispose(instances[0], instanceHandlesMap.get(instances[0]));
 					continue;
+				}
 				
 				HelloMsg instance = instances[i % 2];
 

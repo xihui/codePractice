@@ -1,0 +1,288 @@
+<!--
+ 
+Description
+XML QoS Profile illustrating the use of the TCP transport with 
+TLS support.
+
+This file is used only when it is in the current working directory
+or when the enviroment variable
+NDDS_QOS_PROFILES is defined and points to this file.
+
+For more information about XML QoS Profiles see Chapter 15 in the 
+RTI Data Distribution Service user manual.
+-->
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="C:\Program Files (x86)\RTI\ndds.5.0.0\resource\qos_profiles_5.0.0\schema\rti_dds_qos_profiles.xsd" version="5.0.0">
+	<!--
+	 QoS Library containing the QoS profiles for UMF.
+			A UMF library is a named set of QoS profiles.   
+	-->
+	<qos_library name="UMF_Library">
+		<!--
+		 This is the base profile that defines all generic
+			   settings for TCP and TLS. 
+		-->
+		<qos_profile name="UMF_ProfileBase">
+			<participant_qos>
+			</participant_qos>
+		</qos_profile>
+		<!--
+		 This profile is targeted for the ESP PoC.
+		 
+		 *  Goal is to minimize memory/cpu usage.
+		 *  All readers/writers will be static after startup (No late joiners, except in recovery conditions)
+		 *  All readers/writers of this application's data will be on a single device
+		 
+		-->
+		<qos_profile name="DataTransform" base_name="UMF_ProfileBase" is_default_qos="true">
+			<participant_qos>
+				<!--
+				The participant name, if it is set, will be displayed in the
+				RTI Analyzer tool, making it easier for you to tell one
+				application from another when you're debugging.
+				-->
+				<participant_name>
+					<name>Data Transform PoC</name>
+				</participant_name>
+				<!-- For the PoC the DataTransform we only need to use shmem.  This ensures
+				     we only use shared memory and reduces the memory footprint of this participant
+					 by not enabling the other built in transports.
+				-->
+				<transport_builtin>
+					<mask>SHMEM</mask>
+				</transport_builtin>
+				<discovery>
+					<!-- potential participants with which this DomainParticipant will attempt to establish communications -->
+					<initial_peers>
+						<!--  The initial peer this participan will contact    -->
+						<element>shmem://</element>
+					</initial_peers>
+				</discovery>
+				<!-- Configures how DomainParticipants allocate and use physical memory for internal resources -->
+				<resource_limits>
+					<!-- the initial and maximum number of each object type that can be stored.  Each allocation structure configure
+						how many objects of each type (e.g.  xxx_allocation), will be allocated by the Domain Participant -->
+					<local_writer_allocation>
+						<!-- Set initial_count = max_count to have no memory allocated by Connext after creation.
+								Requires a fairly static system and/or good estimates on the number of entities in the distributed system.
+								Connext will fail to execute properly once the number of Entities exceed the configure bounds
+
+								Each participant shouldnt have more than 4 writers (Wav, Num, Evt, Registration)  -->
+						<initial_count>4</initial_count>
+						<max_count>4</max_count>
+						<!-- By default, the count will increase by 2x every time -->
+						<incremental_count>0</incremental_count>
+					</local_writer_allocation>
+					<local_reader_allocation>
+						<initial_count>4</initial_count>
+						<max_count>4</max_count>
+						<!-- By default, the count will increase by 2x every time -->
+						<incremental_count>0</incremental_count>
+					</local_reader_allocation>
+					<!-- Soon to be deprecated option, can be set to zero.  Not needed if both endpoints are aware of the type, but if they need to learn it, such as with some of the RTI tools it is needed.  Replaced by type_object -->
+					<type_code_max_serialized_length>65535</type_code_max_serialized_length>
+					
+					<!-- could query from application code to get the size, will want to set to a "large enough" value, will need to be send for mutability matching -->
+					<!-- TODO This size can be changed based on needs smaller or larger -->
+					<!-- <type_object_max_serialized_length>65535</type_object_max_serialized_length> --> <!-- TODO Am supposed to use this value, but it prevents data topics from transmitting-->
+				</resource_limits>
+				<!-- Event thread is used to wake up and execute timed events posted to the event queue -->
+				<!-- the maximum number of events that can be handled by the Event thread. While the Event thread can only service a single event at a time, it must maintain 
+						a queue to hold events that are pending. The initial_count and max_count parameters of the QosPolicy set the initial and maximum size of the queue.  It is difficult
+						to know exactly how many events occur, thus the limits were not enforced.  -->
+				<event>
+					<!-- Thread settings are OS dependent -->
+					<thread>
+						<stack_size>1048576</stack_size>  
+					</thread>
+				</event>
+				<!-- configures how Connext manages its internal database -->
+				<database>
+					<thread>
+						<stack_size>1048576</stack_size>
+					</thread>
+				</database>
+				<!-- Used to process the data received from a transport.  Connext uses a separate receive thread per port per transport plugin -->
+				<receiver_pool>
+					<thread>
+						<stack_size>1048576</stack_size>			
+					</thread>
+					<!-- Increasing the buffer_size will increase memory used by a receive thread. Represents the size of the receive buffer in bytes. -->					
+					<!-- buffer_size should be set to at least the same value as the maximum message_size_max parameter across all of the transports being used that does not support zero-copy. -->
+					<buffer_size>65535</buffer_size>
+				</receiver_pool>
+				<!-- Used to tune the discovery process, how often to send discovery packets, determine when participants are dead or alive -->
+				<discovery_config>
+					<!-- This structure contains several fields that are used to configure the resource limits of the builtin-topic DataReaders
+						used to receive discovery meta-traffic from other DomainParticipants -->
+					<!-- Note:  Meta-traffic refers to traffic internal to Connext related to dynamic discovery -->
+					<participant_reader_resource_limits>
+						<!-- set initial_instances = max_instances and initial_samples = max_samples if you do not want Connext to dynamically allocate memory after initialization -->
+						
+						<!-- Initial number of meta-data discovery samples that can be stored -->
+						<initial_samples>5</initial_samples>  <!-- Setting this and max samples to one will slow down the discovery process -->
+						<!-- Maximum number of meta-data discovery samples that can be stored -->
+						
+						<!-- TODO Took a swag here, that we have 4 topics, so want to be able to store 4 samples to allow for quick discovery -->
+						<max_samples>5</max_samples>
+						<initial_infos>5</initial_infos>
+						<max_infos>5</max_infos>
+						<initial_outstanding_reads>5</initial_outstanding_reads>
+						<max_outstanding_reads>5</max_outstanding_reads>
+					</participant_reader_resource_limits>
+					<publication_writer>
+						<heartbeats_per_max_samples>1</heartbeats_per_max_samples>
+					</publication_writer>
+					<subscription_writer>
+						<heartbeats_per_max_samples>1</heartbeats_per_max_samples>
+					</subscription_writer>
+				</discovery_config>
+				<property>
+					<value>
+						<!--
+                        Configure shared memory transport:
+                        -->
+						<element>
+							<!--
+                            Set the shared memory maximum message size to the
+                            same value that was set for UDP.  
+							
+							The size of the largest data packet that can be sent or received through the transport.
+							Receiver pool's buffer size should be set to at least the same value.
+                            -->
+							<name>dds.transport.shmem.builtin.parent.message_size_max</name>
+							<value>65536</value>
+							<!-- 64 KB -->
+						</element>
+						<element>
+							<!--
+                            Set the size of the shared memory transport's
+                            receive buffer to some large value.
+							
+							The total number of bytes that can be buffered in the receive queue.
+							The actual number of bytes allocated is:
+								size = receive_buffer_size + message_size_max + received_message_count_max * fixedOverhead
+							
+							To optimize memory usage, specify a receive queue size less than that required to hold the
+							maximum number of messages which are all of the maximum size.
+                            -->
+							<name>dds.transport.shmem.builtin.receive_buffer_size</name>
+							<!-- If all messages are of max size, and there are 10, then we would need 655360 bytes, but not all messages will be max size.
+								For now, take a portion of that.  -->
+							<value>262144</value>
+							<!-- 256 KB -->
+						</element>
+						<element>
+							<!--
+                            Set the maximum number of messages that the shared
+                            memory transport can cache while waiting for them
+                            to be read and deserialized.
+                            -->
+							<name>dds.transport.shmem.builtin.received_message_count_max</name>
+							<value>10</value>
+						</element>
+						<!-- Uncomment the following to enable resource monitoring of the RTI endpoints created with this profile.  -->
+						<!-- NOTE: When using monitoring if you have made modifications to either the ParticipantQos
+									resource_limits.type_code_max_serialized_length or any of the transport's default settings
+									to enable large type code or large data, refer to Section 3.3 of RTI_Monitoring_Library_GettingStarted.pdf
+									for additional QoS modifications that may be needed.
+
+						<element>
+							<name>rti.monitor.library</name>
+                            <value>rtimonitoring</value>
+                            <propagate>false</propagate>
+                        </element>
+                        <element>
+                            <name>rti.monitor.create_function</name>
+                            <value>RTIDefaultMonitor_create</value>
+                            <propagate>false</propagate>
+                        </element>		
+						-->
+					</value>
+				</property>
+			</participant_qos>
+			<!-- QoS used to configure the data writer created in the example code -->
+			<!-- The QoS policies probably should differ by data writer topic.  Waveforms would be different form numerics and events -->
+			<!-- Internally, each writer should not have more than 2 readers (ESP Data model and Bus Bridge) -->
+			<datawriter_qos>
+				<!-- determines whether or not data published by a DataWriter will be reliably delivered by Connext to matching DataReaders -->
+				<reliability>
+					<!--
+					Data sent is received and missed samples are resent.  
+					Note:  HISTORY and RESOURCE_LIMITS (max_samples_per_instance and max_samples) QosPolicies determine how many samples can be stored 
+					while waiting for acknowledgements from DataReaders
+					-->
+					<kind>RELIABLE_RELIABILITY_QOS</kind>
+					<!-- How long a DataWriter can block on a write() when the send queue is full due to unacknowledged messages. -->
+					<max_blocking_time>
+						<sec>1</sec>
+					</max_blocking_time>
+				</reliability>
+				<history>
+					<!-- On the internal ESP bus, there should be no late joiners post startup -->
+					<!-- We do want data to be delivered reliably, we can use the resource_limits to determine the actual maximum queue size -->
+					<kind>KEEP_LAST_HISTORY_QOS</kind>
+					<!--
+					DataWriter is allowed to have the HISTORY depth number of samples per instance of the Topic in the send queue. Should the number of 
+					unacknowledge samples in the send queue for a data-instance reach the HISTORY depth, then the next sample written by the DataWriter
+					for the instance will overwrite the oldest sample for the instance in the queue.
+					
+					In this scenario, it is possible that some data sent by the DataWriter will not be delivered to the Data Reader.  What 
+					is guaranteed is that if the DataWriter stops writing, the last N samples that the DataWriter wrote
+					will be delivered reliably
+					
+					The number of samples to keep, per instance.  When the limit as set by the depth parameter is reached; new data will overwrite the
+					oldest data in the queue. Thus the queue acts like a circular buffer of length depth.
+					
+					NOTE:  Instances are identified by having a unique key
+					
+					All of the samples of all instances of a Topic share a single physical queue that is allocated for a DataWriter or DataReader. 
+					The size of this queue is configured by the RESOURCE_LIMITS QosPolicy. If there are many difference instances for a Topic, 
+					it is possible that the physical queue may run out of space before the number of samples reaches the depth for all instances.
+					
+					In the ESP PoC, there should only be one instance for each topic, it would seem like the bus bridge is the application which may need to support
+					"many" instances.  TODO - confirm this.  Right now we are using one QoS, but we probably want different levels for the meta data and data data.
+					-->
+					<depth>5</depth>
+				</history>
+				<!-- Controls physical memory.  See Sample Memory Management.  Need to able to withstand bursty data.
+
+				set initial_instances = max_instances and initial_samples = max_samples if you do not want Connext to dynamically allocate memory after initialization.
+				-->
+				<resource_limits>
+					<!-- Maximum number of live samples that Connext can store for a DataWriter/DataReader. This is a physical limit.  -->
+					<max_samples>10</max_samples>
+					<!-- Initial number of samples that Connext will store for a DataWriter/DataReader. -->
+				 	<initial_samples>10</initial_samples>
+					<!-- If a keyed Topic is not used, then max_samples_per_instance must equal max_samples.  -->
+				 	<max_samples_per_instance>10</max_samples_per_instance>
+					<initial_instances>1</initial_instances>
+					<max_instances>1</max_instances>
+				</resource_limits>		
+				<durability>  
+					<!-- declares you are storing the samples in memory -->
+					<kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>				
+				</durability>
+			</datawriter_qos>
+			<!-- QoS used to configure the data reader created in the example code -->
+			<datareader_qos>
+				<reliability>
+					<kind>RELIABLE_RELIABILITY_QOS</kind>
+				</reliability>
+				<history>
+					<kind>KEEP_LAST_HISTORY_QOS</kind>
+					<depth>5</depth>
+				</history>
+				<durability>
+					<kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>				
+				</durability>
+				<resource_limits>
+					<max_samples>10</max_samples>
+					<initial_samples>10</initial_samples>
+					<max_samples_per_instance>10</max_samples_per_instance>
+					<initial_instances>1</initial_instances>
+					<max_instances>1</max_instances>
+				</resource_limits>
+			</datareader_qos>
+		</qos_profile>
+	</qos_library>
+</dds>

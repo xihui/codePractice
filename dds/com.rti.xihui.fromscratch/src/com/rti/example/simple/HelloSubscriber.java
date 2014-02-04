@@ -30,7 +30,7 @@ public class HelloSubscriber extends DataReaderAdapter {
     public static final void main(String[] args) {
         // Create the DDS Domain participant on domain ID 0
         DomainParticipant participant = DomainParticipantFactory.get_instance().create_participant(
-                0, // Domain ID = 0
+                21, // Domain ID = 0
                 DomainParticipantFactory.PARTICIPANT_QOS_DEFAULT, 
                 null, // listener
                 StatusKind.STATUS_MASK_NONE);

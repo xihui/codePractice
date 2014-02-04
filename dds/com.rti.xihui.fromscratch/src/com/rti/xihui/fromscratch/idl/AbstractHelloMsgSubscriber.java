@@ -41,12 +41,12 @@ public abstract class AbstractHelloMsgSubscriber extends
 	protected DomainParticipantQos configParticipantQoS() {
 		DomainParticipantQos participantQoS = super.configParticipantQoS();
 
-		participantQoS.discovery.multicast_receive_addresses.clear();
-		participantQoS.discovery.multicast_receive_addresses
-				.add("udpv4://239.255.0.2");
-
-		participantQoS.discovery.initial_peers.clear();
-		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.3");
+//		participantQoS.discovery.multicast_receive_addresses.clear();
+//		participantQoS.discovery.multicast_receive_addresses
+//				.add("udpv4://239.255.0.2");
+//
+//		participantQoS.discovery.initial_peers.clear();
+//		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.3");
 		return participantQoS;
 
 	}
@@ -55,9 +55,9 @@ public abstract class AbstractHelloMsgSubscriber extends
 		DataReaderQos dataReaderQos = new DataReaderQos();
 		subscriber.get_default_datareader_qos(dataReaderQos);
 		
-		dataReaderQos.subscription_name.name="datareader_name";
-		dataReaderQos.liveliness.kind = LivelinessQosPolicyKind.AUTOMATIC_LIVELINESS_QOS;
-		dataReaderQos.liveliness.lease_duration.sec =100;
+//		dataReaderQos.subscription_name.name="datareader_name";
+//		dataReaderQos.liveliness.kind = LivelinessQosPolicyKind.AUTOMATIC_LIVELINESS_QOS;
+//		dataReaderQos.liveliness.lease_duration.sec =100;
 		
 		
 		//Reliability
@@ -68,28 +68,30 @@ public abstract class AbstractHelloMsgSubscriber extends
 		dataReaderQos.history.depth = 3;
 
 		//Durability. This only work if reliability is RELIABLE.
-		dataReaderQos.durability.kind = DurabilityQosPolicyKind.TRANSIENT_LOCAL_DURABILITY_QOS;
+		dataReaderQos.durability.kind = DurabilityQosPolicyKind.PERSISTENT_DURABILITY_QOS;//TRANSIENT_LOCAL_DURABILITY_QOS;
 
+		
+		
 		//Resource Limit
 		dataReaderQos.resource_limits.max_samples = 20;
 		dataReaderQos.resource_limits.initial_samples = 20;
 
 		//enable UDPv4 transports
-		dataReaderQos.transport_selection.enabled_transports
-				.add(TransportBuiltinKind.UDPv4_ALIAS);
-
-		
-		//Use multicast transport
-		// This is also the default value, so not necessary to set it
-		// dataReaderQos.multicast.kind =
-		// TransportMulticastQosPolicyKind.AUTOMATIC_TRANSPORT_MULTICAST_QOS;
-		try {
-			TransportMulticastSettings_t settings = new TransportMulticastSettings_t();
-			settings.receive_address = InetAddress.getByName("239.255.0.2");
-			dataReaderQos.multicast.value.add(settings);
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		}
+//		dataReaderQos.transport_selection.enabled_transports
+//				.add(TransportBuiltinKind.UDPv4_ALIAS);
+//
+//		
+//		//Use multicast transport
+//		// This is also the default value, so not necessary to set it
+//		// dataReaderQos.multicast.kind =
+//		// TransportMulticastQosPolicyKind.AUTOMATIC_TRANSPORT_MULTICAST_QOS;
+//		try {
+//			TransportMulticastSettings_t settings = new TransportMulticastSettings_t();
+//			settings.receive_address = InetAddress.getByName("239.255.0.2");
+//			dataReaderQos.multicast.value.add(settings);
+//		} catch (UnknownHostException e) {
+//			e.printStackTrace();
+//		}
 
 		return dataReaderQos;
 	}
