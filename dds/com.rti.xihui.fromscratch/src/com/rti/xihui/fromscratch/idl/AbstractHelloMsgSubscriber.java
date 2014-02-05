@@ -68,7 +68,7 @@ public abstract class AbstractHelloMsgSubscriber extends
 		dataReaderQos.history.depth = 3;
 
 		//Durability. This only work if reliability is RELIABLE.
-		dataReaderQos.durability.kind = DurabilityQosPolicyKind.PERSISTENT_DURABILITY_QOS;//TRANSIENT_LOCAL_DURABILITY_QOS;
+//		dataReaderQos.durability.kind = DurabilityQosPolicyKind.PERSISTENT_DURABILITY_QOS;//TRANSIENT_LOCAL_DURABILITY_QOS;
 
 		
 		

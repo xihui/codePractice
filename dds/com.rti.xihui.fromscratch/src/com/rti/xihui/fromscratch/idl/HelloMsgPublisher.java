@@ -2,6 +2,9 @@ package com.rti.xihui.fromscratch.idl;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +24,7 @@ import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.infrastructure.TransportBuiltinKind;
 import com.rti.dds.publication.DataWriter;
 import com.rti.dds.publication.DataWriterAdapter;
+import com.rti.dds.publication.DataWriterCacheStatus;
 import com.rti.dds.publication.DataWriterQos;
 import com.rti.dds.publication.LivelinessLostStatus;
 import com.rti.dds.publication.OfferedDeadlineMissedStatus;
@@ -76,18 +80,23 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			
 			//History per instance
 			writerQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
-			writerQos.history.depth = 10;
+			writerQos.history.depth = 1024;
+			writerQos.protocol.rtps_reliable_writer.high_watermark = 512;
+//			writerQos.protocol.rtps_reliable_writer.heartbeat_period.sec=1;
+			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec=0;
+			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec=500000000;
+			
 
 			//Durability, only takes effect if reliability QoS is reliable
-			writerQos.durability.kind = DurabilityQosPolicyKind.PERSISTENT_DURABILITY_QOS;//TRANSIENT_LOCAL_DURABILITY_QOS;
+			writerQos.durability.kind = DurabilityQosPolicyKind.TRANSIENT_LOCAL_DURABILITY_QOS;
 
-			writerQos.durability_service.history_depth = 5;
-			writerQos.durability_service.history_kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
-			writerQos.durability_service.max_samples = 100;
+//			writerQos.durability_service.history_depth = 5;
+//			writerQos.durability_service.history_kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
+//			writerQos.durability_service.max_samples = 100;
 			
 			//resource limits per instance
-			writerQos.resource_limits.initial_samples = 20;
-			writerQos.resource_limits.max_samples = 200;
+//			writerQos.resource_limits.initial_samples = 20;
+//			writerQos.resource_limits.max_samples = 200;
 			
 			//The limit when it will switch to fast heartbeat
 			// writerQos.protocol.rtps_reliable_writer.high_watermark = 12;
@@ -143,7 +152,7 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 					if (isLive.get())
 						dataWriter.write(instance, instanceHandlesMap.get(instance));
 				}
-				System.out.println("write " + instance);
+//				System.out.println("write " + instance);
 
 			}
 
@@ -157,12 +166,12 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 	@Override
 	protected DomainParticipantQos configParticipantQoS() {
 		DomainParticipantQos participantQoS = super.configParticipantQoS();
-		participantQoS.discovery.initial_peers.clear();
-		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
-
-		participantQoS.discovery.multicast_receive_addresses.clear();
-		participantQoS.discovery.multicast_receive_addresses
-				.add("udpv4://239.255.0.3");
+//		participantQoS.discovery.initial_peers.clear();
+//		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
+//
+//		participantQoS.discovery.multicast_receive_addresses.clear();
+//		participantQoS.discovery.multicast_receive_addresses
+//				.add("udpv4://239.255.0.3");
 		return participantQoS;
 
 	}
@@ -195,11 +204,18 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			System.out.println("writer: on_liveliness_lost " + status);
 		}
 
+		DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss.SSS");
 		@Override
 		public void on_reliable_writer_cache_changed(DataWriter writer,
 				ReliableWriterCacheChangedStatus status) {
-			// System.out.println("writer: on_reliable_writer_cache_changed "
-			// + status);
+			if(status.unacknowledged_sample_count!=0){			
+			DataWriterCacheStatus status2 = new DataWriterCacheStatus();
+			writer.get_datawriter_cache_status(status2);
+				System.out.println(dateFormat.format(Calendar.getInstance().getTime()) +
+						" writer: on_reliable_writer_cache_changed " + "samples: " 
+						+ status2.sample_count + " "
+						+ status);
+			}
 		}
 
 		@Override
@@ -250,7 +266,8 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 		@Override
 		public void on_reliable_reader_activity_changed(DataWriter writer,
 				ReliableReaderActivityChangedStatus status) {
-			System.out.println("writer: on_reliable_reader_activity_changed "
+			System.out.println(dateFormat.format(Calendar.getInstance().getTime()) +
+					"writer: on_reliable_reader_activity_changed "
 					+ status);
 
 		}
