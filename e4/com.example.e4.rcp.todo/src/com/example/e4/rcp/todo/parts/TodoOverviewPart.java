@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import org.eclipse.e4.ui.di.Focus;
 import org.eclipse.swt.widgets.Composite;
 
-import com.example.e4.rcp.todo.service.TodoServiceFactory;
+import com.example.e4.rcp.todo.model.ITodoService;
 
 public class TodoOverviewPart {
 
@@ -19,11 +19,11 @@ public class TodoOverviewPart {
 
 	// This method is called after everything has been injected.
 	@PostConstruct
-	public void createControls(Composite parent) {
+	public void createControls(Composite parent, ITodoService todoService) {
 		System.out.println(this.getClass().getSimpleName()
 				+ " @PostContstruct method is called. parent = " + parent);
 		System.out.println("Number of Todo objects "
-				+ TodoServiceFactory.getInstance().getTodos().size());
+				+ todoService.getTodos().size());
 	}
 
 	@Focus
