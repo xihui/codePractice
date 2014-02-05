@@ -13,9 +13,9 @@ public class PlaygroundPart {
 	public PlaygroundPart() {
 		System.out.println("started");
 	}
-
+	
 	@PostConstruct
-	public void createControls(Composite parent, IBundleResourceLoader loader) {
+	public void createControls(Composite parent, IBundleResourceLoader loader){
 		Label label = new Label(parent, SWT.NONE);
 		label.setImage(loader.loadImage(this.getClass(), "images/photo.jpg"));
 	}
