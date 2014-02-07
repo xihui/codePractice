@@ -75,43 +75,8 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 			DataWriterQos writerQos = new DataWriterQos();
 			publisher.get_default_datawriter_qos(writerQos);
 			
-			//reliability
-			writerQos.reliability.kind = ReliabilityQosPolicyKind.RELIABLE_RELIABILITY_QOS;
-			
-			//History per instance
-			writerQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
-			writerQos.history.depth = 1024;
-			writerQos.protocol.rtps_reliable_writer.high_watermark = 512;
-//			writerQos.protocol.rtps_reliable_writer.heartbeat_period.sec=1;
-			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec=0;
-			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec=500000000;
-			
-
-			//Durability, only takes effect if reliability QoS is reliable
-			writerQos.durability.kind = DurabilityQosPolicyKind.TRANSIENT_LOCAL_DURABILITY_QOS;
-
-//			writerQos.durability_service.history_depth = 5;
-//			writerQos.durability_service.history_kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
-//			writerQos.durability_service.max_samples = 100;
-			
-			//resource limits per instance
-//			writerQos.resource_limits.initial_samples = 20;
-//			writerQos.resource_limits.max_samples = 200;
-			
-			//The limit when it will switch to fast heartbeat
-			// writerQos.protocol.rtps_reliable_writer.high_watermark = 12;
-			
-			//Fast heartbeat period, should not be too fast to flood the network
-//			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec = 5000000;
-//			writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec = 0;
-			
-			//Attach heart beat to every how many samples
-//			writerQos.protocol.rtps_reliable_writer.heartbeats_per_max_samples = 1;
-			
-			//enable udpv4 transports
-//			writerQos.transport_selection.enabled_transports
-//					.add(TransportBuiltinKind.UDPv4_ALIAS);
-			// writerQos.protocol.rtps_reliable_writer.heartbeat_period.
+			configureWriterQos(writerQos);
+	
 
 			dataWriter = (HelloMsgDataWriter) publisher
 					.create_datawriter(topic, writerQos,
@@ -166,14 +131,55 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 	@Override
 	protected DomainParticipantQos configParticipantQoS() {
 		DomainParticipantQos participantQoS = super.configParticipantQoS();
-//		participantQoS.discovery.initial_peers.clear();
-//		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
-//
-//		participantQoS.discovery.multicast_receive_addresses.clear();
-//		participantQoS.discovery.multicast_receive_addresses
-//				.add("udpv4://239.255.0.3");
+		qosDiscovery(participantQoS);
 		return participantQoS;
+	}
+	
+	protected void configureWriterQos(DataWriterQos writerQos){
+		
+	}
+	
+	protected void qosDurability(DataWriterQos writerQos){
+		//Durability, only takes effect if reliability QoS is reliable
+		writerQos.durability.kind = DurabilityQosPolicyKind.TRANSIENT_LOCAL_DURABILITY_QOS;
 
+//		writerQos.durability_service.history_depth = 5;
+//		writerQos.durability_service.history_kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
+//		writerQos.durability_service.max_samples = 100;
+	}
+	
+	protected void qosReliability(DataWriterQos writerQos){
+		//reliability
+		writerQos.reliability.kind = ReliabilityQosPolicyKind.RELIABLE_RELIABILITY_QOS;
+		
+		//History per instance
+		writerQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
+		writerQos.history.depth = 1024;
+		
+		//resource limits per instance
+//		writerQos.resource_limits.initial_samples = 20;
+//		writerQos.resource_limits.max_samples = 200;
+	}
+	
+	protected void qosHeartbeat(DataWriterQos writerQos){
+		//The limit when it will switch to fast heartbeat
+		 writerQos.protocol.rtps_reliable_writer.high_watermark = 12;
+		
+		//Fast heartbeat period, should not be too fast to flood the network
+		writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec = 5000000;
+		writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec = 0;
+		
+		//Attach heart beat to every how many samples
+		writerQos.protocol.rtps_reliable_writer.heartbeats_per_max_samples = 1;
+	}
+	
+	protected void qosDiscovery(DomainParticipantQos participantQoS){
+		participantQoS.discovery.initial_peers.clear();
+		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
+
+		participantQoS.discovery.multicast_receive_addresses.clear();
+		participantQoS.discovery.multicast_receive_addresses
+				.add("udpv4://239.255.0.3");
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.domain.DomainParticipantAdapter;
 import com.rti.dds.domain.DomainParticipantFactory;
 import com.rti.dds.domain.DomainParticipantQos;
+import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.publication.DataWriter;
 import com.rti.dds.publication.PublicationMatchedStatus;
@@ -44,32 +45,36 @@ public abstract class AbstractHelloMsgParticipant {
 		DomainParticipantQos participantQos = new DomainParticipantQos();
 		
 		DomainParticipantFactory.get_instance().get_default_participant_qos(
-				participantQos);
+				participantQos);		
+
+		participantQos.participant_name.name="HelloMsg_Participant";
 		
-//		participantQos.resource_limits.local_reader_allocation.initial_count=7;
-//		participantQos.resource_limits.local_reader_allocation.max_count=7;
-//		participantQos.resource_limits.local_reader_allocation.incremental_count=0;
-//		participantQos.discovery_config.subscription_writer.heartbeats_per_max_samples=1;
-//		participantQos.participant_name.name="HelloMsg_participant";
-////		
-//		participantQos.resource_limits.local_writer_allocation.initial_count=5;
-//		participantQos.resource_limits.local_writer_allocation.max_count=5;
-//		participantQos.resource_limits.local_writer_allocation.incremental_count=0;
-//		participantQos.discovery_config.publication_writer.heartbeats_per_max_samples=1;
-		
-		//available built-in transports to use Shared memory only
-//		participantQos.transport_builtin.mask = TransportBuiltinKind.SHMEM;
-		
-		
-		//TTL. this seems doesn't affect the communication between 10.10.xx and 10.30.xx
-//		participantQos.property.value.add(new Property_t("multicast_ttl", "3", true));
 
 		
-		//enable monitoring
-//		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
-//		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
+		
+		//qosEnableMonitoring(participantQos);
 		return participantQos;
 	}
+	
+	protected void qosEnableMonitoring(DomainParticipantQos participantQos){
+		participantQos.property.value.add(new Property_t("rti.monitor.library", "rtimonitoring", true));
+		participantQos.property.value.add(new Property_t("rti.monitor.create_function", "RTIDefaultMonitor_create", true));
+	}
+	
+	protected void qosLocalReaderAllocation(DomainParticipantQos participantQos){
+		participantQos.resource_limits.local_reader_allocation.initial_count=7;
+		participantQos.resource_limits.local_reader_allocation.max_count=7;
+		participantQos.resource_limits.local_reader_allocation.incremental_count=0;
+		participantQos.discovery_config.subscription_writer.heartbeats_per_max_samples=1;
+	}
+	
+	protected void qosLocalWriterAllocation(DomainParticipantQos participantQos){
+		participantQos.resource_limits.local_writer_allocation.initial_count=5;
+		participantQos.resource_limits.local_writer_allocation.max_count=5;
+		participantQos.resource_limits.local_writer_allocation.incremental_count=0;
+		participantQos.discovery_config.publication_writer.heartbeats_per_max_samples=1;
+	}
+
 
 	protected synchronized void dispose() {
 		isLive.set(false);
