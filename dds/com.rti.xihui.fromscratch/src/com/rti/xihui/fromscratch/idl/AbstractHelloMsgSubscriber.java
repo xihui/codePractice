@@ -37,19 +37,6 @@ public abstract class AbstractHelloMsgSubscriber extends
 
 	}
 
-	@Override
-	protected DomainParticipantQos configParticipantQoS() {
-		DomainParticipantQos participantQoS = super.configParticipantQoS();
-
-//		participantQoS.discovery.multicast_receive_addresses.clear();
-//		participantQoS.discovery.multicast_receive_addresses
-//				.add("udpv4://239.255.0.2");
-//
-//		participantQoS.discovery.initial_peers.clear();
-//		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.3");
-		return participantQoS;
-
-	}
 
 	protected DataReaderQos createDataReaderQos() {
 		DataReaderQos dataReaderQos = new DataReaderQos();
@@ -57,6 +44,9 @@ public abstract class AbstractHelloMsgSubscriber extends
 		
 		dataReaderQos.subscription_name.name="HelloMsg_DataReader";
 
+		qosEnableMulticastTransport(dataReaderQos);
+		qosReliabilityDemo(dataReaderQos);
+		
 		return dataReaderQos;
 	}
 	
@@ -74,7 +64,8 @@ public abstract class AbstractHelloMsgSubscriber extends
 	}
 	
 	protected void qosEnableMulticastTransport(DataReaderQos dataReaderQos){
-		//enable UDPv4 transports, not necessary, which is enabled by default
+		//enable only UDPv4 transports, not necessary, which is enabled by default
+		dataReaderQos.transport_selection.enabled_transports.clear();;
 		dataReaderQos.transport_selection.enabled_transports
 			.add(TransportBuiltinKind.UDPv4_ALIAS);
 
@@ -85,7 +76,7 @@ public abstract class AbstractHelloMsgSubscriber extends
 		// TransportMulticastQosPolicyKind.AUTOMATIC_TRANSPORT_MULTICAST_QOS;
 		try {
 			TransportMulticastSettings_t settings = new TransportMulticastSettings_t();
-			settings.receive_address = InetAddress.getByName("239.255.0.2");
+			settings.receive_address = InetAddress.getByName("239.255.0.6");
 			dataReaderQos.multicast.value.add(settings);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();

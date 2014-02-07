@@ -20,6 +20,7 @@ import com.rti.dds.infrastructure.InstanceHandle_t;
 import com.rti.dds.infrastructure.IntSeq;
 import com.rti.dds.infrastructure.Locator_t;
 import com.rti.dds.infrastructure.ReliabilityQosPolicyKind;
+import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.infrastructure.TransportBuiltinKind;
 import com.rti.dds.publication.DataWriter;
@@ -101,11 +102,10 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 
 			int i = 0;
 			while (isLive.get()) {
-				Thread.sleep(10);
-				if (paused){
-//					dataWriter.dispose(instances[0], instanceHandlesMap.get(instances[0]));
+				Thread.sleep(1000);
+				if (paused)
 					continue;
-				}
+				
 				
 				HelloMsg instance = instances[i % 2];
 
@@ -117,7 +117,7 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 					if (isLive.get())
 						dataWriter.write(instance, instanceHandlesMap.get(instance));
 				}
-//				System.out.println("write " + instance);
+				System.out.println("write " + instance);
 
 			}
 
@@ -128,15 +128,10 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 		}
 	}
 
-	@Override
-	protected DomainParticipantQos configParticipantQoS() {
-		DomainParticipantQos participantQoS = super.configParticipantQoS();
-		qosDiscovery(participantQoS);
-		return participantQoS;
-	}
+
 	
 	protected void configureWriterQos(DataWriterQos writerQos){
-		
+		qosHeartbeat(writerQos);
 	}
 	
 	protected void qosDurability(DataWriterQos writerQos){
@@ -162,25 +157,27 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 	}
 	
 	protected void qosHeartbeat(DataWriterQos writerQos){
-		//The limit when it will switch to fast heartbeat
-		 writerQos.protocol.rtps_reliable_writer.high_watermark = 12;
+		writerQos.reliability.kind = ReliabilityQosPolicyKind.RELIABLE_RELIABILITY_QOS;
+		writerQos.history.kind = HistoryQosPolicyKind.KEEP_ALL_HISTORY_QOS;
 		
+		//The limit when it will switch to fast heartbeat
+		 writerQos.protocol.rtps_reliable_writer.high_watermark = 6;
+		
+		 writerQos.protocol.rtps_reliable_writer.heartbeat_period.sec=5;
+		 writerQos.protocol.rtps_reliable_writer.heartbeat_period.nanosec=0;
+		 
 		//Fast heartbeat period, should not be too fast to flood the network
 		writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.nanosec = 5000000;
 		writerQos.protocol.rtps_reliable_writer.fast_heartbeat_period.sec = 0;
 		
 		//Attach heart beat to every how many samples
-		writerQos.protocol.rtps_reliable_writer.heartbeats_per_max_samples = 1;
+		writerQos.protocol.rtps_reliable_writer.heartbeats_per_max_samples = 10;
+		writerQos.resource_limits.initial_samples=10;
+		writerQos.resource_limits.max_samples=ResourceLimitsQosPolicy.LENGTH_UNLIMITED;
+		
 	}
 	
-	protected void qosDiscovery(DomainParticipantQos participantQoS){
-		participantQoS.discovery.initial_peers.clear();
-		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.2");
 
-		participantQoS.discovery.multicast_receive_addresses.clear();
-		participantQoS.discovery.multicast_receive_addresses
-				.add("udpv4://239.255.0.3");
-	}
 	
 	@Override
 	protected synchronized void dispose() {

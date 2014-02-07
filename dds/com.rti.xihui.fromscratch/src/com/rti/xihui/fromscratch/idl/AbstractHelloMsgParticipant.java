@@ -8,6 +8,7 @@ import com.rti.dds.domain.DomainParticipantFactory;
 import com.rti.dds.domain.DomainParticipantQos;
 import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.StatusKind;
+import com.rti.dds.infrastructure.TransportBuiltinKind;
 import com.rti.dds.publication.DataWriter;
 import com.rti.dds.publication.PublicationMatchedStatus;
 import com.rti.dds.subscription.DataReader;
@@ -49,10 +50,10 @@ public abstract class AbstractHelloMsgParticipant {
 
 		participantQos.participant_name.name="HelloMsg_Participant";
 		
+		qosDiscoveryUDPOnly(participantQos);
 
+		qosEnableMonitoring(participantQos);
 		
-		
-		//qosEnableMonitoring(participantQos);
 		return participantQos;
 	}
 	
@@ -75,6 +76,17 @@ public abstract class AbstractHelloMsgParticipant {
 		participantQos.discovery_config.publication_writer.heartbeats_per_max_samples=1;
 	}
 
+	
+	protected void qosDiscoveryUDPOnly(DomainParticipantQos participantQoS){
+		participantQoS.transport_builtin.mask = TransportBuiltinKind.UDPv4;
+		
+		participantQoS.discovery.initial_peers.clear();
+		participantQoS.discovery.initial_peers.add("udpv4://239.255.0.5");
+
+		participantQoS.discovery.multicast_receive_addresses.clear();
+		participantQoS.discovery.multicast_receive_addresses
+				.add("udpv4://239.255.0.5");
+	}
 
 	protected synchronized void dispose() {
 		isLive.set(false);
