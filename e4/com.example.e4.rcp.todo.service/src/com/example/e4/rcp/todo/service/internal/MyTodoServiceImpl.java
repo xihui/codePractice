@@ -18,11 +18,8 @@ public class MyTodoServiceImpl implements ITodoService {
 
 	private List<Todo> createInitialModel() {
 		List<Todo> list = new ArrayList<Todo>();
-		list.add(createTodo("Hello 1 ", "my work 1"));
-		list.add(createTodo("Hello 2", "my work 2"));
-		list.add(createTodo("Hello 3 ", "my work 3"));
-		list.add(createTodo("Hello 4", "my work 4"));
-		list.add(createTodo("Hello 5 ", "my work 5"));
+		for (int i = 0; i < 1000; i++)
+			list.add(createTodo("Hello " + i, ""));
 		return list;
 	}
 
@@ -66,11 +63,10 @@ public class MyTodoServiceImpl implements ITodoService {
 
 	@Override
 	public List<Todo> getTodos() {
-		List<Todo> list = new ArrayList<Todo>();
 		for (Todo todo : todos) {
-			list.add(todo.copy());
+			todo.setDescription("Hello" + Math.random());
 		}
-		return list;
+		return todos;
 	}
 
 	private Todo findById(long id) {

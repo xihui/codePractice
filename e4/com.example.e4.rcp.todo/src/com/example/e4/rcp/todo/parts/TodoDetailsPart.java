@@ -32,7 +32,27 @@ public class TodoDetailsPart {
 			@Optional @Named(IServiceConstants.ACTIVE_SELECTION) Todo todo) {
 		if (todo != null)
 			this.todo = todo;
-		// updateUserInterface(todo);
+		updateUserInterface(todo);
+	}
+
+	private void updateUserInterface(Todo todo) {
+		if (todo == null) {
+			enableUI(false);
+			return;
+		}
+		if (txtSummary != null && !txtSummary.isDisposed()) {
+			enableUI(true);
+			txtSummary.setText(todo.getSummary());
+		}
+	}
+
+	private void enableUI(boolean enabled){
+		if (txtSummary != null && !txtSummary.isDisposed()) {
+			txtSummary.setEnabled(enabled);
+			txtDescription.setEnabled(enabled);
+			dateTime.setEnabled(enabled);
+			btnDone.setEnabled(enabled);
+		}
 	}
 
 	@PostConstruct
