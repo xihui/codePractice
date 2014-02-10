@@ -70,7 +70,6 @@ public class TodoOverviewPart {
 
 			@Override
 			public void modifyText(ModifyEvent e) {
-				System.out.println("modify");
 				Text source = (Text)e.getSource();
 				searchString = source.getText();
 				viewer.refresh();
@@ -87,7 +86,7 @@ public class TodoOverviewPart {
 				}
 			}
 		});
-
+		// Virtual Table
 		// viewer = new TableViewer(parent, SWT.VIRTUAL | SWT.MULTI
 		// | SWT.FULL_SELECTION);
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.FULL_SELECTION);
@@ -124,7 +123,6 @@ public class TodoOverviewPart {
 			@Override
 			public boolean select(Viewer viewer, Object parentElement,
 					Object element) {
-				System.out.println("s");
 				if (element == null)
 					return true;
 				Todo todo = (Todo) element;
