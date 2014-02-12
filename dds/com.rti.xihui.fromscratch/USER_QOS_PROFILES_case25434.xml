@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!-- 
+-->
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="C:/Program Files (x86)/RTI/ndds.5.0.0/resource/qos_profiles_5.0.0/schema/rti_dds_qos_profiles.xsd"
+     version="5.0.0">
+  <!-- QoS Library containing the QoS profile for DX DDS.-->
+  <qos_library name="CP_Library">
+    <qos_profile is_default_qos="false" name="CP_Base_Profile" >
+      <!-- QoS used to configure the data writer. -->
+      <datawriter_qos>
+        <reliability>
+          <kind>RELIABLE_RELIABILITY_QOS</kind>
+          <max_blocking_time>
+            <sec>60</sec>
+          </max_blocking_time>
+        </reliability>
+        <history>
+          <kind>KEEP_ALL_HISTORY_QOS</kind>
+        </history>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+        </durability>
+        <protocol>
+          <rtps_reliable_writer>
+            <min_send_window_size>50</min_send_window_size>
+            <max_send_window_size>50</max_send_window_size>
+          </rtps_reliable_writer>
+        </protocol>
+      </datawriter_qos>
+
+      <!-- QoS used to configure the data reader. -->
+      <datareader_qos>
+        <reliability>
+          <kind>RELIABLE_RELIABILITY_QOS</kind>
+        </reliability>
+        <history>
+          <kind>KEEP_ALL_HISTORY_QOS</kind>
+        </history>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+        </durability>
+      </datareader_qos>
+
+      <participant_qos>
+        <participant_name>
+          <name>DDSParticipant</name>
+        </participant_name>
+      </participant_qos>
+    </qos_profile>
+
+    <qos_profile is_default_qos="false" name="CP_XPA_Interface"  base_name="CP_Base_Profile">
+      <!-- Current XPA testing tools work with just default QOS properties. -->
+
+      <!--participant_qos>
+        </participant_qos-->
+
+      <!--<participant_qos>
+        <receiver_pool>
+          <buffer_size>65530</buffer_size>
+        </receiver_pool>
+        <property>
+          <value>
+            <element>
+              <name>dds.transport.UDPv4.builtin.recv_socket_buffer_size</name>
+              <value>1048576</value>
+            </element>
+            <element>
+              <name>dds.transport.UDPv4.builtin.parent.message_size_max</name>
+              <value>65530</value>
+            </element>
+            <element>
+              <name>dds.transport.UDPv4.builtin.send_socket_buffer_size</name>
+              <value>65530</value>
+            </element>
+          </value>
+        </property>
+        <resource_limits>
+          <type_code_max_serialized_length>65530</type_code_max_serialized_length>
+          <type_object_max_serialized_length>65530</type_object_max_serialized_length>
+        </resource_limits>
+        <transport_builtin>
+          <mask>UDPv4</mask>
+        </transport_builtin>
+      </participant_qos>-->
+    </qos_profile>
+
+    <qos_profile is_default_qos="true" name="CP_LargeUDP"  base_name="CP_Base_Profile">
+      <participant_qos>
+        <receiver_pool>
+          <buffer_size>65530</buffer_size>
+        </receiver_pool>
+        <property>
+          <value>
+            <!--UDP/IP  Transport configuration  -->
+            <element>
+              <name>dds.transport.UDPv4.builtin.parent.message_size_max </name>
+              <value>65536</value>
+            </element>
+            <element>
+              <name>dds.transport.UDPv4.builtin.send_socket_buffer_size </name>
+              <value>1000000</value>
+            </element>
+            <element>
+              <name>dds.transport.UDPv4.builtin.recv_socket_buffer_size </name>
+              <value>2000000</value>
+            </element>
+            <element>
+              <name>dds.transport.UDPv4.builtin.parent.message_size_max </name>
+              <value>65536</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+    </qos_profile>
+
+    <qos_profile is_default_qos="true" name="CP_P2P_MainProfile" base_name="CP_LargeUDP"  >
+      <participant_qos>
+        <property>
+          <value>
+            <!-- Definition of the flow controller  See users' manual section 6.6 FlowControllers 
+                         This is only needed to send large data, exceeding 65KB, that must throttled at the sender side 
+                         -->
+            <element>
+              <name> dds.flow_controller.token_bucket.MyFlowController.scheduling_policy </name>
+              <value>DDS_RR_FLOW_CONTROLLER_SCHED_POLICY</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.MyFlowController. token_bucket.period.sec</name>
+              <value>0</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.MyFlowController. token_bucket.period.nanosec</name>
+              <value>10000000</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.MyFlowController. token_bucket.max_tokens</name>
+              <value>100</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.MyFlowController. token_bucket.tokens_added_per_period</name>
+              <value>40</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.MyFlowController. token_bucket.tokens_leaked_per_period</name>
+              <value>0</value>
+            </element>
+            <element>
+              <name>dds.flow_controller.token_bucket.MyFlowController. token_bucket.bytes_per_token</name>
+              <value>66000</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+      <datawriter_qos name="CP_DataWriterQos">
+        <!-- ASYNCHRONOUS_PUBLISH_MODE_QOS is only needed to send data that exceeds the maximum size the 
+                     transport can handle. In the case of UDP that would be 64KB
+                 -->
+        <publish_mode>
+          <kind>ASYNCHRONOUS_PUBLISH_MODE_QOS</kind>
+          <flow_controller_name>DEFAULT_FLOW_CONTROLLER_NAME</flow_controller_name>
+        </publish_mode>
+        <reliability>
+          <kind>RELIABLE_RELIABILITY_QOS</kind>
+        </reliability>
+        <history>
+          <kind>KEEP_ALL_HISTORY_QOS</kind>
+        </history>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+        </durability>
+      </datawriter_qos>
+
+      <!-- QoS used to configure the data reader -->
+      <datareader_qos  name="CP_DataReaderQos">
+        <reliability>
+          <kind>RELIABLE_RELIABILITY_QOS</kind>
+        </reliability>
+        <history>
+          <kind>KEEP_ALL_HISTORY_QOS</kind>
+        </history>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+        </durability>
+      </datareader_qos>
+    </qos_profile>
+  </qos_library>
+</dds>
+
