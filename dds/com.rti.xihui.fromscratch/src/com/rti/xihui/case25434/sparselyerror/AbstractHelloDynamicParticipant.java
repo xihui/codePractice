@@ -41,9 +41,9 @@ public class AbstractHelloDynamicParticipant {
 
 		properties = new DynamicDataTypeProperty_t();
 		properties.data.buffer_initial_size = 100;
-		properties.data.buffer_max_size   = HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE;
+		properties.data.buffer_max_size   = HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE*2;
 		properties.serialization.use_42e_compatible_alignment = false;
-		properties.serialization.max_size_serialized = HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE;
+		properties.serialization.max_size_serialized = HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE*2;
 		
 		DynamicDataTypeSupport typeSupport = new DynamicDataTypeSupport(
 				helloDynamicType, properties);
