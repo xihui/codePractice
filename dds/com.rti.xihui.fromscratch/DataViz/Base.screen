@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="2" x="88" y="56" width="985" height="545" text="Window" locked="true" measuredWidth="985" measuredHeight="545"/>
+  <widgets xsi:type="model:HLine" id="4" x="98" y="238" width="975" measuredWidth="975" measuredHeight="6"/>
+  <widgets xsi:type="model:WidgetGroup" id="58" x="112" y="85" measuredWidth="145" measuredHeight="110" link="HistoricalChart.screen">
+    <widgets xsi:type="model:Button" id="5" width="145" height="110" measuredWidth="145" measuredHeight="110">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Chart" id="1" x="24" y="11" width="97" height="88" measuredWidth="97" measuredHeight="88" chartType="line"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="8" x="448" y="85" width="145" height="110" measuredWidth="145" measuredHeight="110" link="DumpTable.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="10" x="616" y="85" measuredWidth="145" measuredHeight="110" link="LastValueCacheTable.screen">
+    <widgets xsi:type="model:Button" id="11" width="145" height="110" measuredWidth="145" measuredHeight="110">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Table" id="13" x="472" y="105" width="93" height="69" text="Name,Last\nName,=. Age v,(w:30). Kids,Likes,(align:center). Actions&#xA;Peter,Severin,37,[x],{computer},[Edit] [View]&#xA;Henri,Severin,(bg:lightGreen).7,[],{train},[Edit] [View]&#xA;Olga,Severin,62,[x],{note},[Edit] [View]&#xA;[-] You can even&#xA;  [+] Make a&#xA;  [+] Tree table" measuredWidth="93" measuredHeight="69" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="14" x="784" y="85" measuredWidth="145" measuredHeight="110" link="ScrollingDumpText.screen">
+    <widgets xsi:type="model:Button" id="15" width="145" height="110" measuredWidth="145" measuredHeight="110">
+      <font/>
+    </widgets>
+  </widgets>
+  <widgets xsi:type="model:Label" id="18" x="128" y="200" text="Historical Chart" measuredWidth="88" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="36" x="480" y="200" text="Dump Table" measuredWidth="71" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="37" x="816" y="552" text="OK" measuredWidth="36" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="38" x="880" y="552" text="Cancel" measuredWidth="56" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="39" x="634" y="200" text="Last Value Cache Table" measuredWidth="127" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Table" id="40" x="634" y="105" width="93" height="69" text="Name,Last\nName,=. Age v,(w:30). Kids,Likes,(align:center). Actions&#xA;Peter,Severin,37,[x],{computer},[Edit] [View]&#xA;Henri,Severin,(bg:lightGreen).7,[],{train},[Edit] [View]&#xA;Olga,Severin,62,[x],{note},[Edit] [View]&#xA;[-] You can even&#xA;  [+] Make a&#xA;  [+] Tree table" measuredWidth="93" measuredHeight="69" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="41" x="800" y="200" text="Scrolling Dump Text" measuredWidth="113" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:WidgetGroup" id="43" x="280" y="85" measuredWidth="145" measuredHeight="110" link="XYChart.screen">
+    <widgets xsi:type="model:Button" id="44" width="145" height="110" measuredWidth="145" measuredHeight="110">
+      <font/>
+    </widgets>
+    <widgets xsi:type="model:Chart" id="45" x="24" y="11" width="97" height="88" measuredWidth="97" measuredHeight="88" chartType="line"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="46" x="296" y="200" text="XY Chart" measuredWidth="52" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Icon" id="49" x="800" y="100" width="97" height="79" measuredWidth="97" measuredHeight="79" icon="text-align-left (custom)"/>
+  <widgets xsi:type="model:VScrollbar" id="50" x="888" y="97" height="86" measuredWidth="17" measuredHeight="86"/>
+  <widgets xsi:type="model:Button" id="60" x="935" y="85" width="128" height="110" measuredWidth="128" measuredHeight="110">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Chart" id="61" x="952" y="100" width="58" height="57" measuredWidth="58" measuredHeight="57" chartType="column"/>
+  <widgets xsi:type="model:HScrollbar" id="62" x="98" y="222" width="965" measuredWidth="965" measuredHeight="17"/>
+  <widgets xsi:type="model:Label" id="63" x="966" y="200" text="Bar/Pie Chart" measuredWidth="76" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Chart" id="64" x="992" y="126" width="58" height="57" measuredWidth="58" measuredHeight="57"/>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Table" id="1" x="184" y="72" width="625" height="449" text="Name, Type&#xA;  {empty-arrow-down}{indeterminate}Domain 0&#xA;        {indeterminate}Circle&#xA;        {indeterminate} Square&#xA;        {indeterminate} Triangle&#xA;            {indeterminate}ShapeType,ShapeTypeExtended&#xA;              {indeterminate} {base type},ShapeType&#xA;                {checked} color,string&lt;128>&#xA;                {checked} x,long&#xA;                {unchecked} y,long&#xA;                {unchecked} shapesize,long&#xA;            {checked}fillKind,ShapeFillKind&#xA;            {checked}angle,float&#xA; {empty-arrow-down}{indeterminate}Domain 2&#xA;        {indeterminate}Circle&#xA;        {indeterminate} Square&#xA;        {indeterminate} Triangle&#xA;            {indeterminate}ShapeType,ShapeTypeExtended&#xA;              {indeterminate} {base type},ShapeType&#xA;                {checked} color,string&lt;128>&#xA;                {checked} x,long&#xA;                {unchecked} y,long&#xA;                {unchecked} shapesize,long&#xA;            {checked}fillKind,ShapeFillKind&#xA;            {checked}angle,float" measuredWidth="625" measuredHeight="449" verticalScrollbar="true" alternative="#eeeeee">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

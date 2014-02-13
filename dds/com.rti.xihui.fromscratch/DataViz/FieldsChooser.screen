@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="2" x="112" y="32" width="761" height="561" text="Fields Chooser" measuredWidth="761" measuredHeight="561"/>
+  <widgets xsi:type="model:Button" id="6" x="664" y="550" text="OK" measuredWidth="36" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="7" x="728" y="550" text="Cancel" measuredWidth="56" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="8" x="112" y="624" text="For table, should we filter out previously chosen fields?" measuredWidth="305" measuredHeight="29" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="9" x="888" y="136" width="249" height="97" text="This chooser has a parameter that can set the maximum number of fields to be selected.&#xD;&#xA;" measuredWidth="249" measuredHeight="97" annotation="true" textAlignment="Left">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Master" id="10" x="176" y="72" measuredWidth="625" measuredHeight="449" dimmed="true">
+    <screen xsi:type="model:Screen" href="FieldsChooserWidget.screen#/"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

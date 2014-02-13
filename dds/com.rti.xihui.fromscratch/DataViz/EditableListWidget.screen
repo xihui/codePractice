@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:List" id="1" x="64" y="64" width="169" height="241" text="Item 1&#xD;&#xA;Item 2&#xD;&#xA;Item 3" measuredWidth="169" measuredHeight="241">
+    <font/>
+    <items x="0" y="2" width="169" height="21" text="Item 1"/>
+    <items x="0" y="23" width="169" height="21" text="Item 2"/>
+    <items x="0" y="44" width="169" height="21" text="Item 3"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="2" x="238" y="64" text="{add}" measuredWidth="36" measuredHeight="26">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="3" x="238" y="101" text="{arrow-up}" measuredWidth="36" measuredHeight="26">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="4" x="238" y="137" text="{arrow-down}" measuredWidth="36" measuredHeight="26">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="5" x="238" y="185" text="{delete}" measuredWidth="36" measuredHeight="26">
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

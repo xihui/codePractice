@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="1" x="104" y="64" measuredWidth="985" measuredHeight="545" dimmed="true">
+    <screen xsi:type="model:Screen" href="Base.screen#/"/>
+  </widgets>
+  <widgets xsi:type="model:List" id="3" x="118" y="306" width="169" height="241" text="$(field)&#xD;&#xA;Trace 2&#xD;&#xA;Trace 3&#xD;&#xA;sdfsdf" measuredWidth="169" measuredHeight="241">
+    <font/>
+    <items x="0" y="2" width="169" height="21" text="$(field)"/>
+    <items x="0" y="23" width="169" height="21" text="Trace 2"/>
+    <items x="0" y="44" width="169" height="21" text="Trace 3"/>
+    <items x="0" y="65" width="169" height="21" text="sdfsdf"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="4" x="118" y="274" text="Columns" measuredWidth="54" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="5" x="300" y="313" text="Add..." measuredWidth="51" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Group" id="6" x="404" y="296" width="665" height="267" text="Column Properties" measuredWidth="665" measuredHeight="267">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="7" x="532" y="322" width="233" text="Domain0/Square/Shape/..." measuredWidth="233" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="8" x="428" y="322" text="Field" measuredWidth="31" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="9" x="780" y="321" text="Select Field ..." measuredWidth="91" measuredHeight="25" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="10" x="428" y="362" text="Color" measuredWidth="35" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:ColorPicker" id="11" x="532" y="362" measuredWidth="33" measuredHeight="23"/>
+  <widgets xsi:type="model:Button" id="18" x="300" y="350" text="Delete" measuredWidth="53" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="19" x="328" y="245" text="Select one or multiple fields" measuredWidth="163" measuredHeight="29" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="20" x="328" y="275" width="42" height="32" measuredWidth="42" measuredHeight="32" annotation="true" direction="bottom"/>
+  <widgets xsi:type="model:Note" id="21" x="808" y="400" text="Only allow selecting one field" measuredWidth="172" measuredHeight="29" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="22" x="832" y="350" width="48" height="42" measuredWidth="48" measuredHeight="42" annotation="true"/>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

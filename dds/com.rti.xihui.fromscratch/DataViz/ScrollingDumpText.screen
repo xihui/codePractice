@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="1" x="104" y="64" measuredWidth="985" measuredHeight="545">
+    <screen xsi:type="model:Screen" href="Base.screen#/"/>
+  </widgets>
+  <widgets xsi:type="model:Hotspot" id="23" x="792" y="83" width="169" height="148" measuredWidth="169" measuredHeight="148"/>
+  <widgets xsi:type="model:Master" id="25" x="136" y="256" width="913" height="407" measuredWidth="913" measuredHeight="407" dimmed="true">
+    <screen xsi:type="model:Screen" href="FieldsChooserWidget.screen#/"/>
+    <overrides>
+      <widgets ref="1" x="18" y="-4" width="878" height="302"/>
+      <widgets ref="8" x="-14" y="359" width="427" height="18"/>
+      <widgets ref="9" x="479" y="335" width="349" height="65"/>
+    </overrides>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>

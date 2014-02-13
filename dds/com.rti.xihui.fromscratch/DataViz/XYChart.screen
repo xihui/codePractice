@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Master" id="52" x="90" y="56" measuredWidth="985" measuredHeight="545">
+    <screen xsi:type="model:Screen" href="Base.screen#/"/>
+  </widgets>
+  <widgets xsi:type="model:List" id="19" x="98" y="272" width="169" height="241" text="Trace Name 1&#xD;&#xA;Trace 2&#xD;&#xA;Trace 3" measuredWidth="169" measuredHeight="241">
+    <font/>
+    <items x="0" y="2" width="169" height="21" text="Trace Name 1"/>
+    <items x="0" y="23" width="169" height="21" text="Trace 2"/>
+    <items x="0" y="44" width="169" height="21" text="Trace 3"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="20" x="98" y="240" text="Traces" measuredWidth="40" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="21" x="280" y="279" text="Add..." measuredWidth="51" measuredHeight="25" link="FieldsChooser.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Group" id="22" x="384" y="262" width="665" height="267" text="Trace Properties" measuredWidth="665" measuredHeight="267">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="25" x="408" y="288" text="Field for X Axis" measuredWidth="83" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="27" x="408" y="368" text="Color" measuredWidth="35" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:ColorPicker" id="28" x="512" y="368" measuredWidth="33" measuredHeight="23"/>
+  <widgets xsi:type="model:Label" id="29" x="408" y="400" text="Buffer size (samples)" measuredWidth="114" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="30" x="521" y="400" width="233" text="100" measuredWidth="233" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="31" x="408" y="432" text="Time Range" measuredWidth="69" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="32" x="512" y="432" width="233" text="100" measuredWidth="233" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="33" x="408" y="472" text="Name" measuredWidth="38" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="34" x="512" y="472" width="233" text="100" measuredWidth="233" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="35" x="280" y="316" text="Delete" measuredWidth="53" measuredHeight="25">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Note" id="37" x="359" y="232" text="Select two fields" measuredWidth="102" measuredHeight="29" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="38" x="304" y="248" width="65" height="23" measuredWidth="65" measuredHeight="23" annotation="true" direction="bottom"/>
+  <widgets xsi:type="model:Note" id="39" x="1072" y="277" text="Only allow selecting one field" measuredWidth="172" measuredHeight="29" annotation="true">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="40" x="724" y="298" width="349" height="8" measuredWidth="349" measuredHeight="8" annotation="true"/>
+  <widgets xsi:type="model:Label" id="46" x="408" y="317" text="Field for Y Axis" measuredWidth="83" measuredHeight="23">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Arrow" id="48" x="724" y="298" width="357" height="34" measuredWidth="357" measuredHeight="34" annotation="true" direction="bottom"/>
+  <widgets xsi:type="model:Button" id="49" x="720" y="302" text="{curved-arrow-down} {curved-arrow-up}" measuredWidth="55" measuredHeight="26">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="50" x="496" y="289" width="216" text="Domain0/Square/Shape/..." measuredWidth="216" measuredHeight="25" link="FieldsChooser.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="51" x="496" y="320" width="216" text="Domain0/Square/Shape/..." measuredWidth="216" measuredHeight="25" link="FieldsChooser.screen">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Hotspot" id="55" x="272" y="75" width="161" height="148" measuredWidth="161" measuredHeight="148"/>
+  <hRuler/>
+  <vRuler/>
+  <font size="12px"/>
+</model:Screen>
