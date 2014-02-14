@@ -11,6 +11,7 @@ import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.infrastructure.WaitSet;
 import com.rti.dds.subscription.InstanceStateKind;
 import com.rti.dds.subscription.LivelinessChangedStatus;
+import com.rti.dds.subscription.QueryCondition;
 import com.rti.dds.subscription.ReadCondition;
 import com.rti.dds.subscription.SampleInfo;
 import com.rti.dds.subscription.SampleInfoSeq;
@@ -31,15 +32,17 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 				.create_datareader(topic, createDataReaderQos(), null,
 						StatusKind.STATUS_MASK_ALL);
 
+		//Don't use readCondition in simple cases, it uses more CPU than StatusCondition
 		ReadCondition readCondition = reader.create_readcondition(
-				SampleStateKind.NOT_READ_SAMPLE_STATE,
+				SampleStateKind.ANY_SAMPLE_STATE,
 				ViewStateKind.ANY_VIEW_STATE,
 				InstanceStateKind.ALIVE_INSTANCE_STATE);
+		
 
 		StatusCondition statusCondition = reader.get_statuscondition();
 
 		statusCondition
-				.set_enabled_statuses(StatusKind.STATUS_MASK_ALL & (~StatusKind.DATA_AVAILABLE_STATUS));
+				.set_enabled_statuses(StatusKind.STATUS_MASK_ALL);// & (~StatusKind.DATA_AVAILABLE_STATUS));
 //		StatusKind.SUBSCRIPTION_MATCHED_STATUS
 //						| StatusKind.LIVELINESS_CHANGED_STATUS
 //						|StatusKind.SAMPLE_LOST_STATUS
@@ -89,6 +92,40 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 							reader.get_sample_rejected_status(sampleRejectedStatus);
 							System.out.println("Sample Rejected:" + sampleRejectedStatus);
 						}
+						if((statusMask & StatusKind.DATA_AVAILABLE_STATUS)!=0){
+							System.out.println("data available");
+							try {
+								synchronized (this) {
+										reader.take(msgSeq, infoSeq,
+												ResourceLimitsQosPolicy.LENGTH_UNLIMITED,
+												SampleStateKind.ANY_SAMPLE_STATE,
+												ViewStateKind.ANY_VIEW_STATE,
+												InstanceStateKind.ANY_INSTANCE_STATE
+										);
+								}
+							
+								System.out.println("StatusCondition Received: ");
+								for (int j = 0; j < msgSeq.size(); j++) {								
+									SampleInfo info = (SampleInfo) infoSeq.get(j);
+									if (info.valid_data)
+										System.out.println(
+												(HelloMsg) msgSeq.get(j));
+									else
+										// 7.4.6.6 Valid Data Flag
+										System.out.println("Invalidate Data! "
+												+ info);
+								}
+								
+								Thread.sleep(100);
+							} catch (RETCODE_NO_DATA noData) {
+								System.out.println("No data.");
+							} catch (Exception e) {
+								e.printStackTrace();
+							} finally {
+								((HelloMsgDataReader) reader).return_loan(msgSeq,
+										infoSeq);
+							}
+						}
 					} else if (activeConditionSeq.get(i) == readCondition) {
 						try {
 							synchronized (this) {
@@ -97,7 +134,7 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 									readCondition);
 							}
 						
-							System.out.println("Received: ");
+							System.out.println("Read Condition Received: ");
 							for (int j = 0; j < msgSeq.size(); j++) {								
 								SampleInfo info = (SampleInfo) infoSeq.get(j);
 								if (info.valid_data)
