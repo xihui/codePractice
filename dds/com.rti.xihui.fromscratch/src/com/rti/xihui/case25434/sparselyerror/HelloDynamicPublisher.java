@@ -85,15 +85,15 @@ public class HelloDynamicPublisher extends AbstractHelloDynamicParticipant {
 //		instance.set_int(HelloDynamicWorldType.SAMPLE_ID_FIELD,
 //				DynamicData.MEMBER_ID_UNSPECIFIED, 11);
 		
-		byte[] payload2 = new byte[1];//(int) (HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE)];
-		for (int i = 0; i < payload2.length; i++) {
-			payload2[i] = (byte) ((Math.random() * 255 * i) % 0xff);
-		}
-		ByteSeq byteSeq = new ByteSeq(payload2);
-		instance.set_byte_seq(HelloDynamicWorldType.PAYLOAD_FIELD,
-				DynamicData.MEMBER_ID_UNSPECIFIED, byteSeq);
+//		byte[] payload2 = new byte[1];//(int) (HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE)];
+//		for (int i = 0; i < payload2.length; i++) {
+//			payload2[i] = (byte) ((Math.random() * 255 * i) % 0xff);
+//		}
+//		ByteSeq byteSeq = new ByteSeq(payload2);
+//		instance.set_byte_seq(HelloDynamicWorldType.PAYLOAD_FIELD,
+//				DynamicData.MEMBER_ID_UNSPECIFIED, byteSeq);
 		int counter = 0;
-		int lastLength =65535;
+		int lastLength =0;
 		while (isLive.get()) {
 			Thread.sleep(1000);
 			if (paused){			
@@ -108,21 +108,21 @@ public class HelloDynamicPublisher extends AbstractHelloDynamicParticipant {
 			
 //			instance = new DynamicData(helloDynamicType,
 //					properties.data);
-			byte[] payload = new byte[65528];
-			                          //(int) (HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE -counter*150000)];
+			byte[] payload = new byte[
+			                          (int) (HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE*Math.random())];
 			System.out.println("payload Length: " + payload.length);
-//			if(payload.length>65500){
-//				System.out.println("create new one");
-//				instance = new DynamicData(helloDynamicType,
-//				properties.data);
-//				lastLength = payload.length;
-//			}
+			if(payload.length != lastLength && payload.length>65500){
+				System.err.println("create new one");
+				instance = new DynamicData(helloDynamicType,
+				properties.data);
+			}
+			lastLength = payload.length;
 			
 			for (int i = 0; i < payload.length; i++) {
 				payload[i] = (byte) ((Math.random() * 255 * i) % 0xff);
 			}
-			byteSeq.clear();
-			byteSeq.addAllByte(payload);
+//			byteSeq.clear();
+//			byteSeq.addAllByte(payload);
 			instance.set_byte_seq(HelloDynamicWorldType.PAYLOAD_FIELD,
 					DynamicData.MEMBER_ID_UNSPECIFIED, new ByteSeq(payload));
 			try {
