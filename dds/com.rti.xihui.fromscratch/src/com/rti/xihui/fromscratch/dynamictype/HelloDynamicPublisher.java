@@ -87,12 +87,15 @@ public class HelloDynamicPublisher extends AbstractHelloDynamicParticipant {
 
 		int counter = 0;
 		while (isLive.get()) {
-			Thread.sleep(10);
+			Thread.sleep(1000);
 			if (paused){			
 				continue;
 			}
+			instance.set_int(HelloDynamicWorldType.SAMPLE_ID_FIELD,
+					DynamicData.MEMBER_ID_UNSPECIFIED, counter%10);
 			instance.set_string(HelloDynamicWorldType.NAME_FIELD,
 					DynamicData.MEMBER_ID_UNSPECIFIED, "Hello Dynamic Type! " + counter++);
+			instance.set_double(HelloDynamicWorldType.DOUBLE_FIELD, DynamicData.MEMBER_ID_UNSPECIFIED, Math.random()*100);
 			for (int i = 0; i < HelloDynamicWorldType.NUMBER_OF_FIELDS; i++) {
 				instance.set_string("field" + i,
 						DynamicData.MEMBER_ID_UNSPECIFIED, "Hello field" + i);

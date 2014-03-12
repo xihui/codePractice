@@ -15,7 +15,7 @@ public class HelloDynamicWorldType {
 	public static final String SAMPLE_ID_FIELD = "sampleId";
 	public static final String NAME_FIELD = "name";
 	public static final int HELLO_MAX_STRING_SIZE = 64;
-	public static final int HELLO_MAX_PAYLOAD_SIZE = 200000;
+	public static final int HELLO_MAX_PAYLOAD_SIZE = 10;
 
 	/**
 	 * Returns the name of the type

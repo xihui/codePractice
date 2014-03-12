@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<!-- 
+=============================================================================
+This file contains the definitions of QoS profiles used for communication 
+over RTI DDS between:
+- CP and ASIS
+- CP and CP
+=============================================================================
+-->
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="resource/qos_profiles_5.1.0/schema/rti_dds_qos_profiles.xsd"
+     version="5.1.0">
+  <!-- QoS Library containing the QoS profile for DX DDS.-->
+  <qos_library name="CP_Library">
+
+    <!-- 
+    ============================================================================= 
+    QoS base profile for RTI 5.1.0 
+    ============================================================================= 
+    -->
+    <qos_profile name="CP_BaseProfile_5_1_0" is_default_qos="false" base_name="BuiltinQosLibExp::Generic.StrictReliable.LargeData.FastFlow" >
+      <!-- QoS used to configure the participant. -->
+      <participant_qos>
+        <participant_name>
+          <name>CP_BaseProfile_5_1_0</name>
+        </participant_name>
+        <transport_builtin>
+          <mask>UDPv4</mask>
+        </transport_builtin>
+        <receiver_pool>
+          <buffer_size>65530</buffer_size>
+        </receiver_pool>
+        <resource_limits>
+          <type_code_max_serialized_length>65530</type_code_max_serialized_length>
+          <type_object_max_serialized_length>65530</type_object_max_serialized_length>
+        </resource_limits>
+        <property>
+          <value>
+            <element>
+              <name>dds.transport.UDPv4.builtin.parent.message_size_max </name>
+              <value>65530</value>
+            </element>
+            <element>
+              <name>dds.transport.UDPv4.builtin.send_socket_buffer_size </name>
+              <value>1000000</value>
+            </element>
+            <element>
+              <name>dds.transport.UDPv4.builtin.recv_socket_buffer_size </name>
+              <value>2000000</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+
+      <!-- QoS used to configure the data reader. -->
+      <datareader_qos >
+        <subscription_name>
+          <name>CP_BaseDataReader_5_1_0</name>
+        </subscription_name>
+        <reliability>
+          <max_blocking_time>
+            <sec>1</sec>
+            <nanosec>0</nanosec>
+          </max_blocking_time>
+        </reliability>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+        </durability>
+        <liveliness>
+          <kind>AUTOMATIC_LIVELINESS_QOS</kind>
+          <lease_duration>
+            <sec>1</sec>
+            <nanosec>500000000</nanosec>
+          </lease_duration>
+        </liveliness>
+        <protocol>
+          <rtps_reliable_writer>
+            <min_send_window_size>50</min_send_window_size>
+            <max_send_window_size>50</max_send_window_size>
+          </rtps_reliable_writer>
+        </protocol>
+      </datareader_qos>
+
+      <!-- QoS used to configure the data writer. -->
+      <datawriter_qos >
+        <publication_name>
+          <name>CP_BaseDataWriter_5_1_0</name>
+        </publication_name>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+        </durability>
+        <liveliness>
+          <kind>AUTOMATIC_LIVELINESS_QOS</kind>
+          <lease_duration>
+            <sec>1</sec>
+            <nanosec>500000000</nanosec>
+          </lease_duration>
+        </liveliness>
+      </datawriter_qos>
+
+    </qos_profile>
+
+    <!-- 
+    ============================================================================= 
+    CP_P2P_Dyn QoS profile for DynamicData
+    ============================================================================= 
+    -->
+    <qos_profile name="CP_P2P_Dyn" is_default_qos="false" base_name="CP_BaseProfile_5_1_0" >
+      <!-- QoS used to configure the participant. -->
+      <participant_qos>
+        <participant_name>
+          <name>CP_P2P_Dyn</name>
+        </participant_name>
+      </participant_qos>
+
+      <!-- QoS used to configure the data reader -->
+      <datareader_qos>
+        <subscription_name>
+          <name>CP_P2P_Dyn_DataReader</name>
+        </subscription_name>
+      </datareader_qos>
+
+      <!-- QoS used to configure the data writer. -->
+      <datawriter_qos>
+        <publication_name>
+          <name>CP_P2P_Dyn_DataWriter</name>
+        </publication_name>
+      </datawriter_qos>
+
+    </qos_profile>
+
+    <!-- 
+    ============================================================================= 
+    CP_P2P_Bytes QoS profile for built-in bytes
+    ============================================================================= 
+    -->
+    <qos_profile name="CP_P2P_Bytes" is_default_qos="true" base_name="CP_BaseProfile_5_1_0" >
+      <!-- QoS used to configure the participant. -->
+      <participant_qos>
+        <participant_name>
+          <name>CP_P2P_Bytes</name>
+        </participant_name>
+       <property>
+          <value>
+            <element>
+              <name>dds.builtin_type.octets.max_size</name>
+              <value>100000</value>
+            </element>
+            <element>
+              <name>dds.builtin_type.octets.alloc_size</name>
+              <value>100000</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+
+      <!-- QoS used to configure the data reader -->
+      <datareader_qos>
+        <subscription_name>
+          <name>CP_P2P_Bytes_DataReader</name>
+        </subscription_name>
+      </datareader_qos>
+
+      <!-- QoS used to configure the data writer. -->
+      <datawriter_qos>
+        <publication_name>
+          <name>CP_P2P_Bytes_DataWriter</name>
+        </publication_name>
+      </datawriter_qos>
+    </qos_profile>
+
+    <!-- 
+    ============================================================================= 
+    CP_P2P_Dyn_Mon QoS profile for DynamicDate with Monitor ON (for debug only)
+    ============================================================================= 
+    -->
+    <qos_profile name="CP_P2P_Dyn_Mon" is_default_qos="false" base_name="CP_P2P_Dyn" >
+      <!-- QoS used to configure the participant. -->
+      <participant_qos base_name="BuiltinQosLib::Generic.Monitoring.Common">
+        <participant_name>
+          <name>CP_P2P_Dyn_Mon</name>
+        </participant_name>
+        <property>
+          <value>
+            <element>
+              <name>rti.monitor.library</name>
+              <value>rtimonitoring</value>
+            </element>
+            <element>
+              <name>rti.monitor.create_function</name>
+              <value>RTIDefaultMonitor_create</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+
+      <!-- QoS used to configure the data reader -->
+      <datareader_qos>
+        <subscription_name>
+          <name>CP_P2P_Dyn_Mon_DataReader</name>
+        </subscription_name>
+      </datareader_qos>
+
+      <!-- QoS used to configure the data writer. -->
+      <datawriter_qos>
+        <publication_name>
+          <name>CP_P2P_Dyn_Mon_DataWriter</name>
+        </publication_name>
+      </datawriter_qos>
+    </qos_profile>
+
+    <!-- 
+    ============================================================================= 
+    CP_P2P_Bytes_Mon QoS profile for built-in bytes with Monitor ON (for debug only)
+    ============================================================================= 
+    -->
+    <qos_profile name="CP_P2P_Bytes_Mon" is_default_qos="false" base_name="CP_P2P_Bytes" >
+      <!-- QoS used to configure the participant. -->
+      <participant_qos base_name="BuiltinQosLib::Generic.Monitoring.Common">
+        <participant_name>
+          <name>CP_P2P_Bytes_Mon</name>
+        </participant_name>
+        <property>
+          <value>
+            <element>
+              <name>rti.monitor.library</name>
+              <value>rtimonitoring</value>
+            </element>
+            <element>
+              <name>rti.monitor.create_function</name>
+              <value>RTIDefaultMonitor_create</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+    </qos_profile>
+
+    <!-- QoS used to configure the data reader -->
+    <datareader_qos>
+      <subscription_name>
+        <name>CP_P2P_Bytes_Mon_DataReader</name>
+      </subscription_name>
+    </datareader_qos>
+
+    <!-- QoS used to configure the data writer. -->
+    <datawriter_qos>
+      <publication_name>
+        <name>CP_P2P_Bytes_Mon_DataWriter</name>
+      </publication_name>
+    </datawriter_qos>
+  </qos_library>
+</dds>
+

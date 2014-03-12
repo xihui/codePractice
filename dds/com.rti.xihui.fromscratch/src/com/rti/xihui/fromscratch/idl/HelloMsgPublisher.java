@@ -110,12 +110,13 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 				HelloMsg instance = instances[i % 2];
 
 				instance.msg = "hello " + i++;
-				instance.mySeq = new IntSeq(new int[] {
+				instance.mySeq = 
+						new IntSeq(new int[] {
 						(int) (Math.random() * 100), 12, 23, 34, 45, 456,
 						(int) (Math.random() * 100) });
 				synchronized (HelloMsgPublisher.this) {
 					if (isLive.get())
-						dataWriter.write(instance, instanceHandlesMap.get(instance));
+						dataWriter.write(instance, InstanceHandle_t.HANDLE_NIL);
 				}
 				System.out.println("write " + instance);
 
@@ -131,7 +132,7 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 
 	
 	protected void configureWriterQos(DataWriterQos writerQos){
-		qosHeartbeat(writerQos);
+//		qosHeartbeat(writerQos);
 	}
 	
 	protected void qosDurability(DataWriterQos writerQos){

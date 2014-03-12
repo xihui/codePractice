@@ -55,13 +55,13 @@ public class AbstractHelloDynamicParticipant {
 		DomainParticipantFactory.get_instance().get_default_participant_qos(
 				participantQos);
 		
-		participantQos.resource_limits.type_code_max_serialized_length=0;
-		participantQos.resource_limits.type_object_max_serialized_length=20000;
+//		participantQos.resource_limits.type_code_max_serialized_length=0;
+//		participantQos.resource_limits.type_object_max_serialized_length=20000;
+////		
+//		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.recv_socket_buffer_size", "65500", true));
 //		
-		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.recv_socket_buffer_size", "65530", true));
-		
-		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.parent.message_size_max", "65530", true));
-		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.send_socket_buffer_size", "65530", true));
+//		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.parent.message_size_max", "6500", true));
+//		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.send_socket_buffer_size", "65500", true));
 		return participantQos;
 	}
 

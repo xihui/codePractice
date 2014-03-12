@@ -95,7 +95,7 @@ public class HelloDynamicPublisher extends AbstractHelloDynamicParticipant {
 		int counter = 0;
 		int lastLength =0;
 		while (isLive.get()) {
-			Thread.sleep(1000);
+			Thread.sleep(500);
 			if (paused){			
 				continue;
 			}
@@ -108,8 +108,7 @@ public class HelloDynamicPublisher extends AbstractHelloDynamicParticipant {
 			
 //			instance = new DynamicData(helloDynamicType,
 //					properties.data);
-			byte[] payload = new byte[
-			                          (int) (HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE*Math.random())];
+			byte[] payload = new byte[(int) (HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE)];
 			System.out.println("payload Length: " + payload.length);
 			if(payload.length != lastLength && payload.length>65500){
 				System.err.println("create new one");

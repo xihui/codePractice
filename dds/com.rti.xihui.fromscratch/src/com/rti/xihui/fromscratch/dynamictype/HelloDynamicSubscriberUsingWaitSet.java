@@ -1,5 +1,7 @@
 package com.rti.xihui.fromscratch.dynamictype;
 
+import java.util.Arrays;
+
 import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.dynamicdata.DynamicData;
 import com.rti.dds.dynamicdata.DynamicDataReader;
@@ -16,6 +18,7 @@ import com.rti.dds.infrastructure.ReliabilityQosPolicyKind;
 import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
 import com.rti.dds.infrastructure.StatusCondition;
 import com.rti.dds.infrastructure.StatusKind;
+import com.rti.dds.infrastructure.StringSeq;
 import com.rti.dds.infrastructure.WaitSet;
 import com.rti.dds.subscription.DataReaderQos;
 import com.rti.dds.subscription.InstanceStateKind;
@@ -29,12 +32,15 @@ import com.rti.dds.subscription.SampleStateKind;
 import com.rti.dds.subscription.Subscriber;
 import com.rti.dds.subscription.SubscriptionMatchedStatus;
 import com.rti.dds.subscription.ViewStateKind;
+import com.rti.dds.topic.ContentFilteredTopic;
 import com.rti.xihui.fromscratch.ui.SimpleGUI;
 
 public class HelloDynamicSubscriberUsingWaitSet extends
 		AbstractHelloDynamicParticipant {
 
 	private GuardCondition guardCondition;
+	private ContentFilteredTopic contentFilteredTopic;
+	private long counter = 0;
 
 	public HelloDynamicSubscriberUsingWaitSet() {
 		SimpleGUI.createGUI("Dynamic Subscriber", new Runnable() {
@@ -49,6 +55,10 @@ public class HelloDynamicSubscriberUsingWaitSet extends
 				DomainParticipant.SUBSCRIBER_QOS_DEFAULT, null,
 				StatusKind.STATUS_MASK_NONE);
 
+		contentFilteredTopic = participant
+				.create_contentfilteredtopic("content filtered topic", topic,
+						"doubleField>%0", new StringSeq(Arrays.asList("80")));
+		
 		DataReaderQos dataReaderQos = new DataReaderQos();
 		subscriber.get_default_datareader_qos(dataReaderQos);
 
@@ -58,7 +68,7 @@ public class HelloDynamicSubscriberUsingWaitSet extends
 //		dataReaderQos.resource_limits.max_samples = 5;
 //		dataReaderQos.resource_limits.initial_samples=5;
 		DynamicDataReader reader = (DynamicDataReader) subscriber
-				.create_datareader(topic, dataReaderQos, null,
+				.create_datareader(contentFilteredTopic, dataReaderQos, null,
 						StatusKind.STATUS_MASK_ALL);
 
 		ReadCondition readCondition = reader.create_readcondition(
@@ -88,6 +98,10 @@ public class HelloDynamicSubscriberUsingWaitSet extends
 		while (isLive.get()) {
 
 			try {
+				if(counter++>200){
+					contentFilteredTopic.set_expression_parameters(
+							new StringSeq(Arrays.asList("95")));
+				}
 				ConditionSeq activeConditionSeq = new ConditionSeq();
 
 				waitSet.wait(activeConditionSeq, timeout);
@@ -127,7 +141,7 @@ public class HelloDynamicSubscriberUsingWaitSet extends
 									SampleStateKind.ANY_SAMPLE_STATE,
 									ViewStateKind.ANY_VIEW_STATE,
 									InstanceStateKind.ANY_INSTANCE_STATE);
-							System.out.println("Received: ");
+							System.out.println("Received: " + counter);
 							for (int j = 0; j < msgSeq.size(); j++) {
 								SampleInfo info = (SampleInfo) infoSeq.get(j);
 								if (info.valid_data) {
@@ -143,6 +157,11 @@ public class HelloDynamicSubscriberUsingWaitSet extends
 													+ data.get_string(
 															HelloDynamicWorldType.NAME_FIELD,
 															DynamicData.MEMBER_ID_UNSPECIFIED));
+									System.out
+									.println("\tdoubleField: "
+											+ data.get_double(
+													HelloDynamicWorldType.DOUBLE_FIELD,
+													DynamicData.MEMBER_ID_UNSPECIFIED));
 									ByteSeq payload = new ByteSeq(
 											HelloDynamicWorldType.HELLO_MAX_PAYLOAD_SIZE);
 									data.get_byte_seq(

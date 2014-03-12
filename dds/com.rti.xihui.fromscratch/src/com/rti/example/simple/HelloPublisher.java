@@ -14,9 +14,12 @@ import java.io.InputStreamReader;
 
 import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.domain.DomainParticipantFactory;
+import com.rti.dds.domain.DomainParticipantQos;
 import com.rti.dds.infrastructure.InstanceHandle_t;
+import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.RETCODE_ERROR;
 import com.rti.dds.infrastructure.StatusKind;
+import com.rti.dds.infrastructure.TransportBuiltinKind;
 import com.rti.dds.publication.Publisher;
 import com.rti.dds.topic.Topic;
 import com.rti.dds.type.builtin.StringDataWriter;
@@ -26,9 +29,18 @@ import com.rti.dds.type.builtin.StringTypeSupport;
 public class HelloPublisher {
     public static final void main(String[] args) {
         // Create the DDS Domain participant on domain ID 0
+    	
+    	DomainParticipantQos participantQoS = new DomainParticipantQos();
+		DomainParticipantFactory.get_instance().get_default_participant_qos(participantQoS);
+//		participantQoS.transport_builtin.mask=TransportBuiltinKind.UDPv4;
+//		participantQoS.discovery.initial_peers.clear();
+//		participantQoS.discovery.multicast_receive_addresses.clear();
+//		participantQoS.property.value.add(new Property_t("dds.transport.UDPv4.builtin.multicast_enabled", "0", false));
+
+    	
         DomainParticipant participant = DomainParticipantFactory.get_instance().create_participant(
                 21, // Domain ID = 0
-                DomainParticipantFactory.PARTICIPANT_QOS_DEFAULT, 
+               participantQoS, 
                 null, // listener
                 StatusKind.STATUS_MASK_NONE);
         if (participant == null) {

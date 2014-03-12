@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="file://C:/Program Files (x86)/RTI/ndds.5.1.0/resource/qos_profiles_5.1.0/schema/rti_dds_qos_profiles.xsd"
+     version="5.1.0">
+  <qos_library name="TBMS-DDS">
+    <qos_profile name="DDSReaderWriter" is_default_qos="false">
+      <participant_qos>
+        <transport_builtin>
+          <mask>UDPv4</mask>
+        </transport_builtin>
+        <property>
+          <value>
+            <element>
+              <name>dds.builtin_type.octets.max_size</name>
+              <value>10000000</value>
+            </element>
+            <element>
+              <name>dds.builtin_type.octets.alloc_size</name>
+              <value>10000000</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+ 
+      <!-- QoS used to configure the data reader. -->
+      <datareader_qos >
+        <reliability>
+          <kind>RELIABLE_RELIABILITY_QOS</kind>
+          <max_blocking_time>
+            <sec>60</sec>
+            <nanosec>0</nanosec>
+          </max_blocking_time>
+        </reliability>
+        <history>
+          <kind>KEEP_ALL_HISTORY_QOS</kind>
+        </history>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+          <!--direct_communication>true</direct_communication>-->
+        </durability>
+        <liveliness>
+          <kind>AUTOMATIC_LIVELINESS_QOS</kind>
+          <lease_duration>
+            <sec>1</sec>
+            <nanosec>500000000</nanosec>
+          </lease_duration>
+        </liveliness>
+        <resource_limits>
+          <max_samples>100</max_samples>
+        </resource_limits>
+      </datareader_qos>
+ 
+      <!-- QoS used to configure the data writer. -->
+      <datawriter_qos >
+        <reliability>
+          <kind>RELIABLE_RELIABILITY_QOS</kind>
+        </reliability>
+        <durability>
+          <kind>TRANSIENT_LOCAL_DURABILITY_QOS</kind>
+          <!--direct_communication>true</direct_communication>-->
+        </durability>
+        <history>
+          <kind>KEEP_ALL_HISTORY_QOS</kind>
+        </history>
+        <liveliness>
+          <kind>AUTOMATIC_LIVELINESS_QOS</kind>
+          <lease_duration>
+            <sec>1</sec>
+            <nanosec>500000000</nanosec>
+          </lease_duration>
+        </liveliness>
+        <resource_limits>
+          <max_samples>100</max_samples>
+        </resource_limits>
+      </datawriter_qos>
+    </qos_profile>
+  </qos_library>
+</dds>

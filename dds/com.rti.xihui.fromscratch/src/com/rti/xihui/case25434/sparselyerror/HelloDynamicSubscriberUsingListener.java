@@ -100,7 +100,7 @@ public class HelloDynamicSubscriberUsingListener extends
 							payload,
 							HelloDynamicWorldType.PAYLOAD_FIELD,
 							DynamicData.MEMBER_ID_UNSPECIFIED);
-					System.out.println("\tpayload: " + payload.size() + " max: " + payload.getMaximum());
+					System.out.println("\tpayload: " + payload.size() );//+ " max: " + payload.getMaximum());
 
 					System.out.println((DynamicData) msgSeq
 							.get(j));

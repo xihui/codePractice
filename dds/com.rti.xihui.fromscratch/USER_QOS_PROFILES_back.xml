@@ -39,13 +39,24 @@ your installation:
     <qos_library name="DefaultLibrary">
         <qos_profile name="Reliable" is_default_qos="true">
         
-        
+        	<participant_factory_qos>
+        		<logging>
+        		<verbosity>ALL</verbosity>
+        		<category>ENTITIES</category>
+        		<print_format>MAXIMAL</print_format>
+        		<output_file>debug.txt</output_file>
+        		</logging>
+        		
+        	
+        	</participant_factory_qos>
+        	<participant_qos>
+        	<transport_builtin><mask></mask></transport_builtin></participant_qos>
             <datareader_qos>
                 <reliability>
                     <!--
                     Enable reliability.
                     -->
-                    <kind>RELIABLE_RELIABILITY_QOS</kind>
+                    <kind>RELIABLE_RELIABILITY_QOSd</kind>
                 </reliability>
                 
                 <history>
@@ -84,7 +95,7 @@ your installation:
                         a range here.
                         -->
                         <min_heartbeat_response_delay>
-                            <sec>0</sec>
+                            <sec>hello</sec>
                             <nanosec>0</nanosec>
                         </min_heartbeat_response_delay>
                         <max_heartbeat_response_delay>
@@ -101,7 +112,7 @@ your installation:
                     Enable reliability.
                     The writer maximum blocking time is 5 seconds.
                     -->
-                    <kind>RELIABLE_RELIABILITY_QOS</kind>
+                    <kind>RELdIABLE_RELIABILITY_QOS</kind>
                     <max_blocking_time>
                         <sec>5</sec>
                         <nanosec>0</nanosec>
@@ -267,7 +278,7 @@ your installation:
                 <type_code_max_serialized_length>8096</type_code_max_serialized_length>
                 </resource_limits>
                 <discovery>
-                	<initial_peers>
+                	<initial_peers><element></element>
                 	udpv4://239.255.0.1,udpv4://localhost,udpv4://10.30.1.164,shmem://
                 	</initial_peers>
                 	<multicast_receive_addresses>

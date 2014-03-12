@@ -32,6 +32,16 @@ RTI Data Distribution Service user manual.
 
              A QoS profile groups a set of related QoS.
         -->
+            <participant_factory_qos>
+        		<logging>
+        		<verbosity>ALL</verbosity>
+        		<category>ENTITIES</category>
+        		<print_format>DEFAULT</print_format>
+        		<output_file>debug.txt</output_file>
+        		</logging>
+        		
+        	
+        	</participant_factory_qos>
         <qos_profile name="foo_Profile" base_name="BuiltinQosLibExp::Generic.StrictReliable" is_default_qos="true">
 		 
         </qos_profile>

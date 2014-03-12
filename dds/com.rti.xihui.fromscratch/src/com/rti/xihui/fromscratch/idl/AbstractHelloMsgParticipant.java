@@ -6,6 +6,7 @@ import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.domain.DomainParticipantAdapter;
 import com.rti.dds.domain.DomainParticipantFactory;
 import com.rti.dds.domain.DomainParticipantQos;
+import com.rti.dds.infrastructure.PropertyQosPolicyHelper;
 import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.infrastructure.TransportBuiltinKind;
@@ -14,6 +15,7 @@ import com.rti.dds.publication.PublicationMatchedStatus;
 import com.rti.dds.subscription.DataReader;
 import com.rti.dds.subscription.Subscriber;
 import com.rti.dds.topic.Topic;
+import com.rti.ndds.config.Version;
 
 public abstract class AbstractHelloMsgParticipant {
 	protected static final int DOMAIN_ID = 21;
@@ -24,7 +26,8 @@ public abstract class AbstractHelloMsgParticipant {
 		
 		DomainParticipantQos participantQos = configParticipantQoS();
 		
-		
+		Property_t targetProperty = PropertyQosPolicyHelper.lookup_property(participantQos.property, "dds.sys_info.target");
+		System.out.println("Target Arch:" + targetProperty.value);
 		
 		participant = DomainParticipantFactory.get_instance()
 				.create_participant(AbstractHelloMsgParticipant.DOMAIN_ID,
@@ -50,11 +53,28 @@ public abstract class AbstractHelloMsgParticipant {
 
 		participantQos.participant_name.name="HelloMsg_Participant";
 		
-		qosDiscoveryUDPOnly(participantQos);
-
-		qosEnableMonitoring(participantQos);
-		
+//		qosDiscoveryUDPOnly(participantQos);
+//
+//		qosEnableMonitoring(participantQos);
+//		
+//		qosTypeCodeMessageSize(participantQos);
+//		qosWireProtoco(participantQos);
 		return participantQos;
+	}
+	
+	protected void qosWireProtoco(DomainParticipantQos participantQos){
+		participantQos.wire_protocol.rtps_well_known_ports.domain_id_gain = 1210;
+	}
+	
+	protected void qosTypeCodeMessageSize(DomainParticipantQos participantQos){
+		participantQos.resource_limits.type_code_max_serialized_length=0;
+		participantQos.resource_limits.type_object_max_serialized_length=20000;
+//		
+		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.recv_socket_buffer_size", "65530", true));
+		
+		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.parent.message_size_max", "65530", true));
+		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.send_socket_buffer_size", "65530", true));
+	
 	}
 	
 	protected void qosEnableMonitoring(DomainParticipantQos participantQos){

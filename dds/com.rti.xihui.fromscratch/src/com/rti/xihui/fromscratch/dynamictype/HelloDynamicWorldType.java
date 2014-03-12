@@ -11,8 +11,9 @@ import com.rti.dds.typecode.TypeCodeFactory;
 
 public class HelloDynamicWorldType {
 	public static final String PAYLOAD_FIELD = "payload";
-	public static final int NUMBER_OF_FIELDS = 20;
+	public static final int NUMBER_OF_FIELDS = 10;
 	public static final String SAMPLE_ID_FIELD = "sampleId";
+	public static final String DOUBLE_FIELD = "doubleField";
 	public static final String NAME_FIELD = "name";
 	public static final int HELLO_MAX_STRING_SIZE = 64;
 	public static final int HELLO_MAX_PAYLOAD_SIZE = 2;
@@ -48,7 +49,9 @@ public class HelloDynamicWorldType {
 					TypeCode.NONKEY_MEMBER, PUBLIC_MEMBER.VALUE, false,
 					(short) -1);
 			structTc.add_member(SAMPLE_ID_FIELD, TypeCode.MEMBER_ID_INVALID,
-					TypeCode.TC_LONG, TypeCode.KEY_MEMBER);
+					TypeCode.TC_LONG, TypeCode.NONKEY_MEMBER);
+			structTc.add_member(DOUBLE_FIELD, TypeCode.MEMBER_ID_INVALID,
+					TypeCode.TC_DOUBLE, TypeCode.NONKEY_MEMBER);
 			for (int i = 0; i < NUMBER_OF_FIELDS; i++) {
 				structTc.add_member("field" + i, TypeCode.MEMBER_ID_INVALID,
 						stringTc, TypeCode.NONKEY_MEMBER);

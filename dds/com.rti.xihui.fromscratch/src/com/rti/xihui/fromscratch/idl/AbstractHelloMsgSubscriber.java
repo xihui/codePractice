@@ -9,6 +9,7 @@ import com.rti.dds.infrastructure.DurabilityQosPolicyKind;
 import com.rti.dds.infrastructure.Duration_t;
 import com.rti.dds.infrastructure.HistoryQosPolicyKind;
 import com.rti.dds.infrastructure.LivelinessQosPolicyKind;
+import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.ReliabilityQosPolicyKind;
 import com.rti.dds.infrastructure.StatusKind;
 import com.rti.dds.infrastructure.TransportBuiltinKind;
@@ -44,7 +45,7 @@ public abstract class AbstractHelloMsgSubscriber extends
 		
 		dataReaderQos.subscription_name.name="HelloMsg_DataReader";
 
-		qosEnableMulticastTransport(dataReaderQos);
+//		qosEnableMulticastTransport(dataReaderQos);
 		qosReliabilityDemo(dataReaderQos);
 		
 		return dataReaderQos;
@@ -56,11 +57,11 @@ public abstract class AbstractHelloMsgSubscriber extends
 		
 		//History
 		dataReaderQos.history.kind = HistoryQosPolicyKind.KEEP_LAST_HISTORY_QOS;
-		dataReaderQos.history.depth = 3;	
+		dataReaderQos.history.depth = 30;	
 		
 		//Resource Limit
-		dataReaderQos.resource_limits.max_samples = 20;
-		dataReaderQos.resource_limits.initial_samples = 20;
+		dataReaderQos.resource_limits.max_samples = 50;
+		dataReaderQos.resource_limits.initial_samples = 50;
 	}
 	
 	protected void qosEnableMulticastTransport(DataReaderQos dataReaderQos){
@@ -81,6 +82,20 @@ public abstract class AbstractHelloMsgSubscriber extends
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	protected DomainParticipantQos configParticipantQoS() {
+		DomainParticipantQos participantQos = super.configParticipantQoS();
+//		participantQos.resource_limits.type_code_max_serialized_length=0;
+//		participantQos.resource_limits.type_object_max_serialized_length=20000;
+////		
+//		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.recv_socket_buffer_size", "6553", true));
+//		
+//		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.parent.message_size_max", "6553", true));
+//		participantQos.property.value.add(new Property_t("dds.transport.UDPv4.builtin.send_socket_buffer_size", "6553", true));
+		return participantQos;
+	
 	}
 
 }

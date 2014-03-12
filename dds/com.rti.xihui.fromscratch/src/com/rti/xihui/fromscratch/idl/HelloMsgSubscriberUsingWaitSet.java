@@ -28,6 +28,7 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 	public HelloMsgSubscriberUsingWaitSet() {
 		super(HelloMsgSubscriberUsingWaitSet.class.getSimpleName());
 
+		
 		HelloMsgDataReader reader = (HelloMsgDataReader) subscriber
 				.create_datareader(topic, createDataReaderQos(), null,
 						StatusKind.STATUS_MASK_ALL);
@@ -38,7 +39,7 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 				ViewStateKind.ANY_VIEW_STATE,
 				InstanceStateKind.ALIVE_INSTANCE_STATE);
 		
-
+		
 		StatusCondition statusCondition = reader.get_statuscondition();
 
 		statusCondition
@@ -51,7 +52,7 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 		guardCondition = new GuardCondition();
 
 		WaitSet waitSet = new WaitSet();
-		waitSet.attach_condition(readCondition);
+//		waitSet.attach_condition(readCondition);
 		waitSet.attach_condition(statusCondition);
 		waitSet.attach_condition(guardCondition);
 
@@ -96,7 +97,7 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 							System.out.println("data available");
 							try {
 								synchronized (this) {
-										reader.take(msgSeq, infoSeq,
+										reader.read(msgSeq, infoSeq,
 												ResourceLimitsQosPolicy.LENGTH_UNLIMITED,
 												SampleStateKind.ANY_SAMPLE_STATE,
 												ViewStateKind.ANY_VIEW_STATE,

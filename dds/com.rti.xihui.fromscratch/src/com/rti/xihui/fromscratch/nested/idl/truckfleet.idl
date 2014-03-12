@@ -1,0 +1,53 @@
+
+	const unsigned long VIN_MAXLEN=17;
+	const unsigned long PLATE_MAXLEN=10;
+	const unsigned long NAME_MAXLEN=30;
+	const unsigned long REMARKS_MAXLEN=200;
+	
+	typedef string<VIN_MAXLEN> VINType;
+	typedef string<PLATE_MAXLEN> PlateType;
+	typedef string<NAME_MAXLEN> NameType;
+	typedef string<REMARKS_MAXLEN> RemarksType;
+	
+	enum StateKind{
+		StateKind_Unknown, StateKind_InGarage, StateKind_onTheRoad
+	};
+	
+	enum ServiceKind{
+		ServiceKind_Unknown, ServiceKind_Small, ServiceKind_Large
+	};
+	
+	struct TruckType {
+		VINType  VIN; //@key
+		PlateType plate;
+		NameType nickNamek;
+		StateKind state;
+	};
+	
+	struct FuelGaugeType{
+		VINType VIN; //@key
+		unsigned long level;
+		float mileage;
+		unsigned long distToEmpty;
+	};
+	
+	struct LongLatType{
+		float longtitude;
+		float latitude;
+	}; //@top-level false
+	
+	struct GPSInfoType{
+		VINType VIN; //@key
+		LongLatType position;
+		unsigned long speed;
+		unsigned long direction;
+	};
+	
+	struct ServiceType{
+		VINType VIN; //@key
+		unsigned long date; //@key
+		ServiceKind kind;
+		RemarksType remarks;
+		FuelGaugeType fuelgauge;
+		LongLatType position;
+	};
