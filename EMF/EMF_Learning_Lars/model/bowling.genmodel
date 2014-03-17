@@ -3,15 +3,18 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/EMF_Learning_Lars/src" modelPluginID="EMF_Learning_Lars"
     modelName="Bowling" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
-    operationReflection="true" importOrganizing="true">
+    language="" operationReflection="true" importOrganizing="true">
   <foreignModel>bowling.ecore</foreignModel>
   <genPackages prefix="Bowling" disposableProviderFactory="true" ecorePackage="bowling.ecore#/">
     <genClasses ecoreClass="bowling.ecore#//Player">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bowling.ecore#//Player/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bowling.ecore#//Player/dateOfBirth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bowling.ecore#//Player/height"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bowling.ecore#//Player/isProfessional"/>
     </genClasses>
     <genClasses ecoreClass="bowling.ecore#//League">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference bowling.ecore#//League/players"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute bowling.ecore#//League/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference bowling.ecore#//League/players"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

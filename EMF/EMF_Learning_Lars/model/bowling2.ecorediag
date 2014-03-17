@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="_F8hQQK1mEeOi5v9jQ7xWpA" type="EcoreTools" measurementUnit="Pixel">
+  <children xmi:type="notation:Node" xmi:id="_F8nW4K1mEeOi5v9jQ7xWpA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_F8n98K1mEeOi5v9jQ7xWpA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_F8pMEK1mEeOi5v9jQ7xWpA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_F8pzJK1mEeOi5v9jQ7xWpA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="bowling.ecore#//Player/name"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_F8pzJa1mEeOi5v9jQ7xWpA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_F8qaMK1mEeOi5v9jQ7xWpA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="bowling.ecore#//Player/dateOfBirth"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_F8qaMa1mEeOi5v9jQ7xWpA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_F8rBQK1mEeOi5v9jQ7xWpA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="bowling.ecore#//Player/height"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_F8rBQa1mEeOi5v9jQ7xWpA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_F8rBQq1mEeOi5v9jQ7xWpA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="bowling.ecore#//Player/isProfessional"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_F8rBQ61mEeOi5v9jQ7xWpA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8pMEa1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8pMEq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8pME61mEeOi5v9jQ7xWpA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_F8pzIK1mEeOi5v9jQ7xWpA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8pzIa1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8pzIq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8pzI61mEeOi5v9jQ7xWpA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_F8nW4a1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="bowling.ecore#//Player"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F8nW4q1mEeOi5v9jQ7xWpA" x="53"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_F8roUK1mEeOi5v9jQ7xWpA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_F8roU61mEeOi5v9jQ7xWpA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_F8roVK1mEeOi5v9jQ7xWpA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_F8sPZK1mEeOi5v9jQ7xWpA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="bowling.ecore#//League/name"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_F8sPZa1mEeOi5v9jQ7xWpA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8roVa1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8roVq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8roV61mEeOi5v9jQ7xWpA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_F8sPYK1mEeOi5v9jQ7xWpA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8sPYa1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8sPYq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8sPY61mEeOi5v9jQ7xWpA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_F8roUa1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="bowling.ecore#//League"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F8roUq1mEeOi5v9jQ7xWpA" y="162"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_F8s2cK1mEeOi5v9jQ7xWpA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_F8tdgK1mEeOi5v9jQ7xWpA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_F8tdga1mEeOi5v9jQ7xWpA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_F8uEkK1mEeOi5v9jQ7xWpA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="bowling.ecore#//Tournament/type"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_F8uEka1mEeOi5v9jQ7xWpA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8tdgq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8tdg61mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8tdhK1mEeOi5v9jQ7xWpA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_F8tdha1mEeOi5v9jQ7xWpA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8tdhq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8tdh61mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8tdiK1mEeOi5v9jQ7xWpA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_F8s2ca1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="bowling.ecore#//Tournament"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F8s2cq1mEeOi5v9jQ7xWpA" x="290"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_F8uEkq1mEeOi5v9jQ7xWpA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_F8uroK1mEeOi5v9jQ7xWpA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_F8uroa1mEeOi5v9jQ7xWpA" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8uroq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8uro61mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8urpK1mEeOi5v9jQ7xWpA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_F8vSsK1mEeOi5v9jQ7xWpA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8vSsa1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8vSsq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8vSs61mEeOi5v9jQ7xWpA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_F8uEk61mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="bowling.ecore#//Matchup"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F8uElK1mEeOi5v9jQ7xWpA" x="180" y="312"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_F8vStK1mEeOi5v9jQ7xWpA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_F8v5wK1mEeOi5v9jQ7xWpA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_F8v5wa1mEeOi5v9jQ7xWpA" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8v5wq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8v5w61mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8v5xK1mEeOi5v9jQ7xWpA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_F8v5xa1mEeOi5v9jQ7xWpA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8v5xq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8v5x61mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8v5yK1mEeOi5v9jQ7xWpA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_F8vSta1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="bowling.ecore#//Game"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F8vStq1mEeOi5v9jQ7xWpA" x="175" y="162"/>
+  </children>
+  <children xmi:type="notation:Node" xmi:id="_F8xH4K1mEeOi5v9jQ7xWpA" type="1005">
+    <children xmi:type="notation:Node" xmi:id="_F8y9EK1mEeOi5v9jQ7xWpA" type="4010"/>
+    <children xmi:type="notation:Node" xmi:id="_F8zkIK1mEeOi5v9jQ7xWpA" type="5008">
+      <children xmi:type="notation:Node" xmi:id="_F80yQK1mEeOi5v9jQ7xWpA" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="bowling.ecore#//TournamentType/Pro"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_F80yQa1mEeOi5v9jQ7xWpA"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_F80yQq1mEeOi5v9jQ7xWpA" type="2006">
+        <element xmi:type="ecore:EEnumLiteral" href="bowling.ecore#//TournamentType/Amateur"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_F80yQ61mEeOi5v9jQ7xWpA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_F8zkIa1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_F8zkIq1mEeOi5v9jQ7xWpA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_F8zkI61mEeOi5v9jQ7xWpA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_F8xH4a1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EEnum" href="bowling.ecore#//TournamentType"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_F8xH4q1mEeOi5v9jQ7xWpA" x="515"/>
+  </children>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_F8hQQa1mEeOi5v9jQ7xWpA"/>
+  <element xmi:type="ecore:EPackage" href="bowling.ecore#/"/>
+  <edges xmi:type="notation:Edge" xmi:id="_F81ZUK1mEeOi5v9jQ7xWpA" type="3002" source="_F8roUK1mEeOi5v9jQ7xWpA" target="_F8nW4K1mEeOi5v9jQ7xWpA">
+    <children xmi:type="notation:Node" xmi:id="_F81ZVK1mEeOi5v9jQ7xWpA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_F81ZVa1mEeOi5v9jQ7xWpA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_F82AYK1mEeOi5v9jQ7xWpA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_F82AYa1mEeOi5v9jQ7xWpA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_F81ZUa1mEeOi5v9jQ7xWpA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_F81ZUq1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="bowling.ecore#//League/players"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F81ZU61mEeOi5v9jQ7xWpA" points="[0, 0, -55, 60]$[55, -60, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_F--uYK1mEeOi5v9jQ7xWpA" id="(0.4956521739130435,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_F-_VcK1mEeOi5v9jQ7xWpA" id="(0.3333333333333333,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_F82AYq1mEeOi5v9jQ7xWpA" type="3002" source="_F8uEkq1mEeOi5v9jQ7xWpA" target="_F8vStK1mEeOi5v9jQ7xWpA">
+    <children xmi:type="notation:Node" xmi:id="_F82ncK1mEeOi5v9jQ7xWpA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_F82nca1mEeOi5v9jQ7xWpA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_F82ncq1mEeOi5v9jQ7xWpA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_F82nc61mEeOi5v9jQ7xWpA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_F82AY61mEeOi5v9jQ7xWpA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_F82AZK1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="bowling.ecore#//Matchup/games"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F82AZa1mEeOi5v9jQ7xWpA" points="[0, 0, 0, 68]$[0, -68, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_F-_8gK1mEeOi5v9jQ7xWpA" id="(0.5,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_F_AjkK1mEeOi5v9jQ7xWpA" id="(0.5,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_F82ndK1mEeOi5v9jQ7xWpA" type="3002" source="_F8vStK1mEeOi5v9jQ7xWpA" target="_F8uEkq1mEeOi5v9jQ7xWpA">
+    <children xmi:type="notation:Node" xmi:id="_F82neK1mEeOi5v9jQ7xWpA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_F82nea1mEeOi5v9jQ7xWpA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_F83OgK1mEeOi5v9jQ7xWpA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_F83Oga1mEeOi5v9jQ7xWpA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_F82nda1mEeOi5v9jQ7xWpA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_F82ndq1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="bowling.ecore#//Game/matchup"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F82nd61mEeOi5v9jQ7xWpA" points="[0, 0, 0, -68]$[0, 68, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_F-8SIK1mEeOi5v9jQ7xWpA" id="(0.5,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_F-85MK1mEeOi5v9jQ7xWpA" id="(0.5,0.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_F83Ogq1mEeOi5v9jQ7xWpA" type="3002" source="_F8vStK1mEeOi5v9jQ7xWpA" target="_F8nW4K1mEeOi5v9jQ7xWpA">
+    <children xmi:type="notation:Node" xmi:id="_F831kK1mEeOi5v9jQ7xWpA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_F831ka1mEeOi5v9jQ7xWpA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_F831kq1mEeOi5v9jQ7xWpA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_F831k61mEeOi5v9jQ7xWpA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_F83Og61mEeOi5v9jQ7xWpA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_F83OhK1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="bowling.ecore#//Game/player"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_F83Oha1mEeOi5v9jQ7xWpA" points="[0, 0, 55, 60]$[-55, -60, 0, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_F-9gQK1mEeOi5v9jQ7xWpA" id="(0.5,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_F-9gQa1mEeOi5v9jQ7xWpA" id="(0.6666666666666666,1.0)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_N8f-kK1mEeOi5v9jQ7xWpA" type="3002" source="_F8s2cK1mEeOi5v9jQ7xWpA" target="_F8uEkq1mEeOi5v9jQ7xWpA">
+    <children xmi:type="notation:Node" xmi:id="_N8gloK1mEeOi5v9jQ7xWpA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_N8gloa1mEeOi5v9jQ7xWpA" x="-122" y="-35"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_N8gloq1mEeOi5v9jQ7xWpA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_N8glo61mEeOi5v9jQ7xWpA" x="-6" y="-42"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_N8f-ka1mEeOi5v9jQ7xWpA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_N8f-kq1mEeOi5v9jQ7xWpA" fontColor="4210752" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="bowling.ecore#//Tournament/matchups"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_N8f-k61mEeOi5v9jQ7xWpA" points="[-36, 25, -36, 25]$[-36, 25, -36, 25]"/>
+  </edges>
+</notation:Diagram>
