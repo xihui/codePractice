@@ -55,7 +55,7 @@ public abstract class AbstractHelloMsgParticipant {
 		
 //		qosDiscoveryUDPOnly(participantQos);
 //
-//		qosEnableMonitoring(participantQos);
+		qosEnableMonitoring(participantQos);
 //		
 //		qosTypeCodeMessageSize(participantQos);
 //		qosWireProtoco(participantQos);
@@ -135,5 +135,6 @@ public abstract class AbstractHelloMsgParticipant {
 		public void on_data_on_readers(Subscriber subs) {
 			System.out.println("Participant on_data_on_readers");
 		}
+		
 	}
 }

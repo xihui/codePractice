@@ -1,0 +1,8 @@
+module PackageName {
+struct Bar {
+long field;
+};
+struct Foo {
+Bar barField; //@resolve-name false
+};
+};

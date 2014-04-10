@@ -1,0 +1,33 @@
+//rtiddsgen -language Java -D LANGUAGE_JAVA -example x64Win64jdk -replace Full.idl
+#include "Full.idl"
+#ifdef LANGUAGE_JAVA
+module com{
+module rti{
+module xihui{
+module fromscratch{
+module fullidl{
+
+#else
+module Full {
+#endif
+		
+	struct MutableTypeExampleModified{
+		double c; //@ID 12
+		long b; //@ID 21
+		double d;  
+	};//@Extensibility MUTABLE_EXTENSIBILITY	
+	
+ 	struct TopStructExtended : TopStruct {
+ 		string extendedMember;
+ 	};	//@resolve-name false
+		//@Extensibility EXTENSIBLE_EXTENSIBILITY 
+		
+#ifdef LANGUAGE_JAVA
+}; //com
+}; //rti
+}; //xihui
+}; //fromscratch{
+}; //full
+#else
+};
+#endif

@@ -3,6 +3,8 @@ package com.rti.xihui.fromscratch.idl;
 import com.rti.dds.infrastructure.ConditionSeq;
 import com.rti.dds.infrastructure.Duration_t;
 import com.rti.dds.infrastructure.GuardCondition;
+import com.rti.dds.infrastructure.InstanceHandleSeq;
+import com.rti.dds.infrastructure.InstanceHandle_t;
 import com.rti.dds.infrastructure.RETCODE_NO_DATA;
 import com.rti.dds.infrastructure.RETCODE_TIMEOUT;
 import com.rti.dds.infrastructure.ResourceLimitsQosPolicy;
@@ -20,6 +22,7 @@ import com.rti.dds.subscription.SampleRejectedStatus;
 import com.rti.dds.subscription.SampleStateKind;
 import com.rti.dds.subscription.SubscriptionMatchedStatus;
 import com.rti.dds.subscription.ViewStateKind;
+import com.rti.dds.topic.builtin.TopicBuiltinTopicData;
 
 public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 
@@ -108,10 +111,11 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 								System.out.println("StatusCondition Received: ");
 								for (int j = 0; j < msgSeq.size(); j++) {								
 									SampleInfo info = (SampleInfo) infoSeq.get(j);
+									System.out.println(info.publication_virtual_guid + " " + info.original_publication_virtual_guid);
 									if (info.valid_data)
 										System.out.println(
 												(HelloMsg) msgSeq.get(j));
-									else
+									
 										// 7.4.6.6 Valid Data Flag
 										System.out.println("Invalidate Data! "
 												+ info);
@@ -166,6 +170,16 @@ public class HelloMsgSubscriberUsingWaitSet extends AbstractHelloMsgSubscriber {
 			} catch (RETCODE_TIMEOUT e) {
 				System.out
 						.println("Wait timed out. No condition was triggered.");
+				InstanceHandleSeq instanceHandleSeq = new InstanceHandleSeq();
+				participant.get_discovered_topics(instanceHandleSeq);
+				int size = instanceHandleSeq.size();
+				for(int i=0; i<size; i++){
+					TopicBuiltinTopicData topicBuiltinTopicData = new TopicBuiltinTopicData();
+					participant.get_discovered_topic_data(topicBuiltinTopicData,
+							(InstanceHandle_t) instanceHandleSeq.get(i));
+					System.out.println(topicBuiltinTopicData.name);
+				}
+				System.out.println(instanceHandleSeq.size());
 			}
 
 		}

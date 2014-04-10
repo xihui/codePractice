@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+Description
+An RTI Connext QoS Profile that provides strictly
+reliable communication. It is not tuned for maximum throughput - see
+high_throughput.xml for a more aggressive configuration - but provides a
+reasonable balance between latency and throughput for a variety of
+applications.
+
+Strict reliability depends primarily on:
+
+Data writer:
+  - reliability: RELIABLE_RELIABILITY_QOS to enable heartbeating
+  - history: KEEP_ALL_HISTORY_QOS
+             to prevent the writer from overwriting unacknowledged samples
+             with new data
+
+Data reader:
+  - reliability: RELIABLE_RELIABILITY_QOS to enable acknowledgements
+  - history: KEEP_ALL_HISTORY_QOS
+             to prevent the reader from overwriting undelivered samples
+             with new data
+
+-->
+
+<!-- ================================================================= -->
+<!-- Strictly Reliable Profile                                         -->
+<!-- ================================================================= -->
+
+<!--
+Your XML editor may be able to provide validation and auto-completion services
+as you type. To enable these services, replace the opening tag of this
+document with the following, and update the absolute path as appropriate for
+your installation:
+ -->
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="file://C:/Program Files (x86)/RTI/ndds.5.1.0/resource/qos_profiles_5.1.0/schema/rti_dds_qos_profiles.xsd">
+    <qos_library name="DefaultLibrary">
+        <qos_profile name="Reliable" is_default_qos="true" base_name="BuiltinQosLib::Baseline.5.0.0">        
+
+        
+          
+            <participant_qos>
+                <!--
+                The participant name, if it is set, will be displayed in the
+                RTI Analyzer tool, making it easier for you to tell one
+                application from another when you're debugging.
+                -->
+                <participant_name>
+                    <name>RTI Example (Reliable)</name>
+                </participant_name>
+                
+                <resource_limits>
+                <remote_reader_allocation>
+                	<initial_count>200</initial_count>
+                	<max_count>200</max_count>
+                	<incremental_count>0</incremental_count>
+                </remote_reader_allocation>
+                <remote_writer_allocation>
+                	<initial_count>150</initial_count>
+                	<max_count>150</max_count>
+                	<incremental_count>0</incremental_count>
+                </remote_writer_allocation>
+                </resource_limits>
+                
+                
+            </participant_qos>
+        </qos_profile>
+    </qos_library>
+</dds>

@@ -33,6 +33,7 @@ import com.rti.dds.subscription.InstanceStateKind;
 import com.rti.dds.subscription.LivelinessChangedStatus;
 import com.rti.dds.subscription.SampleInfo;
 import com.rti.dds.subscription.SampleInfoSeq;
+import com.rti.dds.subscription.SampleRejectedStatus;
 import com.rti.dds.subscription.SampleStateKind;
 import com.rti.dds.subscription.Subscriber;
 import com.rti.dds.subscription.SubscriptionMatchedStatus;
@@ -124,12 +125,12 @@ public class BuiltinReaderExample {
 
 		Subscriber builtin_subscriber = participant.get_builtin_subscriber();
 
-//		DataReader participantBuiltInReader = builtin_subscriber
-//				.lookup_datareader(ParticipantBuiltinTopicDataTypeSupport.PARTICIPANT_TOPIC_NAME);
-////
-//		participantBuiltInReader.set_listener(
-//				new MyParticipantBuiltinReaderListener(),
-//				StatusKind.STATUS_MASK_ALL);
+		DataReader participantBuiltInReader = builtin_subscriber
+				.lookup_datareader(ParticipantBuiltinTopicDataTypeSupport.PARTICIPANT_TOPIC_NAME);
+
+		participantBuiltInReader.set_listener(
+				new MyParticipantBuiltinReaderListener(),
+				StatusKind.STATUS_MASK_ALL);
 
 		PublicationBuiltinTopicDataDataReader publicationBuiltinReader = (PublicationBuiltinTopicDataDataReader) builtin_subscriber
 				.lookup_datareader(PublicationBuiltinTopicDataTypeSupport.PUBLICATION_TOPIC_NAME);
@@ -221,7 +222,7 @@ public class BuiltinReaderExample {
 						ParticipantBuiltinTopicData participantTopicData = (ParticipantBuiltinTopicData) dataSeq
 								.get(i);
 						System.out.println("\nFound participant: Domain " + participantTopicData.participant_name + " "
-								+ participantTopicData.key + participantTopicData.property);
+								+ participantTopicData.key + participantTopicData.property + participantTopicData.user_data);
 					}
 				}
 
@@ -243,6 +244,13 @@ public class BuiltinReaderExample {
 		private PublicationBuiltinTopicDataSeq received_data = new PublicationBuiltinTopicDataSeq();
 		private SampleInfoSeq info_seq = new SampleInfoSeq();
 
+		@Override
+		public void on_sample_rejected(DataReader arg0,
+				SampleRejectedStatus arg1) {
+			System.out.println("Builtin sample was rejected: " + arg1);
+			super.on_sample_rejected(arg0, arg1);
+		}
+		
 		@Override
 		public void on_data_available(DataReader reader) {
 			try {

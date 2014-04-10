@@ -1,0 +1,27 @@
+//rtiddsgen -language Java -D LANGUAGE_JAVA -example x64Win64jdk -replace Full.idl
+module com{
+module rti{
+module xihui{
+module fromscratch{
+module test{
+
+ 	
+	enum EnumExample {
+		ENUM1,
+		ENUM2,
+		ENUM3
+	}; 
+	
+	
+	struct TopStruct{
+		
+	
+		EnumExample enumExample;
+
+	
+	};
+}; //com
+}; //rti
+}; //xihui
+}; //fromscratch{
+}; //full

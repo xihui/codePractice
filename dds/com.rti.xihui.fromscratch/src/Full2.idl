@@ -1,0 +1,92 @@
+//rtiddsgen -language Java -D LANGUAGE_JAVA -example x64Win64jdk -replace Full.idl
+ 	const short CONST1 = 5;
+	
+	enum EnumExample {
+		ENUM1,
+		ENUM2,
+		ENUM3
+	}; 
+	
+	struct PointerStruct{
+		long * member;
+	};	//@top-level false
+	
+	struct PrimitiveStruct {
+		char charMember;
+		wchar wcharMember;
+		octet octetmember;
+		short shortMember;
+		unsigned short unsignedShortMember;
+		long longMember;  //@key
+		unsigned long unsignedLongMember;
+		long long longLongMember;
+		unsigned long long unsignedLongLongMember;
+		float floatMember;
+		double doubleMember;
+		long double longDoubleMember;		
+		boolean booleanMember;
+		PointerStruct pointerStruct;
+	}; 	//@top-level false
+		
+	
+	
+	
+	/*Bitfield is not supported by DynamicData
+	struct BitfieldType {
+		short myShort_1 : 1;
+		long myLong_1: 1;
+		char myChar_1 : 1;
+	}
+	*/
+	
+	union UnionExample switch (long){
+		case 1: 
+			short shortMember;
+		case 2:
+		case 3:
+			long longMember;
+		default:
+			double doubleMember;	
+	};
+	
+	
+	const unsigned long SEQ_SIZE=200;
+	const unsigned long STRING_SIZE=100;	
+	typedef string<STRING_SIZE> SMALL_STRING; 
+	typedef short ShortArray[10];
+	typedef sequence<short, SEQ_SIZE> SeqOfShortT; 
+	typedef sequence<ShortArray, 3> SeqOfShortArrayT; 
+	typedef sequence<SeqOfShortT, 3> SeqOfShortSeqT; 
+	
+	
+	//@copy //Text that is copied from IDL before BaseValueType
+	valuetype BaseValueType{
+		public long longMember1;  //@key
+	};//@top-level false
+	valuetype DerivedValueType:BaseValueType{
+		public long longMember2;
+	};//@top-level false
+	
+	struct TopStruct{
+		SMALL_STRING smallStringKey;  //@key
+		PrimitiveStruct primitiveStructMember; 	//@key
+												
+		ShortArray shortArray;  //@key
+		
+		string stringUnbounded;	
+		wstring wideString; 
+			
+		UnionExample unionMember;	
+	
+		EnumExample enumExample;
+	
+		
+		SeqOfShortT shortSeq;
+		SeqOfShortArrayT shortArraySeq;
+		SeqOfShortSeqT seqOfShortSeq;
+		short short1DArray[2];
+		short short2DArray[2][3];
+		
+		DerivedValueType derivedValueTypeMember;	
+	
+	};

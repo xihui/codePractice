@@ -61,6 +61,7 @@ public class HelloPublisher {
         }
 
         // Create the data writer using the default publisher
+        
         StringDataWriter dataWriter =
             (StringDataWriter) participant.create_datawriter(
                 topic, 

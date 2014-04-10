@@ -1,9 +1,10 @@
+//rtiddsgen -language Java -D LANGUAGE_JAVA -example x64Win64jdk -replace Full.idl
 #ifdef LANGUAGE_JAVA
 module com{
 module rti{
 module xihui{
 module fromscratch{
-module full{
+module fullidl{
 
 #else
 module Full {
@@ -14,11 +15,11 @@ module Full {
 		ENUM1,
 		ENUM2,
 		ENUM3
-	};
+	}; 
 	
 	struct PointerStruct{
 		long * member;
-	};	
+	};	//@top-level false
 	
 	struct PrimitiveStruct {
 		char charMember;
@@ -35,7 +36,7 @@ module Full {
 		long double longDoubleMember;		
 		boolean booleanMember;
 		PointerStruct pointerStruct;
-	}; //@top-level false
+	}; 	//@top-level false
 	
 	
 	
@@ -60,24 +61,32 @@ module Full {
 	
 	const unsigned long SEQ_SIZE=200;
 	const unsigned long STRING_SIZE=100;	
-	typedef string<STRING_SIZE> SMALL_STRING;
+	typedef string<STRING_SIZE> SMALL_STRING; 
 	typedef short ShortArray[10];
-	typedef sequence<short, SEQ_SIZE> ShortSeq;
-	typedef sequence<ShortArray, 3> ShortArraySeq;
-	typedef sequence<ShortSeq, 3> SeqOfShortSeq
+	typedef sequence<short, SEQ_SIZE> SeqOfShortT; 
+	typedef sequence<ShortArray, 3> SeqOfShortArrayT; 
+	typedef sequence<SeqOfShortT, 3> SeqOfShortSeqT; 
 	
+	
+	//@copy //Text that is copied from IDL before BaseValueType
 	valuetype BaseValueType{
 		public long longMember1;  //@key
-	}
+	};//@top-level false
+	
 	valuetype DerivedValueType:BaseValueType{
 		public long longMember2;
-	}
+	};//@top-level false
+	
+	struct MutableTypeExample{
+		short a; //@ID 20
+		long b; 
+		double c; //@ID 100
+	}; //@Extensibility MUTABLE_EXTENSIBILITY
 	
 	struct TopStruct{
-	
 		SMALL_STRING smallStringKey;  //@key
-		PrimitiveStruct primitiveStructMember; //@key
-		ShortArray shortArray;  //@key
+		PrimitiveStruct primitiveStructMember; 	
+		ShortArray shortArray;  
 		
 		string stringUnbounded;	//rtiddsgen will supply a default bound 255.
 		wstring wideString; //map to 16bit char in Java
@@ -87,17 +96,20 @@ module Full {
 		EnumExample enumExample;
 	
 		
-		ShortSeq shortSeq;
-		ShortArraySeq shortArraySeq;
-		SeqOfShortSeq seqOfShortSeq;
+		SeqOfShortT shortSeq;
+		SeqOfShortArrayT shortArraySeq;
+		SeqOfShortSeqT seqOfShortSeq;
 		short short1DArray[2];
 		short short2DArray[2][3];
 		
-		DerivedValueType derivedValueTypeMember;
+		DerivedValueType derivedValueTypeMember;	
+		
+	
+	};	//@Extensibility EXTENSIBLE_EXTENSIBILITY 
 		
 		
 	
-	}
+		
 #ifdef LANGUAGE_JAVA
 }; //com
 }; //rti

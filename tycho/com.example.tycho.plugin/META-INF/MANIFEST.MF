@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Plugin
+Bundle-SymbolicName: com.example.tycho.plugin;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Christian Pontesegger
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
