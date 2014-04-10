@@ -12,3 +12,6 @@ build/ext
 # ignore all log files ?
 logs/*.log
 log/*.log
+
+#ignore maven build target files
+target/

@@ -10,14 +10,14 @@
   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
  </properties>  
   
- <repositories>  
-  <!-- add Juno repository to resolve dependencies -->  
+<!--  Use luna repository to resolve dependencies  
+  <repositories>  
   <repository>  
    <id>Luna</id>  
    <layout>p2</layout>  
    <url>http://download.eclipse.org/releases/luna/</url>  
   </repository>  
- </repositories>  
+ </repositories>   -->
   
  <build>  
   <plugins>  
@@ -33,7 +33,16 @@
    <groupId>org.eclipse.tycho</groupId>  
    <artifactId>target-platform-configuration</artifactId>  
    <version>${tycho-version}</version>  
-   <configuration>  
+   <configuration> 
+  <!-- Use target platform to resolve dependencies -->
+   <target>  
+   <artifact>  
+    <groupId>tycho_example</groupId>  
+    <artifactId>com.example.tycho.releng.targetplatform</artifactId>  
+    <version>1.0.0-SNAPSHOT</version>  
+   </artifact>  
+  </target> 
+   
     <environments>  
      <environment>  
       <os>win32</os>  
@@ -76,5 +85,7 @@
 
  	<module>../com.example.tycho.product</module>
  	<module>../com.example.tycho.product.feature</module>
+
+ 	<module>../com.example.tycho.releng.targetplatform</module>
  </modules>
 </project>
