@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Tycho Built Product" uid="tycho.product" id="com.example.tycho.product.tycho_product" application="org.eclipse.ui.ide.workbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <launcher name="TychoExercise">
+      <linux icon="branding/icons/adminConsole.xpm"/>
+      <macosx icon="branding/icons/ac32.icns"/>
+      <solaris/>
+      <win useIco="false">
+         <bmp
+            winSmallHigh="branding/icons/ac16_32.bmp"
+            winSmallLow="branding/icons/ac16_8.bmp"
+            winMediumHigh="branding/icons/ac32_32.bmp"
+            winMediumLow="branding/icons/ac32_8.bmp"
+            winLargeHigh="branding/icons/ac48_32.bmp"
+            winLargeLow="branding/icons/ac48_8.bmp"/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="com.example.tycho.plugin.feature"/>
+      <feature id="com.example.tycho.product.feature"/>
+      <feature id="com.example.tycho.eclipse.feature"/>
+   </features>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="4" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+      <plugin id="org.eclipse.osgi" autoStart="false" startLevel="0" />
+      <plugin id="org.eclipse.update.configurator" autoStart="true" startLevel="4" />
+   </configurations>
+
+</product>

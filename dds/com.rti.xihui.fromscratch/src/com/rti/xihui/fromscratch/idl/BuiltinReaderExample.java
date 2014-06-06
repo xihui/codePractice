@@ -266,7 +266,7 @@ public class BuiltinReaderExample {
 					if (info.valid_data) {
 						PublicationBuiltinTopicData data = (PublicationBuiltinTopicData) received_data
 								.get(i);
-//						System.out.println("new data" + data.key + " " + info.instance_handle);
+						System.out.println("new data" + data.key + " " + info.instance_handle);
 						if (!foundDataWriters.contains(info.instance_handle)) {
 							foundDataWriters.add(new InstanceHandle_t(info.instance_handle));
 							System.out

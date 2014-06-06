@@ -10,12 +10,11 @@
   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
  </properties>  
   
-<!--  Use luna repository to resolve dependencies  
-  <repositories>  
+<!--  Use luna repository to resolve dependencies  <repositories>  
   <repository>  
-   <id>Luna</id>  
+   <id>Luna<Luna
    <layout>p2</layout>  
-   <url>http://download.eclipse.org/releases/luna/</url>  
+   <url>http://download.eclipse.org/releases/luna/</luna
   </repository>  
  </repositories>   -->
   
@@ -78,14 +77,24 @@
  </build> 
 
  <modules>
- 	<module>../com.example.tycho.plugin</module>
+  	<module>../com.example.tycho.plugin</module>
  	<module>../com.example.tycho.plugin.feature</module>
  	<module>../com.example.tycho.releng.p2</module>
- 	<module>../com.example.tycho.releng.product</module>
+ 	
 
- 	<module>../com.example.tycho.product</module>
- 	<module>../com.example.tycho.product.feature</module>
+  	<module>../com.example.tycho.product</module>
+ 	
 
  	<module>../com.example.tycho.releng.targetplatform</module>
+
+ 	<module>../com.example.tycho.eclipse.feature</module>
+ 	<module>../com.example.tycho.releng.product</module>
+
+
+ 	<module>../mydependent</module>
+ 	<module>../mydependent2</module>
+ 	<module>../mydependent3</module>
+ 	<module>../mydependent4</module>
+ 	<module>../mydependent5</module>
  </modules>
 </project>

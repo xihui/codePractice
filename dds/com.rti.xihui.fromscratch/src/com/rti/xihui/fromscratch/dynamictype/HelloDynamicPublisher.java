@@ -106,6 +106,19 @@ public class HelloDynamicPublisher extends AbstractHelloDynamicParticipant {
 			}
 			instance.set_byte_seq(HelloDynamicWorldType.PAYLOAD_FIELD,
 					DynamicData.MEMBER_ID_UNSPECIFIED, new ByteSeq(payload));
+			
+			DynamicData sparseData = new DynamicData();
+			instance.bind_complex_member(sparseData, "sparseMember", DynamicData.MEMBER_ID_UNSPECIFIED);
+			if(counter%3==0)
+				sparseData.set_int("my_integer", DynamicData.MEMBER_ID_UNSPECIFIED, (int) (1230*Math.random()));
+			else if (counter %3==1)				
+				sparseData.set_double("my_double", DynamicData.MEMBER_ID_UNSPECIFIED, (1000*Math.random()));
+			else				
+				sparseData.set_long("my_long", DynamicData.MEMBER_ID_UNSPECIFIED, (long) (1234567891230L*Math.random()));
+			
+			sparseData.set_string("my_string", DynamicData.MEMBER_ID_UNSPECIFIED, "Hello Sparse");
+			instance.unbind_complex_member(sparseData);
+			
 			try {
 				synchronized(this){
 					if(isLive.get())

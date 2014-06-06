@@ -132,6 +132,8 @@ public class HelloMsgPublisher extends AbstractHelloMsgParticipant {
 
 	
 	protected void configureWriterQos(DataWriterQos writerQos){
+		writerQos.user_data.value.addAllByte(
+				"writer_user_data_sd;fkjflsjflskfskfjs;kfjs;dkfjs;kfjslkfjs;dfjsdk;lfjs;lkfsdfsl;kdfsj;dlfjsd;lfkjs;dkfjs;dkfjs;dlkfj".getBytes());
 //		qosHeartbeat(writerQos);
 	}
 	

@@ -6,4 +6,9 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Christian Pontesegger
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime
+ org.eclipse.core.runtime,
+ mydependent;bundle-version="1.0.0",
+ mydependent2;bundle-version="1.0.0",
+ mydependent3;bundle-version="1.0.0",
+ mydependent4;bundle-version="1.0.0",
+ mydependent5;bundle-version="1.0.0"

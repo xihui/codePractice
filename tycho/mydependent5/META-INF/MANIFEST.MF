@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mydependent5
+Bundle-SymbolicName: mydependent5
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: mydependent5.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy

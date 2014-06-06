@@ -6,6 +6,7 @@ import com.rti.dds.domain.DomainParticipant;
 import com.rti.dds.domain.DomainParticipantAdapter;
 import com.rti.dds.domain.DomainParticipantFactory;
 import com.rti.dds.domain.DomainParticipantQos;
+import com.rti.dds.infrastructure.ByteSeq;
 import com.rti.dds.infrastructure.PropertyQosPolicyHelper;
 import com.rti.dds.infrastructure.Property_t;
 import com.rti.dds.infrastructure.StatusKind;
@@ -52,10 +53,10 @@ public abstract class AbstractHelloMsgParticipant {
 				participantQos);		
 
 		participantQos.participant_name.name="HelloMsg_Participant";
-		
+		participantQos.user_data.value.addAllByte("hellouserdata".getBytes());
 //		qosDiscoveryUDPOnly(participantQos);
 //
-		qosEnableMonitoring(participantQos);
+//		qosEnableMonitoring(participantQos);
 //		
 //		qosTypeCodeMessageSize(participantQos);
 //		qosWireProtoco(participantQos);

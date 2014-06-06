@@ -38,5 +38,17 @@
          </toolbar>
       </menuContribution>
    </extension>
+   <extension
+         id="tycho_product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="org.eclipse.ui.ide.workbench"
+            name="Tycho Built Product">
+         <property
+               name="appName"
+               value="Tycho Built Product">
+         </property>
+      </product>
+   </extension>
 
 </plugin>
